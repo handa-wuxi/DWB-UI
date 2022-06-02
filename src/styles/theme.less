@@ -1,0 +1,18 @@
+body{
+  --theme-bg:#fff;
+  --theme-color:rgb(51, 54, 57);
+  --theme-border-color:rgb(51, 54, 57);
+}
+
+[data-theme="dark"] {
+  --theme-bg:rgb(51, 50, 50);
+  --theme-color:#fff;
+  --theme-border-color:#fff;
+}
+
+body{
+  background-color: var(--theme-bg);
+  color: var(--theme-color);
+  border-color: var(--theme-border-color);
+  transition: background-color 0.3s,color 0.3s, border-color 0.3s;
+}

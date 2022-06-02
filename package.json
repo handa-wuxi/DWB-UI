@@ -1,0 +1,98 @@
+{
+  "name": "dwb-ui",
+  "private": true,
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/handa-wuxi/DWB-UI.git"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "lint": "eslint --ext .ts,.tsx,.vue,.js ./src",
+    "lint-fix": "eslint --ext .ts,.tsx,.vue,.js ./src  --fix",
+    "lint-stage": "lint-staged --no-stash",
+    "log": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "release": "release-it",
+    "commit": "git-cz",
+    "git-prune": "git remote prune origin",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "dayjs": "^1.11.2",
+    "pinia": "^2.0.14",
+    "vue": "^3.2.25",
+    "vue-i18n": "^9.1.10",
+    "vue-router": "^4.0.15"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.2",
+    "@commitlint/config-angular": "^17.0.0",
+    "@commitlint/cz-commitlint": "^17.0.0",
+    "@release-it/conventional-changelog": "^5.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.22.0",
+    "@typescript-eslint/parser": "^5.22.0",
+    "@vitejs/plugin-vue": "^2.3.1",
+    "commitizen": "^4.2.4",
+    "conventional-changelog-cli": "^2.2.2",
+    "eslint": "^8.15.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-vue": "^9.0.0",
+    "husky": "^8.0.0",
+    "less": "^4.1.2",
+    "lint-staged": "^12.5.0",
+    "naive-ui": "^2.28.2",
+    "release-it": "^15.0.0",
+    "typescript": "^4.5.4",
+    "unplugin-vue-components": "^0.19.3",
+    "vite": "^2.9.7",
+    "vite-plugin-checker": "^0.4.6",
+    "vite-plugin-windicss": "^1.8.4",
+    "vue-tsc": "^0.34.7",
+    "windicss": "^3.5.4"
+  },
+  "config": {
+    "commitizen": {
+      "path": "@commitlint/cz-commitlint"
+    }
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "release-it": {
+    "hooks": {
+      "after:bump": "npx auto-changelog -p",
+      "before:release": "echo 🚨 提醒：现在将 Github 中的默认分支更新为这个发布分支！",
+      "after:release": "echo 🎊 成功发布 ${name} v${version} 到 ${ repo.repository}。"
+    },
+    "git": {
+      "requireCleanWorkingDir": false,
+      "requireBranch": "main",
+      "tagName": "v${version}",
+      "commitMessage": "🐳chore(release): v${version}",
+      "tagAnnotation": "v${version}",
+      "changelog": "npx auto-changelog --stdout --commit-limit false -u --template https://raw.githubusercontent.com/release-it/release-it/master/templates/keepachangelog.hbs"
+    },
+    "npm": {
+      "publish": false
+    },
+    "github": {
+      "release": true,
+      "tokenRef": "${GITHUB_TOKEN}"
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": "angular",
+        "infile": "CHANGELOG.md"
+      }
+    }
+  },
+  "lint-staged": {
+    "*.{vue,js,ts,tsx,jsx}": [
+      "eslint --fix"
+    ]
+  }
+}
