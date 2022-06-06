@@ -10,14 +10,13 @@
         mode="horizontal"
       />
       <Icon
-        w:w="50px"
+        class="header-item"
         name="icon-shouqi"
         :class="gs.collapsed ? 'rote-icon' : '' "
         @click="changeMenu"
       />
       <div
         class="base-space"
-        w:bg="white hover:gray-100 dark:dark-600 dark:hover:dark-300"
       >
         <n-switch
           :on-update:value="gs.changeTheme"
@@ -33,7 +32,7 @@
           </template>
         </n-switch>
         <Icon
-          w:w="50px"
+          class="header-item"
           name="icon-quanping"
         />
         <n-dropdown
@@ -41,13 +40,16 @@
           :options="locales"
           @select="handleSelect"
         >
-          国际化
+          <span class="header-item w-65px text-center">{{ localeLabel }}</span>
         </n-dropdown>
-        <n-avatar round>
+        <n-avatar
+          class="space-x-8"
+          round
+        >
           admin
         </n-avatar>
         <Icon
-          w:w="50px"
+          class="header-item"
           name="icon-shezhi"
         />
       </div>
@@ -55,7 +57,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useGlobalStore } from '../store';
 import Icon from '../components/Icon.vue';
@@ -73,6 +75,8 @@ const props = defineProps({
   },
 });
 
+const localeLabel = ref('中文');
+
 const { locales } = storeToRefs(gs);
 
 const options = computed(() => props.menuOptions);
@@ -82,6 +86,7 @@ function changeMenu() {
 }
 
 function handleSelect(key: string) {
+  localeLabel.value = locales.value.filter((item) => item.key === key)[0].label;
   i18n.global.locale = key;
   gs.locale = key;
 }

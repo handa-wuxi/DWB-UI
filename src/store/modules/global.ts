@@ -40,7 +40,7 @@ export const GlobalStore = defineStore<string, GlobalState, Getters, Actions>('g
   actions: {
     async changeTheme(type = false) {
       this.theme = type;
-      document.body.setAttribute('data-theme', type ? 'dark' : 'light');
+      document.documentElement.className = type ? 'dark' : 'light';
     },
     async changeCollapsed() {
       this.collapsed = !this.collapsed;
