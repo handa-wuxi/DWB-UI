@@ -30,12 +30,15 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
 import { MenuOption } from 'naive-ui';
+import { useI18n } from 'vue-i18n';
 import BaseSider from './BaseSider.vue';
 import BaseHeader from './BaseHeader.vue';
 import CustomKeepAlive from '../components/CustomKeepAlive.vue';
 import { MenuConfig } from './types';
 import { useGlobalStore } from '../store';
 import { renderLabel, renderIcon } from '../utils/renderMenu';
+
+const { t } = useI18n();
 
 const gs = useGlobalStore();
 const config = reactive<MenuConfig>({
@@ -44,7 +47,7 @@ const config = reactive<MenuConfig>({
 
 const menuOptions: MenuOption[] = [
   {
-    label: () => renderLabel('工作台', '/sys/index'),
+    label: () => renderLabel(t('global.workSpace'), '/sys/index'),
     key: '/sys/index',
     icon: () => renderIcon('icon-shezhi'),
   },
