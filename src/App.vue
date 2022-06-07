@@ -1,20 +1,18 @@
 <script setup lang="ts">
 import type { NLocale, NDateLocale } from 'naive-ui';
-import { ref, watch } from 'vue';
+import { ref, unref, watch } from 'vue';
 import {
   darkTheme, lightTheme, zhCN, dateZhCN, enUS, dateEnUS,
 } from 'naive-ui';
-import { storeToRefs } from 'pinia';
-// import TestDemo from './components/TestDemo.vue';
-import { useGlobalStore } from './store';
+import { useProjectSetting } from './hooks/setting/useProjectSetting';
 
-const gs = useGlobalStore();
+const { getLocale, getTheme } = useProjectSetting();
+
 const locale = ref<NLocale | null>(null);
 const dateLocale = ref<NDateLocale | null>(null);
-const { theme } = storeToRefs(gs);
 
-watch(() => gs.locale, ((v) => {
-  switch (v) {
+watch(() => getLocale.value, ((v) => {
+  switch (unref(v)) {
     case 'zh-CN':
       locale.value = zhCN;
       dateLocale.value = dateZhCN;
@@ -31,7 +29,7 @@ watch(() => gs.locale, ((v) => {
 
 <template>
   <NConfigProvider
-    :theme="theme ? darkTheme : lightTheme "
+    :theme="getTheme ? darkTheme : lightTheme "
     :locale="locale"
     :date-locale="dateLocale"
   >

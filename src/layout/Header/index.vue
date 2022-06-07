@@ -23,10 +23,10 @@
 
       <div class="base-space mr-[8px] flex inline-flex">
         <n-switch
-          :on-update:value="gs.changeTheme"
+          :on-update:value="changeTheme"
           rubber-band
           size="large"
-          class="theme-switch"
+          class="theme-switch mx-[8px]"
         >
           <template #unchecked-icon>
             🌞
@@ -36,24 +36,26 @@
           </template>
         </n-switch>
         <Icon
-          class="header-item"
+          size="20px"
+          class="mx-[8px]"
           name="icon-quanping"
         />
-        <n-dropdown
+        <NDropdown
           trigger="hover"
           :options="locales"
           @select="handleSelect"
         >
-          <span class="header-item w-65px text-center">{{ localeLabel }}</span>
-        </n-dropdown>
+          <span class="w-65px mx-[8px] text-center">{{ localeLabel }}</span>
+        </NDropdown>
         <n-avatar
-          class="space-x-8"
+          class="mx-[8px]"
           round
         >
           admin
         </n-avatar>
         <Icon
-          class="header-item"
+          class="mx-[8px]"
+          size="20px"
           name="icon-shezhi"
         />
       </div>
@@ -62,17 +64,13 @@
 </template>
 <script setup lang="ts" name="PageHeader">
 import { ref } from 'vue';
-import { storeToRefs } from 'pinia';
-import { useGlobalStore } from '@/store';
 import Icon from '@/components/Icon.vue';
 import { i18n } from '@/locales';
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 
 const emit = defineEmits(['update:collapsed']);
-const { getNavMode } = useProjectSetting();
+const { getNavMode, getLocales, changeTheme } = useProjectSetting();
 
-const navMode = ref(getNavMode);
-const gs = useGlobalStore();
 defineProps({
   height: {
     type: String,
@@ -89,15 +87,14 @@ defineProps({
 });
 
 const localeLabel = ref('中文');
-
-const { locales } = storeToRefs(gs);
+const navMode = ref(getNavMode);
+const locales = ref(getLocales);
 
 // const options = computed(() => props.menuOptions);
 
 function handleSelect(key: string) {
   localeLabel.value = locales.value.filter((item) => item.key === key)[0].label;
   i18n.global.locale = key;
-  gs.locale = key;
 }
 
 </script>
@@ -105,6 +102,7 @@ function handleSelect(key: string) {
 .layout-header {
 
   &-left {
+    height: 100%;
     display: flex;
     align-items: center;
   }
