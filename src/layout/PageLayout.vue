@@ -1,35 +1,35 @@
 <template>
-  <NLayout has-sider>
-    <NLayoutSider
+  <n-layout has-sider>
+    <n-layout-sider
       bordered
       :collapsed-width="64"
       :width="collapsed ? 64 : 240"
       :collapsed="collapsed"
     >
-      <BaseSider
+      <PageSider
         v-if="config.menuPos === 'left'"
         :menu-options="menuOptions"
         :collapsed="collapsed"
       />
-    </NLayoutSider>
-    <NLayout>
-      <NLayoutHeader bordered>
+    </n-layout-sider>
+    <n-layout>
+      <n-layout-header bordered>
         <BaseHeader v-model:collapsed="collapsed" />
-      </NLayoutHeader>
-      <NLayoutContent content-style="padding: 24px;">
+      </n-layout-header>
+      <n-layout-content content-style="padding: 24px;">
         <CustomKeepAlive>
           <router-view />
         </CustomKeepAlive>
-      </NLayoutContent>
-    </NLayout>
-  </NLayout>
+      </n-layout-content>
+    </n-layout>
+  </n-layout>
 </template>
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
 import { MenuOption } from 'naive-ui';
 import { useI18n } from 'vue-i18n';
-import BaseSider from './BaseSider.vue';
-import { BaseHeader } from './Header/index.ts';
+import PageSider from './PageSider.vue';
+import { BaseHeader } from './Header/index';
 import CustomKeepAlive from '../components/CustomKeepAlive.vue';
 import { MenuConfig } from './types';
 import { renderLabel, renderIcon } from '../utils/renderMenu';

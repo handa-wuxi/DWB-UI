@@ -11,7 +11,7 @@
       class="layout-header-left flex justify-between"
     >
       <div
-        class="ml-1"
+        class=" base-space ml-[8px] flex inline-flex"
         @click="emit('update:collapsed', !collapsed)"
       >
         <Icon
@@ -21,7 +21,7 @@
         />
       </div>
 
-      <div class="base-space flex inline-flex">
+      <div class="base-space mr-[8px] flex inline-flex">
         <n-switch
           :on-update:value="gs.changeTheme"
           rubber-band
@@ -39,19 +39,19 @@
           class="header-item"
           name="icon-quanping"
         />
-        <NDropdown
+        <n-dropdown
           trigger="hover"
           :options="locales"
           @select="handleSelect"
         >
           <span class="header-item w-65px text-center">{{ localeLabel }}</span>
-        </NDropdown>
-        <NAvatar
+        </n-dropdown>
+        <n-avatar
           class="space-x-8"
           round
         >
           admin
-        </NAvatar>
+        </n-avatar>
         <Icon
           class="header-item"
           name="icon-shezhi"
@@ -60,7 +60,7 @@
     </div>
   </div>
 </template>
-<script setup lang="ts" name="BaseHeader">
+<script setup lang="ts" name="PageHeader">
 import { ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useGlobalStore } from '@/store';
@@ -104,6 +104,10 @@ function handleSelect(key: string) {
 <style lang="less">
 .layout-header {
 
+  &-left {
+    display: flex;
+    align-items: center;
+  }
   .base-space {
     height: 100%;
     align-items: center;
@@ -114,7 +118,6 @@ function handleSelect(key: string) {
   }
   .icon{
     cursor: pointer;
-    font-size: 1.2rem;
     transition: all 0.3s;
   }
   .rote-icon{

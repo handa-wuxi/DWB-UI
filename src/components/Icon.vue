@@ -15,7 +15,7 @@ defineProps({
   },
   size: {
     type: String,
-    default: '14px',
+    default: '1.2rem',
   },
 });
 </script>
