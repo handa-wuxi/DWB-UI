@@ -11,7 +11,7 @@ import 'virtual:windi.css';
 
 const app = createApp(App);
 
-new Monitor((msg) => {
+new Monitor((_msg) => {
   // globalApi.insertLogs({
   //   ...msg,
   //   userAgent: userAgent(),

@@ -1,8 +1,8 @@
 <template>
   {{ t('global.lang') }}
-  <n-button @click="toAuth">
+  <NButton @click="toAuth">
     去授权
-  </n-button>
+  </NButton>
 </template>
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';

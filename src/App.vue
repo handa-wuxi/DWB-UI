@@ -30,15 +30,15 @@ watch(() => gs.locale, ((v) => {
 </script>
 
 <template>
-  <n-config-provider
+  <NConfigProvider
     :theme="theme ? darkTheme : lightTheme "
     :locale="locale"
     :date-locale="dateLocale"
   >
     <router-view />
-  </n-config-provider>
+  </NConfigProvider>
 </template>
 
 <style lang="less">
-@import './styles/common.less';
+@import './styles/index.less';
 </style>

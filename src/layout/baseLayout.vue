@@ -1,49 +1,46 @@
 <template>
-  <n-layout has-sider>
-    <n-layout-sider
+  <NLayout has-sider>
+    <NLayoutSider
       bordered
       :collapsed-width="64"
-      :width="gs.collapsed ? 64 : 240"
-      :collapsed="gs.collapsed"
+      :width="collapsed ? 64 : 240"
+      :collapsed="collapsed"
     >
       <BaseSider
         v-if="config.menuPos === 'left'"
         :menu-options="menuOptions"
-        :collapsed="gs.collapsed"
+        :collapsed="collapsed"
       />
-    </n-layout-sider>
-    <n-layout>
-      <n-layout-header bordered>
-        <BaseHeader
-          :show-menu="config.menuPos === 'top'"
-          :menu-options="menuOptions"
-        />
-      </n-layout-header>
-      <n-layout-content content-style="padding: 24px;">
+    </NLayoutSider>
+    <NLayout>
+      <NLayoutHeader bordered>
+        <BaseHeader v-model:collapsed="collapsed" />
+      </NLayoutHeader>
+      <NLayoutContent content-style="padding: 24px;">
         <CustomKeepAlive>
           <router-view />
         </CustomKeepAlive>
-      </n-layout-content>
-    </n-layout>
-  </n-layout>
+      </NLayoutContent>
+    </NLayout>
+  </NLayout>
 </template>
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import { MenuOption } from 'naive-ui';
 import { useI18n } from 'vue-i18n';
 import BaseSider from './BaseSider.vue';
-import BaseHeader from './BaseHeader.vue';
+import { BaseHeader } from './Header/index.ts';
 import CustomKeepAlive from '../components/CustomKeepAlive.vue';
 import { MenuConfig } from './types';
-import { useGlobalStore } from '../store';
 import { renderLabel, renderIcon } from '../utils/renderMenu';
 
 const { t } = useI18n();
 
-const gs = useGlobalStore();
 const config = reactive<MenuConfig>({
   menuPos: 'left',
 });
+
+const collapsed = ref(false);
 
 const menuOptions: MenuOption[] = [
   {

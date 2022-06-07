@@ -6,7 +6,7 @@
       :src="logo"
     >
   </div>
-  <n-menu
+  <NMenu
     :collapsed="collapsed"
     :options="options"
     :collapsed-width="64"

@@ -1,6 +1,7 @@
 <template>
   <svg
     class="icon"
+    :style="{ fontSize: size }"
     aria-hidden="true"
   >
     <use :xlink:href="`#${name}`" />
@@ -11,6 +12,10 @@ defineProps({
   name: {
     type: String,
     default: '',
+  },
+  size: {
+    type: String,
+    default: '14px',
   },
 });
 </script>

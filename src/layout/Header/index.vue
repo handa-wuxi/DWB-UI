@@ -1,23 +1,27 @@
 <template>
   <div
-    class="base-header"
-    :style="{height: props.height}"
+    class="layout-header"
+    :style="{height: height}"
   >
-    <div class="base-space">
-      <n-menu
-        v-if="false"
-        :options="options"
-        mode="horizontal"
-      />
-      <Icon
-        class="header-item"
-        name="icon-shouqi"
-        :class="gs.collapsed ? 'rote-icon' : '' "
-        @click="changeMenu"
-      />
+    <!-- 顶部菜单 -->
+    <div v-if="navMode === 'horizontal'" />
+    <!-- 左侧菜单 -->
+    <div
+      v-else
+      class="layout-header-left flex justify-between"
+    >
       <div
-        class="base-space"
+        class="ml-1"
+        @click="emit('update:collapsed', !collapsed)"
       >
+        <Icon
+          size="20px"
+          name="icon-shouqi"
+          :class="collapsed ? 'rote-icon' : '' "
+        />
+      </div>
+
+      <div class="base-space flex inline-flex">
         <n-switch
           :on-update:value="gs.changeTheme"
           rubber-band
@@ -35,19 +39,19 @@
           class="header-item"
           name="icon-quanping"
         />
-        <n-dropdown
+        <NDropdown
           trigger="hover"
           :options="locales"
           @select="handleSelect"
         >
           <span class="header-item w-65px text-center">{{ localeLabel }}</span>
-        </n-dropdown>
-        <n-avatar
+        </NDropdown>
+        <NAvatar
           class="space-x-8"
           round
         >
           admin
-        </n-avatar>
+        </NAvatar>
         <Icon
           class="header-item"
           name="icon-shezhi"
@@ -56,18 +60,27 @@
     </div>
   </div>
 </template>
-<script setup lang="ts">
-import { computed, ref } from 'vue';
+<script setup lang="ts" name="BaseHeader">
+import { ref } from 'vue';
 import { storeToRefs } from 'pinia';
-import { useGlobalStore } from '../store';
-import Icon from '../components/Icon.vue';
-import { i18n } from '../locales';
+import { useGlobalStore } from '@/store';
+import Icon from '@/components/Icon.vue';
+import { i18n } from '@/locales';
+import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 
+const emit = defineEmits(['update:collapsed']);
+const { getNavMode } = useProjectSetting();
+
+const navMode = ref(getNavMode);
 const gs = useGlobalStore();
-const props = defineProps({
+defineProps({
   height: {
     type: String,
     default: '50px',
+  },
+  collapsed: {
+    type: Boolean,
+    default: false,
   },
   menuOptions: {
     type: Array,
@@ -79,11 +92,7 @@ const localeLabel = ref('中文');
 
 const { locales } = storeToRefs(gs);
 
-const options = computed(() => props.menuOptions);
-
-function changeMenu() {
-  gs.changeCollapsed();
-}
+// const options = computed(() => props.menuOptions);
 
 function handleSelect(key: string) {
   localeLabel.value = locales.value.filter((item) => item.key === key)[0].label;
@@ -93,13 +102,11 @@ function handleSelect(key: string) {
 
 </script>
 <style lang="less">
-.base-header {
+.layout-header {
 
   .base-space {
     height: 100%;
-    display: flex;
     align-items: center;
-    justify-content: space-between;
   }
 
   .n-switch__button-icon {
