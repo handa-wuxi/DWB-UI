@@ -17,9 +17,7 @@
         <BaseHeader v-model:collapsed="collapsed" />
       </n-layout-header>
       <n-layout-content content-style="padding: 24px;">
-        <CustomKeepAlive>
-          <router-view />
-        </CustomKeepAlive>
+        <MainView />
       </n-layout-content>
     </n-layout>
   </n-layout>
@@ -30,9 +28,9 @@ import { MenuOption } from 'naive-ui';
 import { useI18n } from 'vue-i18n';
 import PageSider from './PageSider.vue';
 import { BaseHeader } from './Header/index';
-import CustomKeepAlive from '../components/CustomKeepAlive.vue';
 import { MenuConfig } from './types';
 import { renderLabel, renderIcon } from '../utils/renderMenu';
+import { MainView } from './Main/index';
 
 const { t } = useI18n();
 

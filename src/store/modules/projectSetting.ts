@@ -1,13 +1,23 @@
 import { defineStore } from 'pinia';
 import projectSetting from '@/config/projectSetting';
+import { MultiTabsSetting, CrumbsSetting, HeaderSetting } from '#/config';
 
-const { navMode } = projectSetting;
+const {
+  navMode, pageAnimateType, isPageAnimate, isMobile, multiTabsSetting, crumbsSetting, headerSetting,
+} = projectSetting;
 
 interface ProjectSettingState{
   navMode: string, // 导航模式
   theme: boolean, // false => light  true => dark
   locale: string,
-  collapsed: boolean
+  collapsed: boolean,
+  pageAnimateType: string, // 路由动画类型
+  isPageAnimate: boolean, // 是否开启路由动画
+  isMobile: boolean, // 是否处于移动端模式
+  crumbsSetting: CrumbsSetting; // 面包屑
+  multiTabsSetting: MultiTabsSetting; // 多标签
+  headerSetting: HeaderSetting; // 顶部设置
+
 }
 
 const map = new Map();
@@ -21,10 +31,22 @@ export const ProjectSettingStore = defineStore({
     theme: false,
     locale: '',
     collapsed: false,
+    pageAnimateType,
+    isPageAnimate,
+    isMobile,
+    multiTabsSetting,
+    crumbsSetting,
+    headerSetting,
   }),
   getters: {
     getNavMode(): string {
       return this.navMode;
+    },
+    getIsPageAnimate(): boolean {
+      return this.isPageAnimate;
+    },
+    getPageAnimateType(): string {
+      return this.pageAnimateType;
     },
     locales() {
       this.locale = window.navigator.language;
@@ -44,6 +66,9 @@ export const ProjectSettingStore = defineStore({
     },
     async changeCollapsed() {
       this.collapsed = !this.collapsed;
+    },
+    setIsMobile(value: boolean): void {
+      this.isMobile = value;
     },
   },
 });

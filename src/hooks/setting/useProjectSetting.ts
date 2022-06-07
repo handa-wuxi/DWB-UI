@@ -13,6 +13,10 @@ export function useProjectSetting() {
 
   const getTheme = computed(() => projectSetting.theme);
 
+  const getIsPageAnimate = computed(() => projectSetting.isPageAnimate);
+
+  const getPageAnimateType = computed(() => projectSetting.pageAnimateType);
+
   const changeTheme = (type: boolean) => {
     projectSetting.changeTheme(type);
   };
@@ -26,6 +30,8 @@ export function useProjectSetting() {
     getLocales,
     getLocale,
     getTheme,
+    getIsPageAnimate,
+    getPageAnimateType,
     changeTheme,
     changeLocale,
   };

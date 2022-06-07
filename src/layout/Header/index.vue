@@ -22,19 +22,6 @@
       </div>
 
       <div class="base-space mr-[8px] flex inline-flex">
-        <n-switch
-          :on-update:value="changeTheme"
-          rubber-band
-          size="large"
-          class="theme-switch mx-[8px]"
-        >
-          <template #unchecked-icon>
-            🌞
-          </template>
-          <template #checked-icon>
-            🌚
-          </template>
-        </n-switch>
         <Icon
           size="20px"
           class="mx-[8px]"
@@ -57,19 +44,24 @@
           class="mx-[8px]"
           size="20px"
           name="icon-shezhi"
+          @click="showSetting"
         />
       </div>
     </div>
   </div>
+  <!-- 项目配置 -->
+  <ProjectSetting ref="drawerSetting" />
 </template>
 <script setup lang="ts" name="PageHeader">
 import { ref } from 'vue';
 import Icon from '@/components/Icon.vue';
 import { i18n } from '@/locales';
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
+import ProjectSetting from './ProjectSetting.vue';
 
 const emit = defineEmits(['update:collapsed']);
-const { getNavMode, getLocales, changeTheme } = useProjectSetting();
+const { getNavMode, getLocales } = useProjectSetting();
+const drawerSetting = ref<InstanceType<typeof ProjectSetting>>();
 
 defineProps({
   height: {
@@ -95,6 +87,10 @@ const locales = ref(getLocales);
 function handleSelect(key: string) {
   localeLabel.value = locales.value.filter((item) => item.key === key)[0].label;
   i18n.global.locale = key;
+}
+
+function showSetting() {
+  drawerSetting.value?.openDrawer();
 }
 
 </script>
