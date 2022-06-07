@@ -1,4 +1,4 @@
 export default {
   lang: 'English',
-  workSpace: 'Woke Space',
+  workSpace: 'Work Space',
 };
