@@ -3,8 +3,8 @@ import vue from '@vitejs/plugin-vue';
 import checker from 'vite-plugin-checker';
 import Components from 'unplugin-vue-components/vite';
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers';
-import WindiCSS from 'vite-plugin-windicss'; // <==
-
+import WindiCSS from 'vite-plugin-windicss';
+import VueSetupExtend from 'vite-plugin-vue-setup-extend';
 import { resolve } from 'path';
 
 function pathResolve(dir: string) {
@@ -20,7 +20,7 @@ export default defineConfig({
         find: 'vue-i18n',
         replacement: 'vue-i18n/dist/vue-i18n.cjs.js',
       },
-      // /@/xxxx => src/xxxx
+      // @/xxxx => src/xxxx
       {
         find: '@',
         replacement: `${pathResolve('src')}/`,
@@ -34,6 +34,7 @@ export default defineConfig({
   },
   plugins: [
     vue(),
+    VueSetupExtend(),
     WindiCSS({
       scan: {
         dirs: ['.'], // 当前目录下所有文件
@@ -41,6 +42,7 @@ export default defineConfig({
       },
     }),
     Components({
+      dts: true,
       resolvers: [NaiveUiResolver()],
     }),
     checker({
