@@ -1,9 +1,18 @@
 import { defineStore } from 'pinia';
 import projectSetting from '@/config/projectSetting';
-import { MultiTabsSetting, CrumbsSetting, HeaderSetting } from '#/config';
+import {
+  MultiTabsSetting, CrumbsSetting, HeaderSetting, MenuSetting,
+} from '#/config';
 
 const {
-  navMode, pageAnimateType, isPageAnimate, isMobile, multiTabsSetting, crumbsSetting, headerSetting,
+  navMode,
+  menuSetting,
+  pageAnimateType,
+  isPageAnimate,
+  isMobile,
+  multiTabsSetting,
+  crumbsSetting,
+  headerSetting,
 } = projectSetting;
 
 interface ProjectSettingState{
@@ -11,6 +20,7 @@ interface ProjectSettingState{
   theme: boolean, // false => light  true => dark
   locale: string,
   collapsed: boolean,
+  menuSetting: MenuSetting; // 多标签
   pageAnimateType: string, // 路由动画类型
   isPageAnimate: boolean, // 是否开启路由动画
   isMobile: boolean, // 是否处于移动端模式
@@ -37,6 +47,7 @@ export const ProjectSettingStore = defineStore({
     multiTabsSetting,
     crumbsSetting,
     headerSetting,
+    menuSetting,
   }),
   getters: {
     getNavMode(): string {
