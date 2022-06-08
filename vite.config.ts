@@ -46,7 +46,6 @@ export default ({ mode }: ConfigEnv) => {
         },
       }),
       Components({
-        dts: true,
         resolvers: [NaiveUiResolver()],
       }),
       checker({

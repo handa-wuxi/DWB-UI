@@ -21,7 +21,7 @@
       "esnext"
     ],
     "types": [
-      "vite/client"
+      "naive-ui/volar"
     ],
     "typeRoots": [
       "./node_modules/@types/",
@@ -47,5 +47,5 @@
   "exclude": [
     "node_modules",
     "dist"
-  ],
+  ]
 }
