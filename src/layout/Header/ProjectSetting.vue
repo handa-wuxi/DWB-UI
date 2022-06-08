@@ -1,22 +1,22 @@
 <template>
-  <n-drawer
+  <NDrawer
     v-model:show="isDrawer"
     :width="width"
     :placement="placement"
   >
-    <n-drawer-content
+    <NDrawerContent
       :title="title"
       :native-scrollbar="false"
     >
       <div class="drawer">
-        <n-divider title-placement="center">
+        <NDivider title-placement="center">
           主题
-        </n-divider>
+        </NDivider>
 
         <div class="justify-center drawer-setting-item dark-switch">
-          <n-tooltip placement="bottom">
+          <NTooltip placement="bottom">
             <template #trigger>
-              <n-switch
+              <NSwitch
                 :on-update:value="changeTheme"
                 rubber-band
                 size="large"
@@ -28,15 +28,15 @@
                 <template #checked-icon>
                   🌚
                 </template>
-              </n-switch>
+              </NSwitch>
             </template>
             <span>{{ ds.darkTheme ? '深' : '浅' }}色主题</span>
-          </n-tooltip>
+          </NTooltip>
         </div>
 
-        <n-divider title-placement="center">
+        <NDivider title-placement="center">
           系统主题
-        </n-divider>
+        </NDivider>
 
         <div class="drawer-setting-item align-items-top">
           <span
@@ -46,23 +46,23 @@
             :style="{ 'background-color': item }"
             @click="togTheme(item)"
           >
-            <n-icon
+            <NIcon
               v-if="item === ds.appTheme"
               size="12"
             />
           </span>
         </div>
 
-        <n-divider title-placement="center">
+        <NDivider title-placement="center">
           界面显示
-        </n-divider>
+        </NDivider>
 
         <div class="drawer-setting-item">
           <div class="drawer-setting-item-title">
             显示重载页面按钮
           </div>
           <div class="drawer-setting-item-action">
-            <n-switch v-model:value="ps.headerSetting.isReload" />
+            <NSwitch v-model:value="ps.headerSetting.isReload" />
           </div>
         </div>
 
@@ -71,7 +71,7 @@
             显示面包屑导航
           </div>
           <div class="drawer-setting-item-action">
-            <n-switch v-model:value="ps.crumbsSetting.show" />
+            <NSwitch v-model:value="ps.crumbsSetting.show" />
           </div>
         </div>
 
@@ -80,7 +80,7 @@
             显示面包屑显示图标
           </div>
           <div class="drawer-setting-item-action">
-            <n-switch v-model:value="ps.crumbsSetting.showIcon" />
+            <NSwitch v-model:value="ps.crumbsSetting.showIcon" />
           </div>
         </div>
 
@@ -89,20 +89,20 @@
             显示多页签
           </div>
           <div class="drawer-setting-item-action">
-            <n-switch v-model:value="ps.multiTabsSetting.show" />
+            <NSwitch v-model:value="ps.multiTabsSetting.show" />
           </div>
         </div>
 
-        <n-divider title-placement="center">
+        <NDivider title-placement="center">
           动画
-        </n-divider>
+        </NDivider>
 
         <div class="drawer-setting-item">
           <div class="drawer-setting-item-title">
             禁用动画
           </div>
           <div class="drawer-setting-item-action">
-            <n-switch v-model:value="ps.isPageAnimate" />
+            <NSwitch v-model:value="ps.isPageAnimate" />
           </div>
         </div>
 
@@ -111,7 +111,7 @@
             动画类型
           </div>
           <div class="drawer-setting-item-select">
-            <n-select
+            <NSelect
               v-model:value="ps.pageAnimateType"
               :options="animateOptions"
             />
@@ -119,20 +119,21 @@
         </div>
 
         <div class="drawer-setting-item">
-          <n-alert
+          <NAlert
             type="warning"
             :show-icon="false"
           >
             <p>{{ alertText }}</p>
-          </n-alert>
+          </NAlert>
         </div>
       </div>
-    </n-drawer-content>
-  </n-drawer>
+    </NDrawerContent>
+  </NDrawer>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { Placement } from 'naive-ui/lib/drawer/src/DrawerBodyWrapper';
 import { animates as animateOptions } from '@/config/animateSetting';
 import { useProjectSettingStore, useDesignSettingStore } from '@/store';
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
@@ -156,7 +157,7 @@ const alertText = '该功能主要实时预览各种布局效果，更多完整�
 const { appThemeList } = ds;
 
 const isDrawer = ref(false);
-const placement = ref('right');
+const placement = ref<Placement>('right');
 
 function togTheme(color) {
   ds.appTheme = color;
@@ -179,7 +180,7 @@ defineExpose({
 
 <style lang="less" scoped>
   .drawer {
-    .n-divider:not(.n-divider--vertical) {
+    .NDivider:not(.NDivider--vertical) {
       margin: 10px 0;
     }
 
@@ -236,8 +237,8 @@ defineExpose({
       justify-content: center;
     }
 
-    .dark-switch .n-switch {
-      ::v-deep(.n-switch__rail) {
+    .dark-switch .NSwitch {
+      ::v-deep(.NSwitch__rail) {
         background-color: #000e1c;
       }
     }
