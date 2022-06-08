@@ -49,12 +49,7 @@
             <n-icon
               v-if="item === ds.appTheme"
               size="12"
-            >
-              <Icon
-                size="20px"
-                name="icon-shouqi"
-              />
-            </n-icon>
+            />
           </span>
         </div>
 

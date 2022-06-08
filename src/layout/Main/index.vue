@@ -42,3 +42,10 @@ defineProps({
 const keepAliveComponents = computed(() => rs.keepAliveComponents);
 const getTransitionName = computed(() => (unref(getIsPageAnimate) ? unref(getPageAnimateType) : ''));
 </script>
+<style lang="less">
+
+  .n-switch__button-icon {
+    font-size: 26px !important;
+  }
+
+</style>

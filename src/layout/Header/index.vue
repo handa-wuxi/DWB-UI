@@ -107,9 +107,6 @@ function showSetting() {
     align-items: center;
   }
 
-  .n-switch__button-icon {
-    font-size: 26px !important;
-  }
   .icon{
     cursor: pointer;
     transition: all 0.3s;
