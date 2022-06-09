@@ -5,7 +5,7 @@ const menus: Menu<string>[] = [
   {
     label: 'global.home',
     key: 'home',
-    icon: 'home',
+    icon: 'DashboardOutlined',
   },
   // 角色管理
   {

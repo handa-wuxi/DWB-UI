@@ -4,4 +4,5 @@ export default {
   menuSetting: 'Menu Setting',
   roleSetting: 'Role Setting',
   userSetting: 'User Setting',
+  companyName: 'HANDA INDUSTRIES',
 };

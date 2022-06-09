@@ -1,11 +1,12 @@
 import { defineStore } from 'pinia';
+import { DashboardOutlined } from '@vicons/antd';
 import globalApi from '@/api/global';
 import { renderIcon } from '@/utils/renderMenu';
 import { Menu } from '#/config';
 
 export interface AsyncRouteState {
   keepAliveComponents: string[];
-  menus: Menu[];
+  menus: Menu<any>[];
 }
 
 export const RouteStore = defineStore({
@@ -26,7 +27,7 @@ export const RouteStore = defineStore({
         this.menus = res.data.map((item) => ({
           label: item.label,
           key: item.key,
-          icon: () => renderIcon(item.icon as string),
+          icon: renderIcon(DashboardOutlined),
         }));
       }
     },

@@ -17,6 +17,7 @@
       @collapse="collapsed = true"
       @expand="collapsed = false"
     >
+      <PageLogo :collapsed="collapsed" />
       <PageSider />
     </NLayoutSider>
     <NLayout>
@@ -32,8 +33,9 @@
 <script setup lang="ts">
 import { computed, ref, unref } from 'vue';
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
-import { PageHeader } from './Header/index';
-import { MainView } from './Main/index';
+import { PageHeader } from './Header';
+import { MainView } from './Main';
+import { PageLogo } from './Logo';
 import { PageSider } from './Sider';
 
 const { getHeaderSetting, getMenuSetting, getTheme } = useProjectSetting();
