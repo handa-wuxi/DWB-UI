@@ -1,20 +1,23 @@
 <script setup lang="ts">
 import type { NLocale, NDateLocale } from 'naive-ui';
-import { ref, watch } from 'vue';
+import {
+  computed, ref, unref, watch,
+} from 'vue';
 import {
   darkTheme, lightTheme, zhCN, dateZhCN, enUS, dateEnUS,
 } from 'naive-ui';
-import { storeToRefs } from 'pinia';
-// import TestDemo from './components/TestDemo.vue';
-import { useGlobalStore } from './store';
+import { useProjectSetting } from './hooks/setting/useProjectSetting';
+import { useDesignSettingStore } from './store';
+import { lighten } from './utils';
 
-const gs = useGlobalStore();
+const { getLocale, getTheme } = useProjectSetting();
+
 const locale = ref<NLocale | null>(null);
 const dateLocale = ref<NDateLocale | null>(null);
-const { theme } = storeToRefs(gs);
+const ds = useDesignSettingStore();
 
-watch(() => gs.locale, ((v) => {
-  switch (v) {
+watch(() => getLocale.value, ((v) => {
+  switch (unref(v)) {
     case 'zh-CN':
       locale.value = zhCN;
       dateLocale.value = dateZhCN;
@@ -27,18 +30,36 @@ watch(() => gs.locale, ((v) => {
       break;
   }
 }));
+
+const getThemeOverrides = computed(() => {
+  const { appTheme } = ds;
+  const lightenStr = lighten(ds.appTheme, 6);
+  return {
+    common: {
+      primaryColor: appTheme,
+      primaryColorHover: lightenStr,
+      primaryColorPressed: lightenStr,
+    },
+    LoadingBar: {
+      colorLoading: appTheme,
+    },
+  };
+});
 </script>
 
 <template>
-  <n-config-provider
-    :theme="theme ? darkTheme : lightTheme "
-    :locale="locale"
-    :date-locale="dateLocale"
-  >
-    <router-view />
-  </n-config-provider>
+  <NLoadingBarProvider>
+    <NConfigProvider
+      :theme="getTheme ? darkTheme : lightTheme "
+      :locale="locale"
+      :theme-overrides="getThemeOverrides"
+      :date-locale="dateLocale"
+    >
+      <router-view />
+    </NConfigProvider>
+  </NLoadingBarProvider>
 </template>
 
 <style lang="less">
-@import './styles/common.less';
+@import './styles/index.less';
 </style>

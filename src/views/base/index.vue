@@ -1,15 +1,18 @@
 <template>
-  {{ t('global.lang') }}
-  <n-button @click="toAuth">
-    去授权
-  </n-button>
+  <div>
+    {{ t('global.lang') }}
+    <NButton @click="toAuth">
+      去授权
+    </NButton>
+  </div>
 </template>
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
-const router = useRouter();
 const { t } = useI18n();
+
+const router = useRouter();
 
 function toAuth() {
   router.push({

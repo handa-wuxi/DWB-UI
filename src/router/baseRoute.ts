@@ -5,7 +5,7 @@ export const baseRoutes = [
   },
   {
     path: '/sys',
-    component: () => import('../layout/BaseLayout.vue'),
+    component: () => import('../layout/PageLayout.vue'),
     children: [
       {
         path: 'index',

@@ -1,9 +1,9 @@
 /*
  * @Author: 周顺顺 idioticzhou@foxmail.com
  * @Date: 2022-05-09 15:21:50
- * @LastEditors: 周顺顺 idioticzhou@foxmail.com
- * @LastEditTime: 2022-05-19 13:25:56
- * @FilePath: /DWB-front/src/locales/index.ts
+ * @LastEditors: Zhoushunshun541 idioticzhou@foxmail.com
+ * @LastEditTime: 2022-06-09 13:09:14
+ * @FilePath: /DWB-UI/src/locales/index.ts
  * @Description: 多语言模块设置
  */
 import { App } from 'vue';

@@ -1,5 +1,5 @@
 export function getSelector(pathsOrTarget: any) {
-  let path = [];
+  let path: any[] = [];
   if (Array.isArray(pathsOrTarget)) {
     path = pathsOrTarget;
   } else {

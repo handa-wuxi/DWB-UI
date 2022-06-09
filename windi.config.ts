@@ -1,12 +1,14 @@
 import { defineConfig } from 'vite-plugin-windicss';
-import colors from 'windicss/colors';
 
 export default defineConfig({
-  darkMode: 'media',
+  darkMode: 'class',
   safelist: [
   ],
   attributify: {
     prefix: 'w:',
+  },
+  shortcuts: {
+    'header-item': 'w-50px h-50px py-12px px-8px hover:bg-light-200 dark:hover:bg-dark-100',
   },
   theme: {
     screens: {
@@ -15,16 +17,6 @@ export default defineConfig({
       lg: '1024px',
       xl: '1280px',
       '2xl': '1536px',
-    },
-    colors: {
-      gray: colors.coolGray,
-      blue: colors.sky,
-      red: colors.rose,
-      pink: colors.fuchsia,
-    },
-    fontFamily: {
-      sans: ['Graphik', 'sans-serif'],
-      serif: ['Merriweather', 'serif'],
     },
     spacing: {
       128: '32rem',

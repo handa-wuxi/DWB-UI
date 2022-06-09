@@ -7,7 +7,9 @@ const router = createRouter({
   history: createWebHistory(),
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((_to, _from, next) => {
+  const Loading = window.$loading || null;
+  Loading?.start();
   next();
 }); // 在路由切换前执行
 

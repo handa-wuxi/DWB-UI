@@ -1,25 +1,60 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "target": "esnext",
-    "useDefineForClassFields": true,
     "module": "esnext",
     "moduleResolution": "node",
-    "noEmit": true, // 不输出文件,即编译后不会生成任何js文件
-    "noEmitOnError": true, // 发送错误时不输出任何文件
-    "noEmitHelpers": true,
     "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "strictFunctionTypes": false,
     "jsx": "preserve",
+    "baseUrl": ".",
+    "allowJs": true,
     "sourceMap": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
     "esModuleInterop": true,
-    "lib": ["esnext", "dom"],
+    "resolveJsonModule": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "experimentalDecorators": true,
+    "lib": [
+      "dom",
+      "esnext"
+    ],
+    "types": [
+      "vite/client",
+      "naive-ui/volar"
+    ],
+    "typeRoots": [
+      "./node_modules/@types/",
+      "./types"
+    ],
+    "noImplicitAny": false,
     "skipLibCheck": true,
     "paths": {
-      "@/*": ["src/*"],
-      "#/*": ["types/*"]
+      "@/*": [
+        "src/*"
+      ],
+      "#/*": [
+        "types/*"
+      ]
     }
   },
-  "include": ["src"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "types/**/*.d.ts",
+    "types/**/*.ts",
+    "build/**/*.ts",
+    "build/**/*.d.ts",
+    "mock/**/*.ts",
+    "components.d.ts",
+    "vite.config.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.js"
+  ]
 }
