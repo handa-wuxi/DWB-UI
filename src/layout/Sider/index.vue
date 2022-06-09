@@ -63,9 +63,9 @@ const rs = useRouteStore();
 
 const selectedKeys = ref<string>(route.name as string);
 const headerMenuSelectKey = ref<string>('');
-const { getNavMode, getTheme } = useProjectSetting();
+const { getNavMode, getNavTheme } = useProjectSetting();
 
-const inverted = getTheme.value;
+const inverted = computed(() => ['dark', 'header-dark'].includes(getNavTheme.value));
 const matched = computed(() => route.matched);
 
 const getOpenKeys = matched.value && matched.value.length

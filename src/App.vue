@@ -1,15 +1,20 @@
 <script setup lang="ts">
 import type { NLocale, NDateLocale } from 'naive-ui';
-import { ref, unref, watch } from 'vue';
+import {
+  computed, ref, unref, watch,
+} from 'vue';
 import {
   darkTheme, lightTheme, zhCN, dateZhCN, enUS, dateEnUS,
 } from 'naive-ui';
 import { useProjectSetting } from './hooks/setting/useProjectSetting';
+import { useDesignSettingStore } from './store';
+import { lighten } from './utils';
 
 const { getLocale, getTheme } = useProjectSetting();
 
 const locale = ref<NLocale | null>(null);
 const dateLocale = ref<NDateLocale | null>(null);
+const ds = useDesignSettingStore();
 
 watch(() => getLocale.value, ((v) => {
   switch (unref(v)) {
@@ -25,6 +30,21 @@ watch(() => getLocale.value, ((v) => {
       break;
   }
 }));
+
+const getThemeOverrides = computed(() => {
+  const { appTheme } = ds;
+  const lightenStr = lighten(ds.appTheme, 6);
+  return {
+    common: {
+      primaryColor: appTheme,
+      primaryColorHover: lightenStr,
+      primaryColorPressed: lightenStr,
+    },
+    LoadingBar: {
+      colorLoading: appTheme,
+    },
+  };
+});
 </script>
 
 <template>
@@ -32,6 +52,7 @@ watch(() => getLocale.value, ((v) => {
     <NConfigProvider
       :theme="getTheme ? darkTheme : lightTheme "
       :locale="locale"
+      :theme-overrides="getThemeOverrides"
       :date-locale="dateLocale"
     >
       <router-view />

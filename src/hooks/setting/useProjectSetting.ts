@@ -6,6 +6,9 @@ export function useProjectSetting() {
 
   const getNavMode = computed(() => projectSetting.navMode);
 
+  // 导航风格
+  const getNavTheme = computed(() => projectSetting.navTheme);
+
   // 语言包列表
   const getLocales = computed(() => projectSetting.locales);
 
@@ -44,6 +47,7 @@ export function useProjectSetting() {
   return {
     getNavMode,
     getLocales,
+    getNavTheme,
     getLocale,
     getTheme,
     getIsMobile,

@@ -8,6 +8,8 @@ const router = createRouter({
 });
 
 router.beforeEach((_to, _from, next) => {
+  const Loading = window.$loading || null;
+  Loading?.start();
   next();
 }); // 在路由切换前执行
 

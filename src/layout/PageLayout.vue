@@ -15,7 +15,7 @@
       :collapsed-width="64"
       :width="leftMenuWidth"
       :native-scrollbar="false"
-      :inverted="getTheme"
+      :inverted="inverted"
       class="layout-sider"
       @collapse="collapsed = true"
       @expand="collapsed = false"
@@ -54,11 +54,13 @@ import { PageLogo } from './Logo';
 import { PageSider } from './Sider';
 
 const {
-  getHeaderSetting, getNavMode, getMenuSetting, getTheme, getIsMobile, setIsMobile,
+  getHeaderSetting, getNavMode, getMenuSetting, getNavTheme, getIsMobile, setIsMobile,
 } = useProjectSetting();
 const collapsed = ref(false);
 
 const navMode = getNavMode;
+
+const inverted = computed(() => ['dark', 'header-dark'].includes(unref(getNavTheme)));
 
 const fixedMenu = computed(() => {
   const { fixed } = unref(getHeaderSetting);

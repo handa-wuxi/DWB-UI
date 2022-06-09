@@ -13,10 +13,12 @@ const {
   multiTabsSetting,
   crumbsSetting,
   headerSetting,
+  navTheme,
 } = projectSetting;
 
 interface ProjectSettingState{
   navMode: string, // 导航模式
+  navTheme: string, // 导航风格
   theme: boolean, // false => light  true => dark
   locale: string,
   collapsed: boolean,
@@ -41,6 +43,7 @@ export const ProjectSettingStore = defineStore({
     theme: false,
     locale: '',
     collapsed: false,
+    navTheme,
     pageAnimateType,
     isPageAnimate,
     isMobile,
