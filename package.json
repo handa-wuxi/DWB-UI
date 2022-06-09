@@ -1,7 +1,7 @@
 {
   "name": "dwb-ui",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/handa-wuxi/DWB-UI.git"
@@ -83,7 +83,7 @@
       "requireCleanWorkingDir": false,
       "requireBranch": "main",
       "tagName": "v${version}",
-      "commitMessage": "chore(release):🐳 v${version}",
+      "commitMessage": "chore(release): 🐳 v${version}",
       "tagAnnotation": "v${version}",
       "changelog": "npm run changelog"
     },
@@ -93,12 +93,6 @@
     "github": {
       "release": true,
       "tokenRef": "${GITHUB_TOKEN}"
-    },
-    "plugins": {
-      "@release-it/conventional-changelog": {
-        "preset": "angular",
-        "infile": "CHANGELOG.md"
-      }
     }
   },
   "lint-staged": {
