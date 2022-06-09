@@ -25,6 +25,9 @@ export function useProjectSetting() {
   // 主题设置
   const getTheme = computed(() => projectSetting.theme);
 
+  // 是否是移动端
+  const getIsMobile = computed(() => projectSetting.isMobile);
+
   const changeTheme = (type: boolean) => {
     projectSetting.changeTheme(type);
   };
@@ -33,16 +36,23 @@ export function useProjectSetting() {
     projectSetting.locale = locale;
   };
 
+  // 设置移动端
+  const setIsMobile = (isMobile: boolean) => {
+    projectSetting.setIsMobile(isMobile);
+  };
+
   return {
     getNavMode,
     getLocales,
     getLocale,
     getTheme,
+    getIsMobile,
     getIsPageAnimate,
     getPageAnimateType,
     getHeaderSetting,
     getMenuSetting,
     changeTheme,
     changeLocale,
+    setIsMobile,
   };
 }

@@ -7,7 +7,8 @@
     >
     <div
       v-show="!collapsed"
-      class="title text-2xl font-bold text-sky-700"
+      class="title font-bold text-sky-700"
+      :class="currentLocale === 'zh-CN'?'text-2xl':'text-sm'"
     >
       {{ t('global.companyName') }}
     </div>
@@ -15,9 +16,11 @@
 </template>
 <script lang="ts" setup name="PageLogo">
 import { useI18n } from 'vue-i18n';
+import { computed } from 'vue';
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 
+const currentLocale = computed(() => locale.value);
 defineProps({
   collapsed: {
     type: Boolean,

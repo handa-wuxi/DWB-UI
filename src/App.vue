@@ -28,13 +28,15 @@ watch(() => getLocale.value, ((v) => {
 </script>
 
 <template>
-  <NConfigProvider
-    :theme="getTheme ? darkTheme : lightTheme "
-    :locale="locale"
-    :date-locale="dateLocale"
-  >
-    <router-view />
-  </NConfigProvider>
+  <NLoadingBarProvider>
+    <NConfigProvider
+      :theme="getTheme ? darkTheme : lightTheme "
+      :locale="locale"
+      :date-locale="dateLocale"
+    >
+      <router-view />
+    </NConfigProvider>
+  </NLoadingBarProvider>
 </template>
 
 <style lang="less">

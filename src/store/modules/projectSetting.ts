@@ -81,5 +81,8 @@ export const ProjectSettingStore = defineStore({
     setIsMobile(value: boolean): void {
       this.isMobile = value;
     },
+    getIsMobile(): boolean {
+      return this.isMobile;
+    },
   },
 });
