@@ -23,7 +23,7 @@
       <PageLogo :collapsed="collapsed" />
       <PageSider />
     </NLayoutSider>
-    <n-drawer
+    <NDrawer
       v-model:show="showSideDrawer"
       :width="menuWidth"
       :placement="'left'"
@@ -31,12 +31,15 @@
     >
       <PageLogo :collapsed="collapsed" />
       <PageSider @click-menu-item="collapsed = false" />
-    </n-drawer>
+    </NDrawer>
     <NLayout>
       <NLayoutHeader bordered>
         <PageHeader v-model:collapsed="collapsed" />
       </NLayoutHeader>
-      <NLayoutContent content-style="padding: 24px;">
+      <NLayoutContent
+        class="flex-auto min-h-[100vh]"
+        :class="{ 'layout-default-background': getDarkTheme === false }"
+      >
         <MainView />
       </NLayoutContent>
     </NLayout>
@@ -52,10 +55,13 @@ import { PageHeader } from './Header';
 import { MainView } from './Main';
 import { PageLogo } from './Logo';
 import { PageSider } from './Sider';
+import { useDesignSetting } from '@/hooks/setting/useDesignSetting';
 
 const {
   getHeaderSetting, getNavMode, getMenuSetting, getNavTheme, getIsMobile, setIsMobile,
 } = useProjectSetting();
+const { getDarkTheme } = useDesignSetting();
+
 const collapsed = ref(false);
 
 const navMode = getNavMode;
@@ -122,6 +128,9 @@ onMounted(() => {
     position: relative;
     z-index: 13;
     transition: all 0.2s ease-in-out;
+  }
+  .layout-default-background{
+    background: #f5f7f9;
   }
 }
 
