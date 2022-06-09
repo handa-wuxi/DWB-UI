@@ -22,7 +22,7 @@ const menus: Menu<string>[] = [
   // 菜单管理
   {
     label: 'global.menuSetting',
-    key: 'menu',
+    key: 'menuSetting',
     icon: 'menu',
   },
 ];

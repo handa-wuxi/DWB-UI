@@ -8,6 +8,8 @@ import {
 } from 'naive-ui';
 import { useProjectSetting } from './hooks/setting/useProjectSetting';
 import { useDesignSettingStore } from './store';
+import { AppProvider } from '@/components/Application';
+
 import { lighten } from './utils';
 
 const { getLocale, getTheme } = useProjectSetting();
@@ -48,16 +50,16 @@ const getThemeOverrides = computed(() => {
 </script>
 
 <template>
-  <NLoadingBarProvider>
-    <NConfigProvider
-      :theme="getTheme ? darkTheme : lightTheme "
-      :locale="locale"
-      :theme-overrides="getThemeOverrides"
-      :date-locale="dateLocale"
-    >
-      <router-view />
-    </NConfigProvider>
-  </NLoadingBarProvider>
+  <NConfigProvider
+    :theme="getTheme ? darkTheme : lightTheme "
+    :locale="locale"
+    :theme-overrides="getThemeOverrides"
+    :date-locale="dateLocale"
+  >
+    <AppProvider>
+      <RouterView />
+    </AppProvider>
+  </NConfigProvider>
 </template>
 
 <style lang="less">

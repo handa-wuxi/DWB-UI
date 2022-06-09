@@ -1,15 +1,16 @@
 export const baseRoutes = [
   {
     path: '/',
-    redirect: '/sys/index',
+    redirect: '/admin/menu-setting',
   },
   {
-    path: '/sys',
+    path: '/admin',
     component: () => import('../layout/PageLayout.vue'),
     children: [
       {
-        path: 'index',
-        component: () => import('../views/base/index.vue'),
+        path: 'menu-setting',
+        name: 'menuSetting',
+        component: () => import('../views/admin/menu/index.vue'),
       },
     ],
   },
