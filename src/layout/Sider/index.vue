@@ -16,15 +16,13 @@
 <script lang="ts" setup name="PageSider">
 import { useRoute, useRouter } from 'vue-router';
 import {
-  computed, PropType, ref, unref, watch,
+  computed, onMounted, PropType, ref, unref, watch,
 } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
+import { useRouteStore } from '@/store';
 
-interface Menu {
-  children: Menu[];
-  key: string;
-}
-
+const { t } = useI18n();
 const props = defineProps({
   location: {
     // 位置
@@ -61,8 +59,8 @@ const emit = defineEmits(['update:collapse', 'clickMenuItem']);
 
 const route = useRoute();
 const router = useRouter();
+const rs = useRouteStore();
 
-const menus = ref<Menu[]>([]);
 const selectedKeys = ref<string>(route.name as string);
 const headerMenuSelectKey = ref<string>('');
 const { getNavMode, getTheme } = useProjectSetting();
@@ -91,6 +89,15 @@ watch(
     selectedKeys.value = activeMenu ? (activeMenu as string) : (route.name as string);
   },
 );
+
+const menus = computed(() => rs.menus.map((item) => ({
+  ...item,
+  label: t(item.label as string),
+})));
+
+async function getMenus() {
+  await rs.generateMenus();
+}
 
 // 点击菜单
 function clickMenuItem(key: string) {
@@ -129,4 +136,7 @@ function menuExpanded(keys: string[]) {
   }
 }
 
+onMounted(() => {
+  getMenus();
+});
 </script>

@@ -1,3 +1,5 @@
 <template>
-  后台首页
+  <div>
+    后台首页
+  </div>
 </template>

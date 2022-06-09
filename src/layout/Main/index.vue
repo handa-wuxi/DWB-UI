@@ -1,12 +1,12 @@
 <template>
   <RouterView>
     <template #default=" {Component,route} ">
-      <Transition
+      <transition
         :name="getTransitionName"
         mode="out-in"
         appear
       >
-        <KeepAlive
+        <keep-alive
           v-if="keepAliveComponents"
           :include="keepAliveComponents"
         >
@@ -14,13 +14,13 @@
             :is="Component"
             :key="route.path"
           />
-        </KeepAlive>
+        </keep-alive>
         <component
           :is="Component"
           v-else
           :key="route.path"
         />
-      </Transition>
+      </transition>
     </template>
   </RouterView>
 </template>

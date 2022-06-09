@@ -21,6 +21,7 @@
       "esnext"
     ],
     "types": [
+      "vite/client",
       "naive-ui/volar"
     ],
     "typeRoots": [
@@ -30,8 +31,12 @@
     "noImplicitAny": false,
     "skipLibCheck": true,
     "paths": {
-      "@/*": ["src/*"],
-      "#/*": ["types/*"]
+      "@/*": [
+        "src/*"
+      ],
+      "#/*": [
+        "types/*"
+      ]
     }
   },
   "include": [
@@ -41,11 +46,15 @@
     "src/**/*.vue",
     "types/**/*.d.ts",
     "types/**/*.ts",
+    "build/**/*.ts",
+    "build/**/*.d.ts",
+    "mock/**/*.ts",
     "components.d.ts",
     "vite.config.ts"
   ],
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "**/*.js"
   ]
 }

@@ -1,4 +1,7 @@
 export default {
   lang: 'English',
-  workSpace: 'Work Space',
+  home: 'Home',
+  menuSetting: 'Menu Setting',
+  roleSetting: 'Role Setting',
+  userSetting: 'User Setting',
 };

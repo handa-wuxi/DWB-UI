@@ -6,16 +6,33 @@ import { NaiveUiResolver } from 'unplugin-vue-components/resolvers';
 import WindiCSS from 'vite-plugin-windicss';
 import VueSetupExtend from 'vite-plugin-vue-setup-extend';
 import { resolve } from 'path';
+import { viteMockServe } from 'vite-plugin-mock';
+import dayjs from 'dayjs';
+import pkg from './package.json';
 
+const {
+  dependencies, devDependencies, name, version,
+} = pkg;
+
+const APP_INFO = {
+  pkg: {
+    dependencies, devDependencies, name, version,
+  },
+  lastBuildTime: dayjs().format('yyyy-MM-dd HH:mm:ss'),
+};
 function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir);
 }
 
+// const ignoreMockFile = ['createMockServer.ts', 'utils.ts'];
+
 // https://vitejs.dev/config/
-export default ({ mode }: ConfigEnv) => {
+export default ({ command, mode }: ConfigEnv) => {
   const root = process.cwd();
   const env = loadEnv(mode, root);
-  const { VITE_PORT, VITE_PUBLIC_PATH } = env;
+  const { VITE_PORT, VITE_PUBLIC_PATH, VITE_ENABLE_MOCK } = env;
+  const enableMock = JSON.parse(VITE_ENABLE_MOCK);
+
   return defineConfig({
     base: VITE_PUBLIC_PATH,
     resolve: {
@@ -38,6 +55,19 @@ export default ({ mode }: ConfigEnv) => {
     },
     plugins: [
       vue(),
+      viteMockServe({
+        mockPath: 'mock',
+        // ignore: (fileName: string) => ignoreMockFile.includes(fileName),
+        ignore: /^_/,
+        localEnabled: enableMock,
+        prodEnabled: command !== 'serve' && enableMock,
+        //  这样可以控制关闭mock的时候不让mock打包到最终代码内
+        injectCode: `
+          import { setupProdMockServer } from './mock/_createMockServer.ts';
+          setupProdMockServer();
+        `,
+        logger: true,
+      }),
       VueSetupExtend(),
       WindiCSS({
         scan: {
@@ -58,6 +88,9 @@ export default ({ mode }: ConfigEnv) => {
         },
       }),
     ],
+    define: {
+      __APP_INFO__: JSON.stringify(APP_INFO),
+    },
     css: {
       preprocessorOptions: {
         less: {
@@ -72,12 +105,24 @@ export default ({ mode }: ConfigEnv) => {
         overlay: false,
       },
       proxy: {
-        '/api': {
-          target: 'http://127.0.0.1:3088',
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ''),
-        },
+        // '/api': {
+        //   target: '',
+        //   changeOrigin: true,
+        //   rewrite: (path) => path.replace(/^\/api/, ''),
+        // },
       },
+    },
+    build: {
+      target: 'es2019',
+      cssTarget: 'chrome80',
+      // terserOptions: {
+      //   compress: {
+      //     keep_infinity: true,
+      //     drop_console: VITE_DROP_CONSOLE,
+      //   },
+      // },
+      brotliSize: false,
+      chunkSizeWarningLimit: 2000,
     },
   });
 };

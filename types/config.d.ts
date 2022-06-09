@@ -1,3 +1,5 @@
+import { VNodeChild } from 'vue';
+
 export interface ProjectSettingState {
   // 导航模式
   navMode: string;
@@ -15,6 +17,13 @@ export interface ProjectSettingState {
   crumbsSetting: object;
   // 权限模式
   permissionMode: string;
+}
+
+export interface Menu<T = () => VNodeChild> {
+  label: string;
+  icon?: T;
+  key: string;
+  children?: Menu[];
 }
 
 export interface BodySetting {

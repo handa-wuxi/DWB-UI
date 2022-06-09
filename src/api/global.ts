@@ -1,3 +1,4 @@
+import { Menu } from '#/config';
 import http, { cancelRequest, cancelAllRequest } from './http';
 
 const globalApi = {
@@ -9,7 +10,7 @@ const globalApi = {
   },
 
   getMenuList() {
-    return http.request({
+    return http.request<Menu<string>[]>({
       url: '/menu/list',
       method: 'get',
     });

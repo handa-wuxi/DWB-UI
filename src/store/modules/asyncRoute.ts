@@ -1,9 +1,11 @@
 import { defineStore } from 'pinia';
 import globalApi from '@/api/global';
+import { renderIcon } from '@/utils/renderMenu';
+import { Menu } from '#/config';
 
 export interface AsyncRouteState {
   keepAliveComponents: string[];
-  menus: any[];
+  menus: Menu[];
 }
 
 export const RouteStore = defineStore({
@@ -20,7 +22,13 @@ export const RouteStore = defineStore({
     async generateMenus() {
       // 生成路由
       const res = await globalApi.getMenuList();
-      console.log('res: ', res);
+      if (res.status === 200) {
+        this.menus = res.data.map((item) => ({
+          label: item.label,
+          key: item.key,
+          icon: () => renderIcon(item.icon as string),
+        }));
+      }
     },
   },
 });
