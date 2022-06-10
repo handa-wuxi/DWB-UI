@@ -56,7 +56,6 @@
                 <n-tree
                   block-line
                   cascade
-                  checkable
                   :virtual-scroll="true"
                   :pattern="pattern"
                   :data="treeData"
@@ -78,7 +77,10 @@
         >
           <template #header>
             <n-space>
-              <n-icon size="18">
+              <n-icon
+                size="18"
+                class="flex-auto"
+              >
                 <FormOutlined />
               </n-icon>
               <span>编辑菜单{{ treeItemTitle ? `：${treeItemTitle}` : '' }}</span>
@@ -124,12 +126,12 @@
               />
             </n-form-item>
             <n-form-item
-              label="路径"
-              path="path"
+              label="路径名称"
+              path="key"
             >
               <n-input
-                v-model:value="formParams.path"
-                placeholder="请输入路径"
+                v-model:value="formParams.key"
+                placeholder="请输入路径名称"
               />
             </n-form-item>
             <n-form-item
@@ -187,12 +189,14 @@
 </template>
 <script lang="ts" setup name="MenuSetting">
 import {
-  ref, unref, reactive, onMounted,
+  ref, unref, reactive, onMounted, computed,
 } from 'vue';
 import { useDialog, useMessage } from 'naive-ui';
 import {
   AlignLeftOutlined, SearchOutlined, FormOutlined,
 } from '@vicons/antd';
+import { useI18n } from 'vue-i18n';
+import { useRouteStore } from '@/store';
 
 const rules = {
   label: {
@@ -200,20 +204,21 @@ const rules = {
     message: '请输入标题',
     trigger: 'blur',
   },
-  path: {
+  key: {
     required: true,
     message: '请输入路径',
     trigger: 'blur',
   },
 };
 
+const { t } = useI18n();
+const rs = useRouteStore();
+
 const formRef: any = ref(null);
 const message = useMessage();
 const dialog = useDialog();
 
 const expandedKeys = ref([]);
-
-const treeData = ref([]);
 
 const loading = ref(true);
 const subLoading = ref(false);
@@ -225,13 +230,23 @@ const formParams = reactive({
   type: 1,
   label: '',
   subtitle: '',
-  path: '',
+  key: '',
   auth: '',
   openType: 1,
 });
 
+const treeData = computed(() => rs.menus.map((item) => ({
+  ...item,
+  label: t(item.label),
+})));
+
 function selectedTree(keys) {
   console.log('keys: ', keys);
+  const selectData = treeData.value.filter((item) => item.key === keys[0])[0];
+  console.log('selectData: ', selectData);
+  // treeItemTitle.value = selectData.label;
+  Object.assign(formParams, selectData);
+  isEditMenu.value = true;
 }
 
 function handleDel() {
