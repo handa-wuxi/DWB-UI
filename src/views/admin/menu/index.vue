@@ -1,59 +1,60 @@
 <template>
   <div>
-    <n-grid
+    <NGrid
       class="mt-4"
       cols="1 s:1 m:1 l:3 xl:3 2xl:3"
       responsive="screen"
       :x-gap="12"
     >
-      <n-gi span="1">
-        <n-card
+      <NGi span="1">
+        <NCard
           :segmented="{ content: true }"
           :bordered="false"
           size="small"
         >
           <template #header>
-            <n-space>
-              <n-button
+            <NSpace>
+              <NButton
                 type="info"
                 ghost
                 icon-placement="left"
                 @click="packHandle"
               >
-                全部{{ expandedKeys.length ? '收起' : '展开' }}
+                {{ t( 'global.all',
+                      { msg: expandedKeys.length ? t( 'global.collapse' ) : t( 'global.expand' ) } )
+                }}
                 <template #icon>
                   <div class="flex items-center">
-                    <n-icon size="14">
+                    <NIcon size="14">
                       <AlignLeftOutlined />
-                    </n-icon>
+                    </NIcon>
                   </div>
                 </template>
-              </n-button>
-            </n-space>
+              </NButton>
+            </NSpace>
           </template>
           <div class="w-full menu">
-            <n-input
+            <NInput
               v-model:value="pattern"
-              type="input"
-              placeholder="输入菜单名称搜索"
+              :placeholder="t('admin.menu.menuPlaceholder')"
             >
               <template #suffix>
-                <n-icon
+                <NIcon
                   size="18"
                   class="cursor-pointer"
                 >
                   <SearchOutlined />
-                </n-icon>
+                </NIcon>
               </template>
-            </n-input>
+            </NInput>
             <div class="py-3 menu-list">
               <template v-if="loading">
                 <div class="flex items-center justify-center py-4">
-                  <n-spin size="medium" />
+                  <NSpin size="medium" />
                 </div>
               </template>
               <template v-else>
-                <n-tree
+                <NTree
                   block-line
                   cascade
                   :virtual-scroll="true"
@@ -61,38 +62,40 @@
                   :data="treeData"
                   :expanded-keys="expandedKeys"
                   style="max-height: 650px; overflow: hidden"
+                  :render-label="renderLabel"
                   @update:selected-keys="selectedTree"
                   @update:expanded-keys="onExpandedKeys"
                 />
               </template>
             </div>
           </div>
-        </n-card>
-      </n-gi>
-      <n-gi span="2">
-        <n-card
+        </NCard>
+      </NGi>
+      <NGi span="2">
+        <NCard
           :segmented="{ content: true }"
           :bordered="false"
           size="small"
         >
           <template #header>
-            <n-space>
-              <n-icon
+            <NSpace>
+              <NIcon
                 size="18"
                 class="flex-auto"
               >
                 <FormOutlined />
-              </n-icon>
-              <span>编辑菜单{{ treeItemTitle ? `：${treeItemTitle}` : '' }}</span>
-            </n-space>
+              </NIcon>
+              <span>{{ t('admin.menu.editMenu') }}
+                {{ treeItemTitle ? `：${t(treeItemTitle)}` : '' }}</span>
+            </NSpace>
           </template>
-          <n-alert
+          <NAlert
             type="info"
             closable
           >
-            从菜单列表选择一项后，进行编辑
-          </n-alert>
-          <n-form
+            {{ t('admin.menu.editMenuTip') }}
+          </NAlert>
+          <NForm
             v-if="isEditMenu"
             ref="formRef"
             :model="formParams"
@@ -101,97 +104,97 @@
             :label-width="100"
             class="py-4"
           >
-            <n-form-item
-              label="类型"
+            <NFormItem
+              :label="t('global.type')"
               path="type"
             >
-              <span>{{ formParams.type === 1 ? '侧边栏菜单' : '' }}</span>
-            </n-form-item>
-            <n-form-item
-              label="标题"
+              <span>{{ formParams.type === 1 ? t('global.siderMenu') : '' }}</span>
+            </NFormItem>
+            <NFormItem
+              :label="t('global.title')"
               path="label"
             >
-              <n-input
+              <NInput
                 v-model:value="formParams.label"
-                placeholder="请输入标题"
+                :placeholder="t('global.inputPlaceholder',[t('global.title')])"
               />
-            </n-form-item>
-            <n-form-item
-              label="副标题"
+            </NFormItem>
+            <NFormItem
+              :label="t('global.subTitle')"
               path="subtitle"
             >
-              <n-input
+              <NInput
                 v-model:value="formParams.subtitle"
-                placeholder="请输入副标题"
+                :placeholder="t('global.inputPlaceholder',[t('global.subTitle')])"
               />
-            </n-form-item>
-            <n-form-item
-              label="路径名称"
+            </NFormItem>
+            <NFormItem
+              :label="t('global.path')"
               path="key"
             >
-              <n-input
+              <NInput
                 v-model:value="formParams.key"
-                placeholder="请输入路径名称"
+                :placeholder="t('global.inputPlaceholder',[t('global.path')])"
               />
-            </n-form-item>
-            <n-form-item
-              label="打开方式"
+            </NFormItem>
+            <NFormItem
+              :label="t('admin.menu.openType')"
               path="openType"
             >
-              <n-radio-group
+              <NRadioGroup
                 v-model:value="formParams.openType"
                 name="openType"
               >
-                <n-space>
-                  <n-radio :value="1">
-                    当前窗口
-                  </n-radio>
-                  <n-radio :value="2">
-                    新窗口
-                  </n-radio>
-                </n-space>
-              </n-radio-group>
-            </n-form-item>
-            <n-form-item
-              label="菜单权限"
+                <NSpace>
+                  <NRadio :value="1">
+                    {{ t('admin.menu.currentWindow') }}
+                  </NRadio>
+                  <NRadio :value="2">
+                    {{ t('admin.menu.newWindow') }}
+                  </NRadio>
+                </NSpace>
+              </NRadioGroup>
+            </NFormItem>
+            <NFormItem
+              :label="t('admin.menu.menuAuth')"
               path="auth"
             >
-              <n-input
+              <NInput
                 v-model:value="formParams.auth"
-                placeholder="请输入权限，多个权限用，分割"
+                :placeholder="t('admin.menu.authPlaceholder')"
               />
-            </n-form-item>
-            <n-form-item
+            </NFormItem>
+            <NFormItem
               path="auth"
               style="margin-left: 100px"
             >
-              <n-space>
-                <n-button
+              <NSpace>
+                <NButton
                   type="primary"
                   :loading="subLoading"
                   @click="formSubmit"
                 >
-                  保存修改
-                </n-button>
-                <n-button @click="handleReset">
-                  重置
-                </n-button>
-                <n-button @click="handleDel">
-                  删除
-                </n-button>
-              </n-space>
-            </n-form-item>
-          </n-form>
-        </n-card>
-      </n-gi>
-    </n-grid>
+                  {{ t('global.submit') }}
+                </NButton>
+                <NButton @click="handleReset">
+                  {{ t('global.reset') }}
+                </NButton>
+                <NButton @click="handleDel">
+                  {{ t('global.delete') }}
+                </NButton>
+              </NSpace>
+            </NFormItem>
+          </NForm>
+        </NCard>
+      </NGi>
+    </NGrid>
   </div>
 </template>
 <script lang="ts" setup name="MenuSetting">
 import {
   ref, unref, reactive, onMounted, computed,
 } from 'vue';
-import { useDialog, useMessage } from 'naive-ui';
+import { TreeOption, useDialog, useMessage } from 'naive-ui';
 import {
   AlignLeftOutlined, SearchOutlined, FormOutlined,
 } from '@vicons/antd';
@@ -212,6 +215,7 @@ const rules = {
 };
 
 const { t } = useI18n();
+
 const rs = useRouteStore();
 
 const formRef: any = ref(null);
@@ -237,16 +241,17 @@ const formParams = reactive({
 
 const treeData = computed(() => rs.menus.map((item) => ({
   ...item,
-  label: t(item.label),
 })));
 
 function selectedTree(keys) {
-  console.log('keys: ', keys);
   const selectData = treeData.value.filter((item) => item.key === keys[0])[0];
-  console.log('selectData: ', selectData);
-  // treeItemTitle.value = selectData.label;
+  treeItemTitle.value = selectData.label;
   Object.assign(formParams, selectData);
   isEditMenu.value = true;
+}
+
+function renderLabel({ option }: { option: TreeOption }) {
+  return t(option.label as string);
 }
 
 function handleDel() {
