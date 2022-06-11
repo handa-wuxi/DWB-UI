@@ -19,6 +19,9 @@ export function useProjectSetting() {
 
   const getPageAnimateType = computed(() => projectSetting.pageAnimateType);
 
+  // 多标签
+  const getMultiTabsSetting = computed(() => projectSetting.multiTabsSetting);
+
   // layout header设置
   const getHeaderSetting = computed(() => projectSetting.headerSetting);
 
@@ -51,6 +54,7 @@ export function useProjectSetting() {
     getLocale,
     getTheme,
     getIsMobile,
+    getMultiTabsSetting,
     getIsPageAnimate,
     getPageAnimateType,
     getHeaderSetting,

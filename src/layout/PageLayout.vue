@@ -40,6 +40,10 @@
         class="flex-auto min-h-[100vh]"
         :class="{ 'layout-default-background': getDarkTheme === false }"
       >
+        <TabsView
+          v-if="isMultiTabs"
+          v-model:collapsed="collapsed"
+        />
         <MainView />
       </NLayoutContent>
     </NLayout>
@@ -55,31 +59,32 @@ import { PageHeader } from './Header';
 import { MainView } from './Main';
 import { PageLogo } from './Logo';
 import { PageSider } from './Sider';
+import { TabsView } from './TagsView';
 import { useDesignSetting } from '@/hooks/setting/useDesignSetting';
 
 const {
-  getHeaderSetting, getNavMode, getMenuSetting, getNavTheme, getIsMobile, setIsMobile,
+  getHeaderSetting, getNavMode, getMenuSetting, getNavTheme, getTheme,
+  getIsMobile, getMultiTabsSetting, setIsMobile,
 } = useProjectSetting();
 const { getDarkTheme } = useDesignSetting();
+const { minMenuWidth, mobileWidth, menuWidth } = unref(getMenuSetting);
 
 const collapsed = ref(false);
-
 const navMode = getNavMode;
-
+const bgColor = computed(() => (getTheme.value ? 'var(--n-color)' : '#f5f7f9'));
 const inverted = computed(() => ['dark', 'header-dark'].includes(unref(getNavTheme)));
-
+const leftMenuWidth = computed(() => (collapsed.value ? minMenuWidth : menuWidth));
 const fixedMenu = computed(() => {
   const { fixed } = unref(getHeaderSetting);
   return fixed ? 'absolute' : 'static';
 });
-const { minMenuWidth, mobileWidth, menuWidth } = unref(getMenuSetting);
-
-const leftMenuWidth = computed(() => (collapsed.value ? minMenuWidth : menuWidth));
 
 const isMobile = computed<boolean>({
   get: () => getIsMobile.value,
   set: (val) => setIsMobile(val),
 });
+
+const isMultiTabs = computed(() => unref(getMultiTabsSetting).show);
 
 // 控制显示或隐藏移动端侧边栏
 const showSideDrawer = computed({
@@ -110,6 +115,10 @@ onMounted(() => {
   checkMobileMode();
   window.addEventListener('resize', watchWidth);
   // 挂载在 window 方便与在js中使用
+  // Object.defineProperty(window, '$loading', {
+  //   value: useLoadingBar(),
+  //   writable: false,
+  // });
   window.$loading = useLoadingBar();
   window.$loading.finish();
 });
@@ -130,7 +139,7 @@ onMounted(() => {
     transition: all 0.2s ease-in-out;
   }
   .layout-default-background{
-    background: #f5f7f9;
+    background: v-bind(bgColor);
   }
 }
 

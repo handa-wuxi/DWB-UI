@@ -2,7 +2,7 @@
  * @Author: 周顺顺 idioticzhou@foxmail.com
  * @Date: 2022-05-09 14:21:10
  * @LastEditors: Zhoushunshun541 idioticzhou@foxmail.com
- * @LastEditTime: 2022-06-07 16:55:51
+ * @LastEditTime: 2022-06-10 15:36:15
  * @FilePath: /DWB-UI/src/store/index.ts
  * @Description: 项目的全局状态管理
  */
@@ -13,6 +13,7 @@ import { UserStore } from './modules/user';
 import { RouteStore } from './modules/asyncRoute';
 import { ProjectSettingStore } from './modules/projectSetting';
 import { DesignSettingStore } from './modules/designSetting';
+import { TagsViewStore } from './modules/tagsView';
 
 export const store = createPinia();
 
@@ -25,3 +26,4 @@ export const useUserStore = () => UserStore(store);
 export const useRouteStore = () => RouteStore(store);
 export const useProjectSettingStore = () => ProjectSettingStore(store);
 export const useDesignSettingStore = () => DesignSettingStore(store);
+export const useTagsViewStore = () => TagsViewStore(store);

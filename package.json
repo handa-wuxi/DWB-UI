@@ -22,10 +22,12 @@
   "dependencies": {
     "axios": "^0.27.2",
     "dayjs": "^1.11.2",
+    "element-resize-detector": "^1.2.4",
     "pinia": "^2.0.14",
     "vue": "^3.2.25",
     "vue-i18n": "^9.1.10",
-    "vue-router": "^4.0.15"
+    "vue-router": "^4.0.15",
+    "vuedraggable": "^2.24.3"
   },
   "devDependencies": {
     "@commitlint/config-angular": "^17.0.0",

@@ -4,19 +4,19 @@ import { resultSuccess } from '../_utils';
 const menus: Menu<string>[] = [
   {
     label: 'global.home',
-    key: 'home',
+    key: 'adminHome',
     icon: 'DashboardOutlined',
   },
   // 角色管理
   {
     label: 'global.roleSetting',
-    key: 'role',
+    key: 'roleSetting',
     icon: 'user',
   },
   // 用户管理
   {
     label: 'global.userSetting',
-    key: 'user',
+    key: 'userSetting',
     icon: 'user',
   },
   // 菜单管理
@@ -29,9 +29,9 @@ const menus: Menu<string>[] = [
 
 export default [
   {
-    url: '/api/menu/list',
+    url: '/system/getUserMenus',
     timeout: 30,
-    method: 'get',
+    method: 'post',
     response: () => resultSuccess(menus),
   },
 ];

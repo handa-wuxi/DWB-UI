@@ -1,7 +1,6 @@
 <template>
   <div>
     <NGrid
-      class="mt-4"
       cols="1 s:1 m:1 l:3 xl:3 2xl:3"
       responsive="screen"
       :x-gap="12"

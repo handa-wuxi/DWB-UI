@@ -11,8 +11,8 @@ const globalApi = {
 
   getMenuList() {
     return http.request<Menu<string>[]>({
-      url: '/menu/list',
-      method: 'get',
+      url: '/system/getUserMenus',
+      method: 'post',
     });
   },
 };

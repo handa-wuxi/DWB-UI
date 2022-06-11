@@ -1,7 +1,7 @@
 import Request from '../utils/request';
 
 const http = new Request({
-  baseURL: '/api',
+  baseURL: '/',
   timeout: 2 * 60 * 1000,
 });
 
