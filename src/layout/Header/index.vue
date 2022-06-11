@@ -67,7 +67,7 @@
     <div class="layout-header-right">
       <div
         v-for="item in iconList"
-        :key="item.icon"
+        :key="item.tips"
         class="layout-header-trigger layout-header-trigger-min"
       >
         <n-tooltip placement="bottom">
@@ -79,7 +79,7 @@
               />
             </n-icon>
           </template>
-          <span>{{ item.tips }}</span>
+          <span>{{ t(item.tips) }}</span>
         </n-tooltip>
       </div>
       <!--切换全屏-->
@@ -144,7 +144,8 @@ import { useRouter, useRoute } from 'vue-router';
 import { useDialog, useMessage } from 'naive-ui';
 import { useI18n } from 'vue-i18n';
 import {
-  MenuFoldOutlined, MenuUnfoldOutlined, ReloadOutlined, SettingOutlined, UserOutlined,
+  MenuFoldOutlined, LockOutlined, FullscreenExitOutlined,
+  FullscreenOutlined, MenuUnfoldOutlined, ReloadOutlined, SettingOutlined, UserOutlined,
 } from '@vicons/antd';
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 import { useLockScreenStore, useUserStore } from '@/store';
@@ -177,7 +178,7 @@ const drawerSetting = ref();
 
 const state = reactive({
   username: username || '',
-  fullscreenIcon: 'FullscreenOutlined',
+  fullscreenIcon: FullscreenOutlined,
   navMode: getNavMode,
   navTheme: getNavTheme,
   headerSetting: getHeaderSetting,
@@ -243,7 +244,9 @@ const doLogout = () => {
 
 // 切换全屏图标
 const toggleFullscreenIcon = () => {
-  state.fullscreenIcon = document.fullscreenElement !== null ? 'FullscreenExitOutlined' : 'FullscreenOutlined';
+  state.fullscreenIcon = document.fullscreenElement !== null
+    ? FullscreenExitOutlined
+    : FullscreenOutlined;
   return state.fullscreenIcon;
 };
 
@@ -262,8 +265,8 @@ const toggleFullScreen = () => {
 // 图标列表
 const iconList = [
   {
-    icon: 'LockOutlined',
-    tips: '锁屏',
+    icon: LockOutlined,
+    tips: 'admin.header.lockScreen',
     eventObject: {
       click: () => useLockScreen.setLock(true),
     },

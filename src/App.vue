@@ -7,16 +7,17 @@ import {
   darkTheme, lightTheme, zhCN, dateZhCN, enUS, dateEnUS,
 } from 'naive-ui';
 import { useProjectSetting } from './hooks/setting/useProjectSetting';
-import { useDesignSettingStore } from './store';
+import { useDesignSettingStore, useLockScreenStore } from './store';
 import { AppProvider } from '@/components/Application';
-
+import { LockScreen } from '@/components/LockScreenComp';
 import { lighten } from './utils';
 
 const { getLocale, getTheme } = useProjectSetting();
-
+const lockScreenStore = useLockScreenStore();
 const locale = ref<NLocale | null>(null);
 const dateLocale = ref<NDateLocale | null>(null);
 const ds = useDesignSettingStore();
+const isLock = computed(() => lockScreenStore.isLock);
 
 watch(() => getLocale.value, ((v) => {
   switch (unref(v)) {
@@ -51,6 +52,7 @@ const getThemeOverrides = computed(() => {
 
 <template>
   <NConfigProvider
+    v-if="!isLock"
     :theme="getTheme ? darkTheme : lightTheme "
     :locale="locale"
     :theme-overrides="getThemeOverrides"
@@ -60,6 +62,12 @@ const getThemeOverrides = computed(() => {
       <RouterView />
     </AppProvider>
   </NConfigProvider>
+  <transition
+    v-if="isLock && $route.name !== 'login'"
+    name="slide-up"
+  >
+    <LockScreen />
+  </transition>
 </template>
 
 <style lang="less">

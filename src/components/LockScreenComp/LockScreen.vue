@@ -111,7 +111,7 @@ import { useBattery } from '@/hooks/useBattery';
 import { useLockScreenStore, useUserStore } from '@/store';
 
 export default defineComponent({
-  name: 'Lockscreen',
+  name: 'LockScreen',
   components: {
     LockOutlined,
     LoadingOutlined,
