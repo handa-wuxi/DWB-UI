@@ -88,7 +88,7 @@
           <template #trigger>
             <n-icon size="18">
               <component
-                :is="state.fullscreenIcon"
+                :is="fullscreenIcon"
                 @click="toggleFullScreen"
               />
             </n-icon>
@@ -138,7 +138,7 @@
 
 <script lang="ts" setup>
 import {
-  reactive, ref, computed, unref,
+  reactive, ref, computed, unref, shallowRef,
 } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useDialog, useMessage } from 'naive-ui';
@@ -175,10 +175,9 @@ const {
 const { username } = userStore?.info || {};
 
 const drawerSetting = ref();
-
+const fullscreenIcon = shallowRef(FullscreenOutlined);
 const state = reactive({
   username: username || '',
-  fullscreenIcon: FullscreenOutlined,
   navMode: getNavMode,
   navTheme: getNavTheme,
   headerSetting: getHeaderSetting,
@@ -244,10 +243,10 @@ const doLogout = () => {
 
 // 切换全屏图标
 const toggleFullscreenIcon = () => {
-  state.fullscreenIcon = document.fullscreenElement !== null
+  fullscreenIcon.value = document.fullscreenElement !== null
     ? FullscreenExitOutlined
     : FullscreenOutlined;
-  return state.fullscreenIcon;
+  return fullscreenIcon;
 };
 
 // 监听全屏切换事件
