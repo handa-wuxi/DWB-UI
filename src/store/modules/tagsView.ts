@@ -1,28 +1,73 @@
 import { defineStore } from 'pinia';
-import { RouterRecord } from '@/router/types';
+import { RouteLocationNormalized } from 'vue-router';
 
-interface TagsViewState {
-  tags: RouterRecord[];
+export type RouteItem = Partial<RouteLocationNormalized> & {
+  fullPath: string;
+  path: string;
+  name: string;
+  hash: string;
+  meta: object;
+  params: object;
+  query: object;
+};
+
+interface TabsViewState {
+  tabs: RouteItem[];
   currentTagIndex: number;
 }
 
-export const TagsViewStore = defineStore({
-  id: 'tagsView',
-  state: (): TagsViewState => ({
-    tags: [],
+// 不需要出现在标签页中的路由
+const whiteList = ['Redirect', 'login'];
+
+// 保留固定路由
+function retainAffixRoute(list: any[]) {
+  return list.filter((item) => item?.meta?.affix ?? false);
+}
+
+export const TabsViewStore = defineStore({
+  id: 'tabsView',
+  state: (): TabsViewState => ({
+    tabs: [],
     currentTagIndex: 0,
   }),
   getters: {
-    getTags(): any[] {
-      return this.tags;
+    getTabs(): any[] {
+      return this.tabs;
     },
   },
   actions: {
-    addTag(tag: RouterRecord): void {
-      this.tags.push(tag);
+    initTabs(routes) {
+      this.tabs = routes;
     },
-    removeTagByIndex(index: number): void {
-      this.tags.splice(index, 1);
+    addTab(tab: RouteItem) {
+      if (whiteList.includes(tab.name)) {
+        return false;
+      }
+      const isExist = this.tabs.some((item) => item.name === tab.name);
+      if (!isExist) {
+        this.tabs.push(tab);
+      }
+      return true;
+    },
+    closeLeftTabs(tab: RouteItem) {
+      const index = this.tabs.findIndex((item) => item.name === tab.name);
+      this.tabs.splice(0, index);
+      this.currentTagIndex = 0;
+    },
+    closeRightTabs(tab: RouteItem) {
+      const index = this.tabs.findIndex((item) => item.name === tab.name);
+      this.tabs.splice(index + 1);
+      this.currentTagIndex = index;
+    },
+    closeOtherTabs(tab: RouteItem) {
+      this.tabs = this.tabs.filter((item) => item.name === tab.name);
+    },
+    closeCurrentTab(tab: RouteItem) {
+      const index = this.tabs.findIndex((item) => item.name === tab.name);
+      this.tabs.splice(index, 1);
+    },
+    closeAllTabs() {
+      this.tabs = retainAffixRoute(this.tabs);
     },
   },
 });

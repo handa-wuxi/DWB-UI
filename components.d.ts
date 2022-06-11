@@ -43,8 +43,10 @@ declare module '@vue/runtime-core' {
     NTag: typeof import('naive-ui')['NTag']
     NTooltip: typeof import('naive-ui')['NTooltip']
     NTree: typeof import('naive-ui')['NTree']
+    PageTab: typeof import('./src/components/PageTab/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Tab: typeof import('./src/components/Tab/index.vue')['default']
   }
 }
 

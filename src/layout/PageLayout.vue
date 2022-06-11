@@ -59,7 +59,7 @@ import { PageHeader } from './Header';
 import { MainView } from './Main';
 import { PageLogo } from './Logo';
 import { PageSider } from './Sider';
-import { TabsView } from './TagsView';
+import { TabsView } from './TabsView';
 import { useDesignSetting } from '@/hooks/setting/useDesignSetting';
 
 const {

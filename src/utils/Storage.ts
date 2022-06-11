@@ -47,7 +47,11 @@ export const createStorage = ({ prefixKey = '', storage = localStorage } = {}) =
           const { value, expire } = data;
           // 在有效期内直接返回
           if (expire === null || expire >= Date.now()) {
-            return value;
+            try {
+              return JSON.parse(value);
+            } catch (e) {
+              return value;
+            }
           }
           this.remove(key);
         } catch (e) {

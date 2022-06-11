@@ -24,8 +24,10 @@ module.exports = {
     'import/extensions': 0,
     'import/prefer-default-export': 0,
     'import/no-mutable-exports': 0,
-    'no-new': 0,
     camelcase: 0,
+    'no-new': 0,
+    'no-shadow': 0,
+    '@typescript-eslint/no-shadow': 0,
     'no-unused-vars': [
       'error',
       {

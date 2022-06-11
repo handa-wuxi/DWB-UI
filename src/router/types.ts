@@ -1,4 +1,4 @@
-import type { RouteRecordRaw, RouteMeta } from 'vue-router';
+import type { RouteRecordRaw, RouteMeta, RouteLocationNormalized } from 'vue-router';
 import { defineComponent } from 'vue';
 import { Recordable } from 'vite-plugin-mock';
 
@@ -7,15 +7,15 @@ export type Component<T extends any = any> =
   | (() => Promise<typeof import('*.vue')>)
   | (() => Promise<T>);
 
-export interface RouteCRecord extends Omit<RouteRecordRaw, 'children'>{
+export type RouteItem = Partial<RouteLocationNormalized> & {
+  fullPath: string;
+  path: string;
   name: string;
-  meta?: RouteMeta;
-  component?: Component | string;
-  components?: Component;
-  children?: RouteCRecord[];
-  fullPath?: string;
-  props?: Recordable;
-}
+  hash: string;
+  meta: object;
+  params: object;
+  query: object;
+};
 
 export interface Meta {
   title?: string;
@@ -28,13 +28,30 @@ export interface Meta {
   hidden?: boolean; // 是否隐藏
 }
 
-export interface RouterRecord extends Omit<RouteCRecord, 'meta'> {
+// @ts-ignore
+export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {
   name: string;
-  path: string;
-  meta?: Meta
+  meta?: RouteMeta;
   component?: Component | string;
   components?: Component;
-  children?: RouteCRecord[];
-  fullPath?: string;
+  children?: AppRouteRecordRaw[];
   props?: Recordable;
+  fullPath?: string;
+}
+export interface Menu {
+  title: string;
+  label: string;
+  key: string;
+  meta: RouteMeta;
+  name: string;
+  component?: Component | string;
+  components?: Component;
+  children?: AppRouteRecordRaw[];
+  props?: Recordable;
+  fullPath?: string;
+  icon?: any;
+  path: string;
+  permissions?: string[];
+  redirect?: string;
+  sort?: number;
 }

@@ -55,6 +55,7 @@ export default ({ command, mode }: ConfigEnv) => {
     },
     plugins: [
       vue(),
+
       viteMockServe({
         mockPath: 'mock',
         // ignore: (fileName: string) => ignoreMockFile.includes(fileName),

@@ -1,8 +1,19 @@
-export const baseRoutes = [
+import { GlobalStoreEnum } from '@/enums/global';
+import { AppRouteRecordRaw } from './types';
+
+export const RedirectName = 'Redirect';
+
+// export const ErrorPage = () => import( '@/views/exception/404.vue' );
+
+export const Layout = () => import('@/layout/PageLayout.vue');
+
+// export const ParentLayout = () => import( '@/layout/parentLayout.vue' );
+
+export const baseRoutes: AppRouteRecordRaw[] = [
   {
     path: '/',
     name: 'home',
-    redirect: '/admin/home',
+    redirect: GlobalStoreEnum.HomeDefaultRoute,
   },
   {
     path: '/admin',
@@ -14,6 +25,7 @@ export const baseRoutes = [
         name: 'adminHome',
         meta: {
           title: '主页',
+          affix: true,
         },
         component: () => import('../views/admin/home.vue'),
       },
@@ -22,6 +34,7 @@ export const baseRoutes = [
         name: 'menuSetting',
         meta: {
           title: '菜单设置',
+          keepAlive: true,
         },
         component: () => import('../views/admin/menu/index.vue'),
       },
@@ -30,6 +43,7 @@ export const baseRoutes = [
         name: 'roleSetting',
         meta: {
           title: '角色设置',
+          keepAlive: true,
         },
         component: () => import('../views/admin/roles/index.vue'),
       },
@@ -38,6 +52,7 @@ export const baseRoutes = [
         name: 'userSetting',
         meta: {
           title: '用户设置',
+          keepAlive: true,
         },
         component: () => import('../views/admin/user/index.vue'),
       },
@@ -49,3 +64,24 @@ export const baseRoutes = [
     component: () => import('../views/base/authorization.vue'),
   },
 ];
+
+export const RedirectRoute: AppRouteRecordRaw = {
+  path: '/redirect',
+  name: RedirectName,
+  component: Layout,
+  meta: {
+    title: RedirectName,
+    hideBreadcrumb: true,
+  },
+  children: [
+    {
+      path: '/redirect/:path(.*)',
+      name: RedirectName,
+      component: () => import('@/views/redirect/index.vue'),
+      meta: {
+        title: RedirectName,
+        hideBreadcrumb: true,
+      },
+    },
+  ],
+};
