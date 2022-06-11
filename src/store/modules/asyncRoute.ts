@@ -9,7 +9,7 @@ export interface AsyncRouteState {
   menus: Menu<any>[];
 }
 
-export const RouteStore = defineStore({
+export const AsyncRouteStore = defineStore({
   id: 'asyncRoute',
   state: (): AsyncRouteState => ({
     keepAliveComponents: [],

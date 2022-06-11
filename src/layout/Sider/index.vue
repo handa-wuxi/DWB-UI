@@ -20,7 +20,7 @@ import {
 } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
-import { useRouteStore } from '@/store';
+import { useAsyncRouteStore } from '@/store';
 
 const { t } = useI18n();
 const props = defineProps({
@@ -59,7 +59,7 @@ const emit = defineEmits(['update:collapse', 'clickMenuItem']);
 
 const route = useRoute();
 const router = useRouter();
-const rs = useRouteStore();
+const rs = useAsyncRouteStore();
 
 const selectedKeys = ref<string>(route.name as string);
 const headerMenuSelectKey = ref<string>('');

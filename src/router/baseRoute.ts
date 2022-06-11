@@ -13,18 +13,24 @@ export const baseRoutes: AppRouteRecordRaw[] = [
   {
     path: '/',
     name: 'home',
+    meta: {
+      title: 'global.home',
+    },
     redirect: GlobalStoreEnum.HomeDefaultRoute,
   },
   {
     path: '/admin',
     name: 'admin',
+    meta: {
+      title: 'global.home',
+    },
     component: () => import('../layout/PageLayout.vue'),
     children: [
       {
         path: 'home',
         name: 'adminHome',
         meta: {
-          title: '主页',
+          title: 'global.home',
           affix: true,
         },
         component: () => import('../views/admin/home.vue'),
@@ -33,7 +39,7 @@ export const baseRoutes: AppRouteRecordRaw[] = [
         path: 'menu-setting',
         name: 'menuSetting',
         meta: {
-          title: '菜单设置',
+          title: 'global.menuSetting',
           keepAlive: true,
         },
         component: () => import('../views/admin/menu/index.vue'),
@@ -42,7 +48,7 @@ export const baseRoutes: AppRouteRecordRaw[] = [
         path: 'role-setting',
         name: 'roleSetting',
         meta: {
-          title: '角色设置',
+          title: 'global.roleSetting',
           keepAlive: true,
         },
         component: () => import('../views/admin/roles/index.vue'),
@@ -51,7 +57,7 @@ export const baseRoutes: AppRouteRecordRaw[] = [
         path: 'user-setting',
         name: 'userSetting',
         meta: {
-          title: '用户设置',
+          title: 'global.userSetting',
           keepAlive: true,
         },
         component: () => import('../views/admin/user/index.vue'),

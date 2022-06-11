@@ -198,7 +198,7 @@ import {
   AlignLeftOutlined, SearchOutlined, FormOutlined,
 } from '@vicons/antd';
 import { useI18n } from 'vue-i18n';
-import { useRouteStore } from '@/store';
+import { useAsyncRouteStore } from '@/store';
 
 const rules = {
   label: {
@@ -215,7 +215,7 @@ const rules = {
 
 const { t } = useI18n();
 
-const rs = useRouteStore();
+const rs = useAsyncRouteStore();
 
 const formRef: any = ref(null);
 const message = useMessage();

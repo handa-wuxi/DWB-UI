@@ -36,16 +36,34 @@
       <NLayoutHeader bordered>
         <PageHeader v-model:collapsed="collapsed" />
       </NLayoutHeader>
-      <NLayoutContent
-        class="flex-auto min-h-[100vh]"
+
+      <n-layout-content
+        class="layout-content"
         :class="{ 'layout-default-background': getDarkTheme === false }"
       >
-        <TabsView
-          v-if="isMultiTabs"
-          v-model:collapsed="collapsed"
-        />
-        <MainView />
-      </NLayoutContent>
+        <div
+          class="layout-content-main"
+          :class="{
+            'layout-content-main-fix': fixedMulti,
+            'fluid-header': fixedHeader === 'static',
+          }"
+        >
+          <TabsView
+            v-if="isMultiTabs"
+            v-model:collapsed="collapsed"
+          />
+          <div
+            class="main-view"
+            :class="{
+              'main-view-fix': fixedMulti,
+              noMultiTabs: !isMultiTabs,
+              'mt-3': !isMultiTabs,
+            }"
+          >
+            <MainView />
+          </div>
+        </div>
+      </n-layout-content>
     </NLayout>
   </NLayout>
 </template>
@@ -75,6 +93,12 @@ const bgColor = computed(() => (getTheme.value ? 'var(--n-color)' : '#f5f7f9'));
 const inverted = computed(() => ['dark', 'header-dark'].includes(unref(getNavTheme)));
 const leftMenuWidth = computed(() => (collapsed.value ? minMenuWidth : menuWidth));
 const fixedMenu = computed(() => {
+  const { fixed } = unref(getHeaderSetting);
+  return fixed ? 'absolute' : 'static';
+});
+
+const fixedMulti = computed(() => unref(getMultiTabsSetting).fixed);
+const fixedHeader = computed(() => {
   const { fixed } = unref(getHeaderSetting);
   return fixed ? 'absolute' : 'static';
 });
@@ -138,9 +162,33 @@ onMounted(() => {
     z-index: 13;
     transition: all 0.2s ease-in-out;
   }
+
   .layout-default-background{
     background: v-bind(bgColor);
   }
+
+  .layout-content {
+    flex: auto;
+    min-height: 100vh;
+  }
+
+  .layout-content-main {
+    margin: 0 10px 10px;
+    position: relative;
+  }
+
+  .fluid-header {
+    padding-top: 0;
+  }
+
+  .noMultiTabs {
+    padding-top: 0;
+  }
+
+  .main-view-fix {
+    padding-top: 44px;
+  }
+
 }
 
 </style>

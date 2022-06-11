@@ -39,7 +39,7 @@ export const TabsViewStore = defineStore({
     initTabs(routes) {
       this.tabs = routes;
     },
-    addTab(tab: RouteItem) {
+    addTabs(tab: RouteItem) {
       if (whiteList.includes(tab.name)) {
         return false;
       }

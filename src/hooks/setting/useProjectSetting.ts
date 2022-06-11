@@ -15,6 +15,8 @@ export function useProjectSetting() {
   // 当前语言
   const getLocale = computed(() => projectSetting.locale);
 
+  const getCrumbsSetting = computed(() => projectSetting.crumbsSetting);
+
   const getIsPageAnimate = computed(() => projectSetting.isPageAnimate);
 
   const getPageAnimateType = computed(() => projectSetting.pageAnimateType);
@@ -54,6 +56,7 @@ export function useProjectSetting() {
     getLocale,
     getTheme,
     getIsMobile,
+    getCrumbsSetting,
     getMultiTabsSetting,
     getIsPageAnimate,
     getPageAnimateType,
