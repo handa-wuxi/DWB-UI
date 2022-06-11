@@ -1,12 +1,12 @@
 <template>
   <div
-    :class="{ onLockLogin: showLogin }"
+    :class="{ onLockLogin: state.showLogin }"
     class="lock-screen"
     @keyup="onLockLogin(true)"
     @mousedown.stop
     @contextmenu.prevent
   >
-    <template v-if="!showLogin">
+    <template v-if="!state.showLogin">
       <div class="lock-box">
         <div class="lock">
           <span
@@ -48,7 +48,7 @@
     </template>
 
     <!--登录-->
-    <template v-if="showLogin">
+    <template v-if="state.showLogin">
       <div class="login-box">
         <n-avatar :size="128">
           <n-icon>
@@ -56,10 +56,10 @@
           </n-icon>
         </n-avatar>
         <div class="username">
-          {{ loginParams.username }}
+          {{ state.loginParams.username }}
         </div>
         <n-input
-          v-model:value="loginParams.password"
+          v-model:value="state.loginParams.password"
           type="password"
           autofocus
           placeholder="请输入登录密码"
@@ -70,21 +70,21 @@
               style="cursor: pointer"
               @click="onLogin"
             >
-              <LoadingOutlined v-if="loginLoading" />
+              <LoadingOutlined v-if="state.loginLoading" />
               <arrow-right-outlined v-else />
             </n-icon>
           </template>
         </n-input>
 
         <div
-          v-if="isLoginError"
+          v-if="state.isLoginError"
           class="w-full flex"
         >
-          <span class="text-red-500">{{ errorMsg }}</span>
+          <span class="text-red-500">{{ state.errorMsg }}</span>
         </div>
 
         <div class="w-full mt-1 flex justify-around">
-          <div><a @click="showLogin = false">返回</a></div>
+          <div><a @click="state.showLogin = false">返回</a></div>
           <div><a @click="goLogin">重新登录</a></div>
           <div><a @click="onLogin">进入系统</a></div>
         </div>
@@ -93,8 +93,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, reactive, toRefs } from 'vue';
+<script lang="ts" setup>
+import { reactive } from 'vue';
 import {
   LockOutlined,
   LoadingOutlined,
@@ -104,84 +104,52 @@ import {
   WifiOutlined,
 } from '@vicons/antd';
 import recharge from './Recharge.vue';
+import { useLockScreenStore, useUserStore } from '../../store';
+import { useBattery } from '../../hooks/useBattery';
+import { useOnline } from '../../hooks/useOnline';
+import { useTime } from '../../hooks/useTime';
 
-import { useOnline } from '@/hooks/useOnline';
-import { useTime } from '@/hooks/useTime';
-import { useBattery } from '@/hooks/useBattery';
-import { useLockScreenStore, useUserStore } from '@/store';
+const useLockScreen = useLockScreenStore();
+const userStore = useUserStore();
 
-export default defineComponent({
-  name: 'LockScreen',
-  components: {
-    LockOutlined,
-    LoadingOutlined,
-    UserOutlined,
-    ArrowRightOutlined,
-    ApiOutlined,
-    WifiOutlined,
-    recharge,
-  },
-  setup() {
-    const useLockScreen = useLockScreenStore();
-    const userStore = useUserStore();
+// 获取时间
+const {
+  month, day, hour, minute, week,
+} = useTime();
+const { online } = useOnline();
 
-    // 获取时间
-    const {
-      month, day, hour, minute, second, week,
-    } = useTime();
-    const { online } = useOnline();
-
-    const {
-      battery, batteryStatus, calcDischargingTime, calcChargingTime,
-    } = useBattery();
-    const username = userStore.username || '';
-    const state = reactive({
-      showLogin: false,
-      loginLoading: false, // 正在登录
-      isLoginError: false, // 密码错误
-      errorMsg: '密码错误',
-      loginParams: {
-        username: username || '',
-        password: '',
-      },
-    });
-
-    // 解锁登录
-    const onLockLogin = (value: boolean) => {
-      state.showLogin = value;
-    };
-
-    // 登录
-    const onLogin = async () => {
-      onLockLogin(false);
-      useLockScreen.setLock(false);
-    };
-
-    // 重新登录
-    const goLogin = () => {
-      onLockLogin(false);
-      useLockScreen.setLock(false);
-    };
-
-    return {
-      ...toRefs(state),
-      online,
-      month,
-      day,
-      hour,
-      minute,
-      second,
-      week,
-      battery,
-      batteryStatus,
-      calcDischargingTime,
-      calcChargingTime,
-      onLockLogin,
-      onLogin,
-      goLogin,
-    };
+const {
+  battery, batteryStatus, calcDischargingTime, calcChargingTime,
+} = useBattery();
+const username = userStore.username || '';
+const state = reactive({
+  showLogin: false,
+  loginLoading: false, // 正在登录
+  isLoginError: false, // 密码错误
+  errorMsg: '密码错误',
+  loginParams: {
+    username: username || '',
+    password: '',
   },
 });
+
+// 解锁登录
+const onLockLogin = (value: boolean) => {
+  state.showLogin = value;
+};
+
+// 登录
+const onLogin = async () => {
+  onLockLogin(false);
+  useLockScreen.setLock(false);
+};
+
+// 重新登录
+const goLogin = () => {
+  onLockLogin(false);
+  useLockScreen.setLock(false);
+};
+
 </script>
 
 <style lang="less" scoped>
