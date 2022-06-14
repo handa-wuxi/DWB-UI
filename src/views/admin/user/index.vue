@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="entry-y">
     <n-card>
       <BasicTable
         :columns="columns"

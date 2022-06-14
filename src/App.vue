@@ -69,7 +69,3 @@ const getThemeOverrides = computed(() => {
     <LockScreen />
   </transition>
 </template>
-
-<style lang="less">
-@import './styles/index.less';
-</style>

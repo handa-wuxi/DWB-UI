@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="entry-y">
     <NGrid
       cols="1 s:1 m:1 l:3 xl:3 2xl:3"
       responsive="screen"

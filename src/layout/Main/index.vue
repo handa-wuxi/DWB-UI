@@ -12,13 +12,13 @@
         >
           <component
             :is="Component"
-            :key="route.path"
+            :key="route.fullPath"
           />
         </keep-alive>
         <component
           :is="Component"
           v-else
-          :key="route.path"
+          :key="route.fullPath"
         />
       </transition>
     </template>

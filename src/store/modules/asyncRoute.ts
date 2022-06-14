@@ -7,6 +7,7 @@ export interface Menu {
   label: string;
   icon: () => VNode<RendererNode, RendererElement, { [ key: string ]: any; }>;
   key: string | number;
+  children?: Menu[];
 }
 
 export interface AsyncRouteState {
