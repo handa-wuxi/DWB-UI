@@ -27,6 +27,7 @@ module.exports = {
     camelcase: 0,
     'no-new': 0,
     'no-shadow': 0,
+    'no-param-reassign': ['error', { props: false }],
     '@typescript-eslint/no-shadow': 0,
     'no-unused-vars': [
       'error',

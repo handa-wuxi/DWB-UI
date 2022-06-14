@@ -7,7 +7,7 @@
     <use :xlink:href="`#${name}`" />
   </svg>
 </template>
-<script setup lang="ts">
+<script setup lang="ts" name="SvgIcon">
 defineProps({
   name: {
     type: String,

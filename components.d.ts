@@ -6,10 +6,11 @@ import 'vue';
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Application: typeof import('./src/components/Application/Application.vue')['default']
+    BasicTable: typeof import('./src/components/BasicTable/index.vue')['default']
+    CustomSettings: typeof import('./src/components/BasicTable/CustomSettings.vue')['default']
     DialogContent: typeof import('./src/components/DialogContent/index.vue')['default']
-    Icon: typeof import('./src/components/Icon.vue')['default']
+    Icon: typeof import('./src/components/Icon/Icon.vue')['default']
     LoadingContent: typeof import('./src/components/LoadingContent/index.vue')['default']
-    Lockscreen: typeof import('./src/components/Lockscreen/Lockscreen.vue')['default']
     LockScreen: typeof import('./src/components/LockScreenComp/LockScreen.vue')['default']
     MessageContent: typeof import('./src/components/MessageContent/index.vue')['default']
     NAlert: typeof import('naive-ui')['NAlert']
@@ -18,7 +19,10 @@ declare module '@vue/runtime-core' {
     NBreadcrumbItem: typeof import('naive-ui')['NBreadcrumbItem']
     NButton: typeof import('naive-ui')['NButton']
     NCard: typeof import('naive-ui')['NCard']
+    NCheckbox: typeof import('naive-ui')['NCheckbox']
+    NCheckboxGroup: typeof import('naive-ui')['NCheckboxGroup']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
+    NDataTable: typeof import('naive-ui')['NDataTable']
     NDialogProvider: typeof import('naive-ui')['NDialogProvider']
     NDivider: typeof import('naive-ui')['NDivider']
     NDrawer: typeof import('naive-ui')['NDrawer']
@@ -28,6 +32,7 @@ declare module '@vue/runtime-core' {
     NFormItem: typeof import('naive-ui')['NFormItem']
     NGi: typeof import('naive-ui')['NGi']
     NGrid: typeof import('naive-ui')['NGrid']
+    NGridItem: typeof import('naive-ui')['NGridItem']
     NIcon: typeof import('naive-ui')['NIcon']
     NInput: typeof import('naive-ui')['NInput']
     NLayout: typeof import('naive-ui')['NLayout']
@@ -38,6 +43,8 @@ declare module '@vue/runtime-core' {
     NMenu: typeof import('naive-ui')['NMenu']
     NMessageProvider: typeof import('naive-ui')['NMessageProvider']
     NNotificationProvider: typeof import('naive-ui')['NNotificationProvider']
+    NPopconfirm: typeof import('naive-ui')['NPopconfirm']
+    NPopover: typeof import('naive-ui')['NPopover']
     NRadio: typeof import('naive-ui')['NRadio']
     NRadioGroup: typeof import('naive-ui')['NRadioGroup']
     NSelect: typeof import('naive-ui')['NSelect']
@@ -51,7 +58,7 @@ declare module '@vue/runtime-core' {
     Recharge: typeof import('./src/components/LockScreenComp/Recharge.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    Tab: typeof import('./src/components/Tab/index.vue')['default']
+    TipIcon: typeof import('./src/components/Icon/TipIcon.vue')['default']
   }
 }
 
