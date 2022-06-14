@@ -558,6 +558,7 @@ export default defineComponent({
     width: 100%;
     display: flex;
     transition: all 0.2s ease-in-out;
+    z-index: 1;
 
     &-main {
       height: 32px;

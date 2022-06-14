@@ -32,7 +32,7 @@
       <PageLogo :collapsed="collapsed" />
       <PageSider @click-menu-item="collapsed = false" />
     </NDrawer>
-    <NLayout>
+    <NLayout embedded>
       <NLayoutHeader bordered>
         <PageHeader v-model:collapsed="collapsed" />
       </NLayoutHeader>
@@ -169,7 +169,7 @@ onMounted(() => {
 
   .layout-content {
     flex: auto;
-    min-height: 100vh;
+    min-height: calc(100vh - 65px);
   }
 
   .layout-content-main {
