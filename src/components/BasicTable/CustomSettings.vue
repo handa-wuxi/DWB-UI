@@ -9,7 +9,10 @@
     <template #trigger>
       <n-tooltip trigger="hover">
         <template #trigger>
-          <n-icon size="20">
+          <n-icon
+            size="20"
+            class="hover:text-[#3c9bff]"
+          >
             <SettingOutlined />
           </n-icon>
         </template>

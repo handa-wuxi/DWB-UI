@@ -1,6 +1,5 @@
 import type { RouteRecordRaw, RouteMeta, RouteLocationNormalized } from 'vue-router';
 import { defineComponent } from 'vue';
-import { Recordable } from 'vite-plugin-mock';
 
 export type Component<T extends any = any> =
   | ReturnType<typeof defineComponent>
@@ -35,7 +34,7 @@ export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {
   component?: Component | string;
   components?: Component;
   children?: AppRouteRecordRaw[];
-  props?: Recordable;
+  props?: Record<string, any>;
   fullPath?: string;
 }
 export interface Menu {
@@ -47,7 +46,7 @@ export interface Menu {
   component?: Component | string;
   components?: Component;
   children?: AppRouteRecordRaw[];
-  props?: Recordable;
+  props?: Record<string, any>;
   fullPath?: string;
   icon?: any;
   path: string;

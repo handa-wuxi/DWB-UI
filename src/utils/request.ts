@@ -5,7 +5,7 @@ import axios, {
 export interface CommonResult<T = any> {
   data: T,
   message: string,
-  status: number
+  code: 1 | 0 // 1 成功 0 失败
 }
 
 export interface RequestInterceptors{

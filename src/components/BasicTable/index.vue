@@ -21,7 +21,10 @@
         >
           <n-tooltip>
             <template #trigger>
-              <n-icon :size="20">
+              <n-icon
+                :size="20"
+                class="hover:text-[#3c9bff]"
+              >
                 <ColumnHeightOutlined />
               </n-icon>
             </template>

@@ -19,8 +19,7 @@ router.beforeEach((_to, _from, next) => {
   Loading?.finish();
 });
 
-router.afterEach((to) => {
-  document.title = (to?.meta?.title as string) || document.title;
+router.afterEach(() => {
   const Loading = window.$loading || null;
   Loading?.finish();
 });
