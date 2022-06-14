@@ -96,6 +96,16 @@
           <span>全屏</span>
         </n-tooltip>
       </div>
+      <!-- 中英文切换 -->
+      <div>
+        <n-dropdown
+          trigger="hover"
+          :options="locales"
+          @select="handleSelect"
+        >
+          <span class="header-item w-65px text-center">{{ localeLabel }}</span>
+        </n-dropdown>
+      </div>
       <!-- 个人中心 -->
       <div class="layout-header-trigger layout-header-trigger-min">
         <n-dropdown
@@ -147,10 +157,12 @@ import {
   MenuFoldOutlined, LockOutlined, FullscreenExitOutlined,
   FullscreenOutlined, MenuUnfoldOutlined, ReloadOutlined, SettingOutlined, UserOutlined,
 } from '@vicons/antd';
+import { storeToRefs } from 'pinia';
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
-import { useLockScreenStore, useUserStore } from '@/store';
+import { useLockScreenStore, useProjectSettingStore, useUserStore } from '@/store';
 import ProjectSetting from './ProjectSetting.vue';
 import { GlobalStoreEnum } from '@/enums/global';
+import { i18n } from '@/locales';
 
 defineProps({
   collapsed: {
@@ -160,12 +172,14 @@ defineProps({
     type: Boolean,
   },
 });
+
 const emit = defineEmits([
   'update:collapsed',
 ]);
 const { t } = useI18n();
 const userStore = useUserStore();
 const useLockScreen = useLockScreenStore();
+const ps = useProjectSettingStore();
 const message = useMessage();
 const dialog = useDialog();
 const {
@@ -175,6 +189,8 @@ const {
 const { username } = userStore?.info || {};
 
 const drawerSetting = ref();
+const { locales } = storeToRefs(ps);
+const localeLabel = ref('中文');
 const fullscreenIcon = shallowRef(FullscreenOutlined);
 const state = reactive({
   username: username || '',
@@ -299,6 +315,12 @@ const avatarSelect = (key) => {
 function openSetting() {
   const { openDrawer } = drawerSetting.value;
   openDrawer();
+}
+
+function handleSelect(key: string) {
+  localeLabel.value = locales.value.filter((item) => item.key === key)[0].label;
+  i18n.global.locale = key;
+  ps.locale = key;
 }
 
 </script>

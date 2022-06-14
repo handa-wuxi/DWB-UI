@@ -2,15 +2,15 @@
 /*
  * @Author: 周顺顺 idioticzhou@foxmail.com
  * @Date: 2022-05-09 15:21:50
- * @LastEditors: Zhoushunshun541 idioticzhou@foxmail.com
- * @LastEditTime: 2022-06-10 13:01:42
+ * @LastEditors: 周顺顺 idioticzhou@foxmail.com
+ * @LastEditTime: 2022-06-14 16:46:25
  * @FilePath: /DWB-UI/src/locales/index.ts
  * @Description: 多语言模块设置
  */
 import { App } from 'vue';
 import { createI18n, I18nOptions } from 'vue-i18n';
 
-export let i18n: ReturnType<typeof createI18n>;
+let i18n: ReturnType<typeof createI18n>;
 
 function getTree(fileName: string, obj: Record<string, any>, target: Record<string, any>) {
   const list = fileName.split('/');
@@ -74,3 +74,5 @@ export const setupI18n = async (app: App<Element>) => {
   i18n = createI18n(option);
   app.use(i18n);
 };
+
+export { i18n };
