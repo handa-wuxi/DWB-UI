@@ -18,5 +18,6 @@ export default {
   submit: '提交',
   reset: '重置',
   cancel: '取消',
+  refresh: '刷新',
   inputPlaceholder: '请输入{0}',
 };
