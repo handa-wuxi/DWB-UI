@@ -4,8 +4,8 @@
     :class="{
       'tabs-view-fix': multiTabsSetting.fixed,
       'tabs-view-fixed-header': isMultiHeaderFixed,
-      'tabs-view-default-background': getDarkTheme === false,
-      'tabs-view-dark-background': getDarkTheme === true,
+      'tabs-view-default-background': !getTheme,
+      'tabs-view-dark-background': getTheme,
     }"
     :style="getChangeStyle"
   >
@@ -151,9 +151,9 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { getDarkTheme, getAppTheme } = useDesignSetting();
+    const { getAppTheme } = useDesignSetting();
     const {
-      getNavMode, getHeaderSetting, getMenuSetting, getMultiTabsSetting, getIsMobile,
+      getNavMode, getHeaderSetting, getMenuSetting, getMultiTabsSetting, getIsMobile, getTheme,
     } = useProjectSetting();
     const settingStore = useProjectSettingStore();
 
@@ -544,7 +544,7 @@ export default defineComponent({
       scrollPrev,
       handleContextMenu,
       onClickOutside,
-      getDarkTheme,
+      getTheme,
       getAppTheme,
       getCardColor,
       getBaseColor,
