@@ -40,29 +40,58 @@
       </n-space>
     </div>
     <n-data-table
+      ref="tableElRef"
       v-bind="$attrs"
+      :data="data"
       :columns="cols"
       :size="size"
+      :pagination="pagination"
+      :max-height="computeMaxHeight"
     />
   </div>
 </template>
 <script lang="ts" setup name="BasicTable">
 import {
-  onBeforeMount, PropType, ref, useSlots,
+  computed,
+  nextTick,
+  onBeforeMount, onMounted, PropType, ref, unref, useSlots,
 } from 'vue';
 import {
   RedoOutlined, ColumnHeightOutlined,
   // VerticalRightOutlined, VerticalLeftOutlined,
 } from '@vicons/antd';
 import { useI18n } from 'vue-i18n';
-import { TableColumns } from 'naive-ui/lib/data-table/src/interface';
+import { RowData, TableColumns } from 'naive-ui/lib/data-table/src/interface';
+import { PaginationProps } from 'naive-ui';
 import { TipIcon } from '../Icon';
 import CustomSettings from './CustomSettings.vue';
+import { getViewportOffset } from '@/utils/domUtils';
+import { useWindowSizeFn } from '@/hooks/event/useWindowSizeFn';
 
 const props = defineProps({
+  data: {
+    type: Array as PropType<RowData[]>,
+    default: () => [],
+  },
   columns: {
     type: Array as PropType<TableColumns<any>>,
     default: () => ([]),
+  },
+  canResize: {
+    type: Boolean,
+    default: true,
+  },
+  pagination: {
+    type: [Boolean, Object, undefined] as PropType<false | PaginationProps | undefined>,
+    default: false,
+  },
+  resizeHeightOffset: {
+    type: Number,
+    default: 0,
+  },
+  maxHeight: {
+    type: Number,
+    default: 0,
   },
 });
 
@@ -70,6 +99,10 @@ const { t } = useI18n(); // 引入 i18n
 
 const emit = defineEmits(['refresh', 'column-settings', 'density']);
 
+let paginationEl: HTMLElement | null;
+const deviceHeight = ref(150);
+const tableElRef = ref();
+// const computeMaxHeight = ref('auto');
 const cols = ref<TableColumns>([]);
 const size = ref<'small' | 'medium' | 'large'>('medium');
 
@@ -101,9 +134,47 @@ function onDensitySelect(key: 'small' | 'medium' | 'large') {
 function updateCols(currentCols: TableColumns) {
   cols.value = currentCols;
 }
+const getCanResize = computed(() => props.canResize);
+const pagination = computed(() => props.pagination);
+
+function computeTableHeight() {
+  const table = unref(tableElRef);
+  if (!table) return;
+  if (!unref(getCanResize)) return;
+  const el = table.$el;
+  const headEl = el.querySelector('.n-data-table-thead');
+  const { bottomIncludeBody } = getViewportOffset(headEl);
+  const headerH = 64;
+  let paginationH = 2;
+  const marginH = 24;
+  if (!pagination.value) {
+    paginationEl = el.querySelector('.n-data-table__pagination') as HTMLElement;
+    if (paginationEl) {
+      const { offsetHeight } = paginationEl;
+      paginationH += offsetHeight || 0;
+    } else {
+      paginationH += 28;
+    }
+  }
+  let height = bottomIncludeBody
+    - (headerH + paginationH + marginH + (props.resizeHeightOffset || 0));
+  const { maxHeight } = props;
+  height = maxHeight && maxHeight < height ? maxHeight : height;
+  deviceHeight.value = height;
+}
+
+const computeMaxHeight = computed(() => (props.data.length ? `${unref(deviceHeight)}px` : 'auto'));
+
+useWindowSizeFn(computeTableHeight, 280);
 
 onBeforeMount(() => {
   init();
+});
+
+onMounted(() => {
+  nextTick(() => {
+    computeTableHeight();
+  });
 });
 
 </script>
