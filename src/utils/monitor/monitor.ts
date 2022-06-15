@@ -33,10 +33,9 @@ export function getLines(stack: string) {
     .join('^');
 }
 
-export let lastEvent: Event;
+export let lastEvent: Event | null = null;
 
 (function getLastEvent() {
-  // @ts-ignore
   if (lastEvent) {
     return;
   }

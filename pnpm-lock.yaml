@@ -7,6 +7,7 @@ specifiers:
   '@typescript-eslint/parser': ^5.22.0
   '@vicons/antd': ^0.12.0
   '@vitejs/plugin-vue': ^2.3.1
+  '@vueuse/core': ^8.6.0
   axios: ^0.27.2
   commitizen: ^4.2.4
   commitlint: ^17.0.2
@@ -23,6 +24,7 @@ specifiers:
   inquirer: ^8.0.0
   less: ^4.1.2
   lint-staged: ^12.5.0
+  lodash-es: ^4.17.21
   mockjs: ^1.1.0
   naive-ui: ^2.30.4
   pinia: ^2.0.14
@@ -42,9 +44,11 @@ specifiers:
   windicss: ^3.5.4
 
 dependencies:
+  '@vueuse/core': 8.6.0_vue@3.2.33
   axios: 0.27.2
   dayjs: 1.11.2
   element-resize-detector: 1.2.4
+  lodash-es: 4.17.21
   pinia: 2.0.14_ytvqwwdyss532bvoq2clv4ed5m
   vue: 3.2.33
   vue-i18n: 9.1.10_vue@3.2.33
@@ -951,6 +955,42 @@ packages:
 
   /@vue/shared/3.2.33:
     resolution: {integrity: sha512-UBc1Pg1T3yZ97vsA2ueER0F6GbJebLHYlEi4ou1H5YL4KWvMOOWwpYo9/QpWq93wxKG6Wo13IY74Hcn/f7c7Bg==}
+
+  /@vueuse/core/8.6.0_vue@3.2.33:
+    resolution: {integrity: sha512-VirzExCm/N+QdrEWT7J4uSrvJ5hquKIAU9alQ37kUvIJk9XxCLxmfRnmekYc1kz2+6BnoyuKYXVmrMV351CB4w==}
+    peerDependencies:
+      '@vue/composition-api': ^1.1.0
+      vue: ^2.6.0 || ^3.2.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      vue:
+        optional: true
+    dependencies:
+      '@vueuse/metadata': 8.6.0
+      '@vueuse/shared': 8.6.0_vue@3.2.33
+      vue: 3.2.33
+      vue-demi: 0.12.5_vue@3.2.33
+    dev: false
+
+  /@vueuse/metadata/8.6.0:
+    resolution: {integrity: sha512-F+CKPvaExsm7QgRr8y+ZNJFwXasn89rs5wth/HeX9lJ1q8XEt+HJ16Q5Sxh4rfG5YSKXrStveVge8TKvPjMjFA==}
+    dev: false
+
+  /@vueuse/shared/8.6.0_vue@3.2.33:
+    resolution: {integrity: sha512-Y/IVywZo7IfEoSSEtCYpkVEmPV7pU35mEIxV7PbD/D3ly18B3mEsBaPbtDkNM/QP3zAZ5mn4nEkOfddX4uwuIA==}
+    peerDependencies:
+      '@vue/composition-api': ^1.1.0
+      vue: ^2.6.0 || ^3.2.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      vue:
+        optional: true
+    dependencies:
+      vue: 3.2.33
+      vue-demi: 0.12.5_vue@3.2.33
+    dev: false
 
   /@windicss/config/1.8.4:
     resolution: {integrity: sha512-i4fFGFfZoRess6WMkauykHC3PFd9xKYVx7lSuLfMK7sgo6x3+l4dY42GbsWMHyLqH1sTMfyt1LgfXSIKYJozSA==}
@@ -3981,7 +4021,6 @@ packages:
 
   /lodash-es/4.17.21:
     resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
-    dev: true
 
   /lodash.debounce/4.0.8:
     resolution: {integrity: sha1-gteb/zCmfEAF/9XiUVMArZyk168=}

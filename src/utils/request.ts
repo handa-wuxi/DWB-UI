@@ -4,7 +4,7 @@ import axios, {
 
 export interface CommonResult<T = any> {
   data: T,
-  message: string,
+  msg: string,
   code: 1 | 0 // 1 成功 0 失败
 }
 

@@ -187,6 +187,7 @@ onMounted(() => {
 
   .main-view-fix {
     padding-top: 44px;
+    max-height: calc(100vh - 75px);
   }
 
 }

@@ -253,7 +253,6 @@ const doLogout = () => {
           .finally(() => window.location.reload());
       });
     },
-    onNegativeClick: () => {},
   });
 };
 
