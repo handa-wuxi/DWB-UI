@@ -1,13 +1,12 @@
 <template>
-  <n-popover
-    trigger="click"
-    :width="260"
-    placement="bottom-end"
-    display-directive="show"
-    class="toolbar-popover"
-  >
+  <n-tooltip trigger="hover">
     <template #trigger>
-      <n-tooltip trigger="hover">
+      <n-popover
+        trigger="click"
+        :width="260"
+        placement="bottom-end"
+        content-style="padding: 0;"
+      >
         <template #trigger>
           <n-icon
             size="20"
@@ -16,103 +15,114 @@
             <SettingOutlined />
           </n-icon>
         </template>
-        <span>{{ t('component.global.columnSettings') }}</span>
-      </n-tooltip>
-    </template>
-    <template #header>
-      <div>
-        <n-space>
-          <n-checkbox
-            v-model:checked="checkAll"
-            @update:checked="onCheckAll"
+        <template #header>
+          <div>
+            <n-space>
+              <n-checkbox
+                v-model:checked="checkAll"
+                @update:checked="onCheckAll"
+              >
+                {{ t('component.global.showCol') }}
+              </n-checkbox>
+              <n-checkbox
+                v-model:checked="selection"
+                @update:checked="onSelection"
+              >
+                {{ t('component.global.selectCol') }}
+              </n-checkbox>
+              <n-button
+                text
+                type="info"
+                size="small"
+                @click="resetColumns"
+              >
+                {{ t('global.reset') }}
+              </n-button>
+            </n-space>
+          </div>
+        </template>
+        <div class="table-col-toolbar">
+          <n-checkbox-group
+            v-model:value="checkList"
+            @update:value="onChange"
           >
-            {{ t('component.global.showCol') }}
-          </n-checkbox>
-          <n-checkbox
-            v-model:checked="selection"
-            @update:checked="onSelection"
-          >
-            {{ t('component.global.selectCol') }}
-          </n-checkbox>
-          <n-button
-            text
-            type="info"
-            size="small"
-            class="mt-1"
-            @click="resetColumns"
-          >
-            {{ t('global.reset') }}
-          </n-button>
-        </n-space>
-      </div>
-    </template>
-    <div class="table-col-toolbar">
-      <n-checkbox-group
-        v-model:value="checkList"
-        @update:value="onChange"
-      >
-        <Draggable
-          v-model="columns"
-          animation="200"
-          item-key="key"
-          @end="draggableEnd"
-        >
-          <template #item="{element}">
-            <div
-              v-show="element.type !== 'selection'"
-              class="flex justify-between items-center h-[40px] cursor-pointer px-[12px]
-                        hover:bg-light-300 dark:hover:bg-dark-100"
+            <Draggable
+              :list="columns"
+              animation="300"
+              item-key="key"
+              filter=".no-draggable"
+              @end="draggableEnd"
             >
-              <n-space align="center">
-                <n-icon size="18">
-                  <DragOutlined />
-                </n-icon>
-                <n-checkbox
-                  :value="element.key"
-                  :label="element.title"
-                />
-              </n-space>
-              <div class="flex items-center">
-                <n-tooltip
-                  trigger="hover"
-                  placement="bottom"
+              <template #item="{element}">
+                <div
+                  class="
+                    flex
+                    items-center
+                    justify-between
+                    cursor-move
+                    h-[40px]
+                    px-[12px]
+                    hover:bg-light-300
+                    dark:hover:bg-dark-100"
                 >
-                  <template #trigger>
+                  <div class="flex items-center">
                     <n-icon
                       size="18"
-                      :color="element.fixed === 'left' ? '#2080f0' : undefined"
-                      class="cursor-pointer"
-                      @click="fixedColumn(element, 'left')"
+                      class="mr-[12px]"
                     >
-                      <VerticalRightOutlined />
+                      <DragOutlined />
                     </n-icon>
-                  </template>
-                  <span>{{ t('component.global.fixedToLeft') }}</span>
-                </n-tooltip>
-                <n-divider vertical />
-                <n-tooltip
-                  trigger="hover"
-                  placement="bottom"
-                >
-                  <template #trigger>
-                    <n-icon
-                      size="18"
-                      :color="element.fixed === 'right' ? '#2080f0' : undefined"
-                      class="cursor-pointer"
-                      @click="fixedColumn(element, 'right')"
+                    <n-checkbox
+                      :value="element.key"
+                      :label="element.title"
+                    />
+                  </div>
+                  <div class="flex items-center justify-end">
+                    <n-tooltip
+                      trigger="hover"
+                      placement="bottom"
+                      content-style="padding: 0;"
                     >
-                      <VerticalLeftOutlined />
-                    </n-icon>
-                  </template>
-                  <span>{{ t('component.global.fixedToRight') }}</span>
-                </n-tooltip>
-              </div>
-            </div>
-          </template>
-        </Draggable>
-      </n-checkbox-group>
-    </div>
-  </n-popover>
+                      <template #trigger>
+                        <n-icon
+                          size="18"
+                          :color="element.fixed === 'left' ? '#2080f0' : undefined"
+                          class="cursor-pointer"
+                          @click="fixedColumn(element, 'left')"
+                        >
+                          <VerticalRightOutlined />
+                        </n-icon>
+                      </template>
+                      <span>{{ t('component.global.fixedToLeft') }}</span>
+                    </n-tooltip>
+                    <n-divider vertical />
+                    <n-tooltip
+                      trigger="hover"
+                      placement="bottom"
+                      content-style="padding: 0;"
+                    >
+                      <template #trigger>
+                        <n-icon
+                          size="18"
+                          :color="element.fixed === 'right' ? '#2080f0' : undefined"
+                          class="cursor-pointer"
+                          @click="fixedColumn(element, 'right')"
+                        >
+                          <VerticalLeftOutlined />
+                        </n-icon>
+                      </template>
+                      <span>{{ t('component.global.fixedToRight') }}</span>
+                    </n-tooltip>
+                  </div>
+                </div>
+              </template>
+            </Draggable>
+          </n-checkbox-group>
+        </div>
+      </n-popover>
+    </template>
+    <span>{{ t('component.global.columnSettings') }}</span>
+  </n-tooltip>
 </template>
 <script setup lang="ts" name="CustomSettings">
 import { useI18n } from 'vue-i18n';
@@ -120,7 +130,11 @@ import {
   SettingOutlined, DragOutlined, VerticalRightOutlined, VerticalLeftOutlined,
 } from '@vicons/antd';
 import {
-  onBeforeMount, PropType, ref, toRaw, unref, watch,
+  PropType,
+  ref,
+  toRaw,
+  unref,
+  watch,
 } from 'vue';
 import { RowData, TableColumn } from 'naive-ui/lib/data-table/src/interface';
 import Draggable from 'vuedraggable';
@@ -138,14 +152,14 @@ const props = defineProps({
 });
 
 const columns = ref<DataTableColumns<RowData>>([]);
-const cacheColumns = ref([]);
+let cacheColumns: DataTableColumns<RowData> = [];
 const checkList = ref<string[]>([]);
 const checkAll = ref(false);
 const selection = ref(false);
 
 function init() {
-  columns.value = JSON.parse(JSON.stringify(props.options));
-  cacheColumns.value = JSON.parse(JSON.stringify(props.options));
+  columns.value = props.options.filter((item) => item.type !== 'selection');
+  cacheColumns = toRaw(columns.value);
   checkList.value = columns.value.map((item: RowData) => item.key);
   checkAll.value = true;
 }
@@ -170,8 +184,6 @@ function onSelection(e) {
   if (e) {
     newCols.unshift({
       type: 'selection',
-      // @ts-ignore
-      key: 'selection',
       fixed: 'left',
       width: '60px',
     });
@@ -183,12 +195,16 @@ function onSelection(e) {
 }
 
 function resetColumns() {
-  columns.value = JSON.parse(JSON.stringify(cacheColumns.value));
+  columns.value = cacheColumns.map((item) => item);
   setColumns(unref(columns));
 }
 
 function fixedColumn(item: TableColumn, pos: 'left' | 'right' | undefined) {
-  item.fixed = pos;
+  if (item.fixed === pos) {
+    item.fixed = undefined;
+  } else {
+    item.fixed = pos;
+  }
   setColumns(unref(columns));
 }
 
@@ -205,15 +221,12 @@ watch(() => checkList.value, (val) => {
   checkAll.value = val.length === columns.value.length;
 });
 
-onBeforeMount(() => {
-  init();
-});
-</script>
-<style lang="less">
+init();
 
-.toolbar-popover {
-  .n-popover__content {
-    padding: 0;
-  }
+</script>
+<style lang="less" scoped>
+.n-space>div{
+  display: flex;
+  align-items: center;
 }
 </style>

@@ -1,9 +1,9 @@
 export default {
   columnSettings: '列设置',
   density: '密度',
-  compact: '紧凑',
-  normal: '标准',
-  loose: '宽松',
+  small: '紧凑',
+  medium: '标准',
+  large: '宽松',
   showCol: '展示列',
   selectCol: '勾选列',
   fixedToLeft: '固定到左侧',

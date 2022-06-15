@@ -1,9 +1,9 @@
 export default {
   columnSettings: 'Col Settings',
   density: 'Density',
-  compact: 'Compact',
-  normal: 'Normal',
-  loose: 'Loose',
+  small: 'Small',
+  medium: 'Medium',
+  large: 'Large',
   showCol: 'Show Cols',
   selectCol: 'Select Cols',
   fixedToLeft: 'Fixed To Left',

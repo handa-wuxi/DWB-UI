@@ -17,6 +17,7 @@
         <n-dropdown
           trigger="click"
           :options="densityOption"
+          :on-select="onDensitySelect"
           :show-arrow="true"
         >
           <n-tooltip>
@@ -41,6 +42,7 @@
     <n-data-table
       v-bind="$attrs"
       :columns="cols"
+      :size="size"
     />
   </div>
 </template>
@@ -69,26 +71,31 @@ const { t } = useI18n(); // 引入 i18n
 const emit = defineEmits(['refresh', 'column-settings', 'density']);
 
 const cols = ref<TableColumns>([]);
+const size = ref<'small' | 'medium' | 'large'>('medium');
 
 const densityOption = [
   {
-    label: t('component.global.compact'),
-    key: 'Compact',
+    label: t('component.global.small'),
+    key: 'small',
   },
   {
-    label: t('component.global.normal'),
-    key: 'Normal',
+    label: t('component.global.medium'),
+    key: 'medium',
   },
   {
-    label: t('component.global.loose'),
-    key: 'Loose',
+    label: t('component.global.large'),
+    key: 'large',
   },
 ];
 
 const titleSlot = useSlots().title;
 
 function init() {
-  cols.value = JSON.parse(JSON.stringify(props.columns));
+  cols.value = props.columns.map((item) => item);
+}
+
+function onDensitySelect(key: 'small' | 'medium' | 'large') {
+  size.value = key;
 }
 
 function updateCols(currentCols: TableColumns) {
