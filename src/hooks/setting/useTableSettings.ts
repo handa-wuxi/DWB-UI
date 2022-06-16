@@ -1,4 +1,4 @@
-import { NButton } from 'naive-ui';
+import { NButton, NSpace } from 'naive-ui';
 import { h } from 'vue';
 import { TableColumns } from 'naive-ui/lib/data-table/src/interface';
 import { User } from '#/api';
@@ -6,7 +6,8 @@ import { User } from '#/api';
 interface Config {
   enableUser: (user: User) => void
   disableUser: (user: User) => void
-  getUserRoles: (user: User) => void
+  setUserRoles: (user: User) => void
+  resetPassword: (user: User) => void
 }
 
 export function useTableSettings() {
@@ -16,24 +17,32 @@ export function useTableSettings() {
       title: '工号',
       key: 'empid',
       align: 'center',
-      width: '120px',
+      width: 120,
     },
     {
       title: '账户名',
       key: 'username',
+      width: 120,
     },
     {
       title: '姓名',
       key: 'empname',
+      width: 120,
+    },
+    {
+      title: '用户角色',
+      key: 'roles',
+      width: 120,
     },
     {
       title: '创建时间',
       key: 'createon',
+      width: 200,
     },
     {
       title: '状态',
       key: 'state',
-      width: '160px',
+      width: 160,
       align: 'center',
       render(row) {
         return [
@@ -67,20 +76,37 @@ export function useTableSettings() {
     {
       title: '操作',
       key: 'action',
-      width: '160px',
       align: 'center',
+      fixed: 'right',
+      width: 160,
       render(row) {
-        return [
-          h(
-            NButton,
-            {
-              strong: true,
-              size: 'small',
-              onClick: () => config.getUserRoles(row),
-            },
-            { default: () => '菜单权限' },
-          ),
-        ];
+        return h(
+          NSpace,
+          {
+            align: 'center',
+            justify: 'center',
+          },
+          () => [
+            h(
+              NButton,
+              {
+                strong: true,
+                size: 'small',
+                onClick: () => config.setUserRoles(row),
+              },
+              { default: () => '角色设置' },
+            ),
+            h(
+              NButton,
+              {
+                strong: true,
+                size: 'small',
+                onClick: () => config.resetPassword(row),
+              },
+              { default: () => '重置密码' },
+            ),
+          ],
+        );
       },
     },
   ];

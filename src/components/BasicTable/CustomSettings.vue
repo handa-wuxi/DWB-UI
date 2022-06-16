@@ -43,7 +43,7 @@
         </template>
         <div class="table-col-toolbar">
           <n-checkbox-group
-            v-model="state.checkList"
+            v-model:value="checkList"
             @update:value="onChange"
           >
             <Draggable
@@ -134,7 +134,7 @@ import {
   reactive,
   watch,
   toRaw,
-  watchEffect,
+  ref,
 } from 'vue';
 import { RowData, TableColumn } from 'naive-ui/lib/data-table/src/interface';
 import Draggable from 'vuedraggable';
@@ -142,7 +142,6 @@ import { DataTableColumns } from 'naive-ui';
 
 interface State {
   columns: DataTableColumns<RowData>,
-  checkList: DataTableColumns<RowData>,
   checkAll: boolean,
   selection: boolean,
 }
@@ -157,11 +156,11 @@ const props = defineProps({
     default: () => ([]),
   },
 });
-let cacheColumns: DataTableColumns<RowData> = [];
 
+let cacheColumns: DataTableColumns<RowData> = [];
+const checkList = ref<Array<string | number>>([]);
 const state = reactive<State>({
   columns: [],
-  checkList: [],
   checkAll: false,
   selection: false, // 是否显示选择列
 });
@@ -169,21 +168,21 @@ const state = reactive<State>({
 function init() {
   state.columns = props.options.filter((item) => item.type !== 'selection');
   cacheColumns = toRaw(state.columns);
-  state.checkList = state.columns.map((item: RowData) => item.key);
+  checkList.value = state.columns.map((item: RowData) => item.key);
   state.checkAll = true;
 }
 
 function setColumns(cols = state.columns) {
   emit('changeCols', cols.filter(
-    (col: RowData) => (state.checkList.includes(col.key) || col.type === 'selection'),
+    (col: RowData) => (checkList.value.includes(col.key) || col.type === 'selection'),
   ));
 }
 
 function onCheckAll(e) {
   if (e) {
-    state.checkList = state.columns.map((col: RowData) => col.key);
+    checkList.value = state.columns.map((col: RowData) => col.key);
   } else {
-    state.checkList = [];
+    checkList.value = [];
   }
   setColumns();
 }
@@ -226,15 +225,11 @@ function draggableEnd() {
   setColumns(currentCols);
 }
 
-watch(() => state.checkList, (val) => {
+watch(() => checkList.value, (val) => {
   state.checkAll = val.length === state.columns.length;
 });
 
-watchEffect(() => {
-  if (props.options.length !== state.columns.length) {
-    init();
-  }
-});
+init();
 
 </script>
 <style lang="less" scoped>

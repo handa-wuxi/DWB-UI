@@ -34,7 +34,7 @@
         </n-dropdown>
         <!-- 自定义工具栏 -->
         <CustomSettings
-          :options="cols"
+          :options="getSettingCols(cols)"
           @change-cols="updateCols"
         />
       </n-space>
@@ -125,6 +125,14 @@ const titleSlot = useSlots().title;
 
 function init() {
   cols.value = props.columns.map((item) => item);
+}
+
+function getSettingCols(columns: any[]) {
+  return columns.map((item) => ({
+    key: item.key,
+    title: item.title,
+    fixed: item.fixed,
+  }));
 }
 
 function onDensitySelect(key: 'small' | 'medium' | 'large') {

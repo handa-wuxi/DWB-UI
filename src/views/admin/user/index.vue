@@ -62,14 +62,14 @@
       <template #action>
         <n-space>
           <n-button @click="() => (showModal = false)">
-            取消
+            {{ t('global.cancel') }}
           </n-button>
           <n-button
             type="info"
             :loading="submitBtnLoading"
             @click="addUser"
           >
-            确定
+            {{ t('global.save') }}
           </n-button>
         </n-space>
       </template>
@@ -77,33 +77,54 @@
     <n-modal
       v-model:show="showRoleModal"
       preset="dialog"
-      title="编辑权限"
+      title="设置用户角色"
     >
       <n-tree
         block-line
         cascade
         checkable
         :data="roles"
-        :default-expanded-keys="defaultExpandedKeys"
-        :default-checked-keys="defaultCheckedKeys"
+        :checked-keys="checkedKeys"
+        :on-update:checked-keys="updateCheckedKeys"
       />
+      <template #action>
+        <n-space>
+          <n-button @click="selectAll">
+            {{ t('global.all', {
+              msg: checkedKeys.length ? t( 'global.cancel' ) : t( 'global.choose' )
+            }) }}
+          </n-button>
+          <n-button
+            type="info"
+            :loading="submitBtnLoading"
+            @click="updateUserRoles"
+          >
+            {{ t('global.submit') }}
+          </n-button>
+        </n-space>
+      </template>
     </n-modal>
   </div>
 </template>
 <script lang="ts" setup name="UserSetting">
-import { onBeforeMount, reactive, ref } from 'vue';
 import {
-  FormInst, FormRules, NButton, useMessage,
+  onBeforeMount, reactive, ref, watch,
+} from 'vue';
+import {
+  FormInst, FormRules, NButton, TreeOption, useMessage,
 } from 'naive-ui';
+import { useI18n } from 'vue-i18n';
 import systemApi from '@/api/system';
 import { BasicTable } from '@/components/BasicTable';
-import { Role, User } from '#/api';
+import { User } from '#/api';
 import { useTableSettings } from '@/hooks/setting/useTableSettings';
 
+const { t } = useI18n();
 const tableSettings = useTableSettings();
 const columns = tableSettings.genColumns({
-  enableUser, disableUser, getUserRoles,
+  enableUser, disableUser, setUserRoles, resetPassword,
 });
+
 const message = useMessage();
 
 const loading = ref(false);
@@ -111,9 +132,9 @@ const data = ref<User[]>([]);
 const showModal = ref(false);
 const showRoleModal = ref(false);
 const submitBtnLoading = ref(false);
-const roles = ref<Role[]>([]);
-const defaultExpandedKeys = ref<number[]>([]);
-const defaultCheckedKeys = ref<number[]>([]);
+const roles = ref<TreeOption[]>([]);
+const checkedKeys = ref<Array<number>>([]);
+const currentUser = ref<User | null>(null);
 
 const formRef = ref<FormInst>();
 const userFrom = reactive({
@@ -132,6 +153,18 @@ const rules: FormRules = {
     { required: true, message: '请输入姓名', trigger: 'blur' },
   ],
 };
+
+function updateCheckedKeys(list: number[]) {
+  checkedKeys.value = list;
+}
+
+function selectAll() {
+  if (checkedKeys.value.length === 0) {
+    checkedKeys.value = roles.value.map((item) => item.key as number);
+  } else {
+    checkedKeys.value = [];
+  }
+}
 
 async function getUsers() {
   loading.value = true;
@@ -181,30 +214,83 @@ function addUser() {
   });
 }
 
-async function getUserRoles(user: User) {
-  const res = await systemApi.getUserRoles({ userId: user.id });
+// TODO: 菜单处理成tree结构
+// function getTreeData(userMenus: SystemMenu[]) {
+//   const list: Menu[] = [];
+//   let hasChildren = false;
+//   userMenus.forEach((menu) => {
+//     list.push({
+//       label: t(menu.locale),
+//       key: menu.link,
+//       id: menu.id,
+//       menucode: menu.menucode,
+//     });
+//     if (menu.submenus && menu.submenus.length > 0) {
+//       if (!hasChildren) hasChildren = true;
+//       list[list.length - 1].children = [];
+//       const target = getTreeData(menu.submenus);
+//       list[list.length - 1].children = target.list;
+//     }
+//   });
+//   return { list, hasChildren };
+// }
+
+async function setUserRoles(user: User) {
+  currentUser.value = user;
+  const res = await systemApi.getUserRoles({
+    userId: user.id,
+  });
   if (res.code === 1) {
-    defaultExpandedKeys.value = res.data.map((item) => item.roleid);
-    defaultCheckedKeys.value = res.data.map((item) => item.roleid);
-    showRoleModal.value = true;
+    checkedKeys.value = res.data.map((item) => item.roleid);
   } else {
     message.error(res.msg);
   }
+  showRoleModal.value = true;
 }
 
-// 获取角色列表
-async function getRoles() {
+async function getRoleList() {
   const res = await systemApi.getRoleList();
   if (res.code === 1) {
-    roles.value = res.data;
+    roles.value = res.data.map((item) => ({
+      key: item.id,
+      label: item.rolename,
+      disabled: item.state === 0,
+    }));
   } else {
     message.error(res.msg);
   }
 }
 
+async function updateUserRoles() {
+  const res = await systemApi.setUserRoles({
+    userId: currentUser.value?.id as number,
+    roleIds: checkedKeys.value,
+  });
+  if (res.code === 1) {
+    message.success('设置成功');
+    getUsers();
+  } else {
+    message.error(res.msg);
+  }
+  showRoleModal.value = false;
+}
+
+async function resetPassword(user: User) {
+  const res = await systemApi.resetPassword({ userId: user.id, password: '123456' });
+  if (res.code === 1) {
+    message.success('重置成功');
+  } else {
+    message.error(res.msg);
+  }
+}
+
+watch(() => checkedKeys, (value) => {
+  console.log(value);
+});
+
 onBeforeMount(() => {
+  getRoleList();
   getUsers();
-  getRoles();
 });
 
 </script>

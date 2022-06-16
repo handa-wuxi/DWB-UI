@@ -1,4 +1,4 @@
-import { Menu, Role, User } from '#/api';
+import { Role, SystemMenu, User } from '#/api';
 import http, { cancelRequest, cancelAllRequest } from './http';
 
 const systemApi = {
@@ -10,12 +10,12 @@ const systemApi = {
   },
 
   // 获取用户菜单列表
-  getMenuList(p: { userId: string | number }) {
+  getUserMenuList(p: { userId: string | number }) {
     const data = {
       userid: p.userId,
     };
 
-    return http.request <Menu[]>({
+    return http.request<SystemMenu[]>({
       url: '/system/getUserMenus',
       method: 'post',
       data,
@@ -62,8 +62,21 @@ const systemApi = {
     const data = {
       userid: p.userId,
     };
-    return http.request<{ roleid: number}[]>({
+    return http.request<{roleid: number}[]>({
       url: '/system/getUserRoles',
+      method: 'post',
+      data,
+    });
+  },
+
+  // 设置用户角色
+  setUserRoles(p: { userId: number, roleIds: number[] }) {
+    const data = {
+      userid: p.userId,
+      roleids: p.roleIds,
+    };
+    return http.request({
+      url: '/system/setUserRoles',
       method: 'post',
       data,
     });
@@ -74,6 +87,28 @@ const systemApi = {
     return http.request<Role[]>({
       url: '/system/getRoles',
       method: 'post',
+    });
+  },
+
+  // 获取菜单列表
+  getMenuList() {
+    return http.request<SystemMenu[]>({
+      url: '/system/getMenus',
+      method: 'post',
+    });
+  },
+
+  // 更改用户密码
+  resetPassword(p: { userId: number, password: string }) {
+    const data = {
+      id: p.userId,
+      password: p.password,
+    };
+
+    return http.request({
+      url: '/system/resetPassword',
+      method: 'post',
+      data,
     });
   },
 };

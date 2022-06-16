@@ -5,3 +5,9 @@ export interface TableConfig {
   remote?: boolean; // 表格是否自动分页数据，在异步的状况下你可能需要把它设为 true
   striped?: boolean; // 是否显示表格条纹
 }
+
+export interface Col {
+  title: string,
+  key: string,
+  fixed?: 'left' | 'right' | undefined,
+}

@@ -18,6 +18,7 @@ export default {
   submit: 'Submit',
   reset: 'Reset',
   cancel: 'Cancel',
+  choose: 'Choose',
   refresh: 'Refresh',
   inputPlaceholder: 'Please enter {0}',
 };
