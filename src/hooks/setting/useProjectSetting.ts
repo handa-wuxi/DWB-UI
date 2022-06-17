@@ -15,9 +15,14 @@ export function useProjectSetting() {
   // 当前语言
   const getLocale = computed(() => projectSetting.locale);
 
+  const getCrumbsSetting = computed(() => projectSetting.crumbsSetting);
+
   const getIsPageAnimate = computed(() => projectSetting.isPageAnimate);
 
   const getPageAnimateType = computed(() => projectSetting.pageAnimateType);
+
+  // 多标签
+  const getMultiTabsSetting = computed(() => projectSetting.multiTabsSetting);
 
   // layout header设置
   const getHeaderSetting = computed(() => projectSetting.headerSetting);
@@ -51,6 +56,8 @@ export function useProjectSetting() {
     getLocale,
     getTheme,
     getIsMobile,
+    getCrumbsSetting,
+    getMultiTabsSetting,
     getIsPageAnimate,
     getPageAnimateType,
     getHeaderSetting,

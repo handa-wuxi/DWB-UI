@@ -31,8 +31,8 @@ export interface PromiseError extends Collect{
   baseURL?: string, // axios异常的基础地址
   requestURL?: string,
   methods?: string,
-  data?: Record<string, any>
-  params?: Record<string, any>
+  data?: RawObject
+  params?: RawObject
 }
 
 export interface ResourceError extends Collect{

@@ -6,7 +6,6 @@ import { NaiveUiResolver } from 'unplugin-vue-components/resolvers';
 import WindiCSS from 'vite-plugin-windicss';
 import VueSetupExtend from 'vite-plugin-vue-setup-extend';
 import { resolve } from 'path';
-import { viteMockServe } from 'vite-plugin-mock';
 import dayjs from 'dayjs';
 import pkg from './package.json';
 
@@ -27,12 +26,12 @@ function pathResolve(dir: string) {
 // const ignoreMockFile = ['createMockServer.ts', 'utils.ts'];
 
 // https://vitejs.dev/config/
-export default ({ command, mode }: ConfigEnv) => {
+export default ({ mode }: ConfigEnv) => {
   const root = process.cwd();
   const env = loadEnv(mode, root);
-  const { VITE_PORT, VITE_PUBLIC_PATH, VITE_ENABLE_MOCK } = env;
-  const enableMock = JSON.parse(VITE_ENABLE_MOCK);
-
+  const {
+    VITE_PORT, VITE_PUBLIC_PATH, VITE_APP_API_URL,
+  } = env;
   return defineConfig({
     base: VITE_PUBLIC_PATH,
     resolve: {
@@ -55,26 +54,8 @@ export default ({ command, mode }: ConfigEnv) => {
     },
     plugins: [
       vue(),
-      viteMockServe({
-        mockPath: 'mock',
-        // ignore: (fileName: string) => ignoreMockFile.includes(fileName),
-        ignore: /^_/,
-        localEnabled: enableMock,
-        prodEnabled: command !== 'serve' && enableMock,
-        //  这样可以控制关闭mock的时候不让mock打包到最终代码内
-        injectCode: `
-          import { setupProdMockServer } from './mock/_createMockServer.ts';
-          setupProdMockServer();
-        `,
-        logger: true,
-      }),
       VueSetupExtend(),
-      WindiCSS({
-        scan: {
-          dirs: ['.'], // 当前目录下所有文件
-          fileExtensions: ['vue', 'js', 'ts'], // 同时启用扫描vue/js/ts
-        },
-      }),
+      WindiCSS(),
       Components({
         resolvers: [NaiveUiResolver()],
       }),
@@ -105,11 +86,11 @@ export default ({ command, mode }: ConfigEnv) => {
         overlay: false,
       },
       proxy: {
-        // '/api': {
-        //   target: '',
-        //   changeOrigin: true,
-        //   rewrite: (path) => path.replace(/^\/api/, ''),
-        // },
+        '/api': {
+          target: VITE_APP_API_URL,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, ''),
+        },
       },
     },
     build: {

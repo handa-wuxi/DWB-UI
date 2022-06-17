@@ -12,8 +12,16 @@
     "react"
   ],
   "cSpell.words": [
+    "createon",
+    "empid",
+    "menucode",
     "quanping",
+    "roleid",
+    "rolename",
     "shezhi",
-    "shouqi"
+    "shouqi",
+    "updateon",
+    "vicons",
+    "vuedraggable"
   ],
 }

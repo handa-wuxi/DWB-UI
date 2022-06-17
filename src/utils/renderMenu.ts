@@ -1,7 +1,7 @@
 import { Component, h } from 'vue';
 import { RouterLink } from 'vue-router';
 import { NIcon } from 'naive-ui';
-import Icon from '../components/Icon.vue';
+import Icon from '../components/Icon/Icon.vue';
 
 export function renderLabel(label: string, path = '/') {
   return h(

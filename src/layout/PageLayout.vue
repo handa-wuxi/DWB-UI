@@ -23,7 +23,7 @@
       <PageLogo :collapsed="collapsed" />
       <PageSider />
     </NLayoutSider>
-    <n-drawer
+    <NDrawer
       v-model:show="showSideDrawer"
       :width="menuWidth"
       :placement="'left'"
@@ -31,14 +31,39 @@
     >
       <PageLogo :collapsed="collapsed" />
       <PageSider @click-menu-item="collapsed = false" />
-    </n-drawer>
-    <NLayout>
+    </NDrawer>
+    <NLayout embedded>
       <NLayoutHeader bordered>
         <PageHeader v-model:collapsed="collapsed" />
       </NLayoutHeader>
-      <NLayoutContent content-style="padding: 24px;">
-        <MainView />
-      </NLayoutContent>
+
+      <n-layout-content
+        class="layout-content"
+        :class="{ 'layout-default-background': getDarkTheme === false }"
+      >
+        <div
+          class="layout-content-main"
+          :class="{
+            'layout-content-main-fix': fixedMulti,
+            'fluid-header': fixedHeader === 'static',
+          }"
+        >
+          <TabsView
+            v-if="isMultiTabs"
+            v-model:collapsed="collapsed"
+          />
+          <div
+            class="main-view"
+            :class="{
+              'main-view-fix': fixedMulti,
+              noMultiTabs: !isMultiTabs,
+              'mt-3': !isMultiTabs,
+            }"
+          >
+            <MainView />
+          </div>
+        </div>
+      </n-layout-content>
     </NLayout>
   </NLayout>
 </template>
@@ -52,28 +77,38 @@ import { PageHeader } from './Header';
 import { MainView } from './Main';
 import { PageLogo } from './Logo';
 import { PageSider } from './Sider';
+import { TabsView } from './TabsView';
+import { useDesignSetting } from '@/hooks/setting/useDesignSetting';
 
 const {
-  getHeaderSetting, getNavMode, getMenuSetting, getNavTheme, getIsMobile, setIsMobile,
+  getHeaderSetting, getNavMode, getMenuSetting, getNavTheme, getTheme,
+  getIsMobile, getMultiTabsSetting, setIsMobile,
 } = useProjectSetting();
+const { getDarkTheme } = useDesignSetting();
+const { minMenuWidth, mobileWidth, menuWidth } = unref(getMenuSetting);
+
 const collapsed = ref(false);
-
 const navMode = getNavMode;
-
+const bgColor = computed(() => (getTheme.value ? 'var(--n-color)' : '#f5f7f9'));
 const inverted = computed(() => ['dark', 'header-dark'].includes(unref(getNavTheme)));
-
+const leftMenuWidth = computed(() => (collapsed.value ? minMenuWidth : menuWidth));
 const fixedMenu = computed(() => {
   const { fixed } = unref(getHeaderSetting);
   return fixed ? 'absolute' : 'static';
 });
-const { minMenuWidth, mobileWidth, menuWidth } = unref(getMenuSetting);
 
-const leftMenuWidth = computed(() => (collapsed.value ? minMenuWidth : menuWidth));
+const fixedMulti = computed(() => unref(getMultiTabsSetting).fixed);
+const fixedHeader = computed(() => {
+  const { fixed } = unref(getHeaderSetting);
+  return fixed ? 'absolute' : 'static';
+});
 
 const isMobile = computed<boolean>({
   get: () => getIsMobile.value,
   set: (val) => setIsMobile(val),
 });
+
+const isMultiTabs = computed(() => unref(getMultiTabsSetting).show);
 
 // 控制显示或隐藏移动端侧边栏
 const showSideDrawer = computed({
@@ -104,6 +139,10 @@ onMounted(() => {
   checkMobileMode();
   window.addEventListener('resize', watchWidth);
   // 挂载在 window 方便与在js中使用
+  // Object.defineProperty(window, '$loading', {
+  //   value: useLoadingBar(),
+  //   writable: false,
+  // });
   window.$loading = useLoadingBar();
   window.$loading.finish();
 });
@@ -123,6 +162,34 @@ onMounted(() => {
     z-index: 13;
     transition: all 0.2s ease-in-out;
   }
+
+  .layout-default-background{
+    background: v-bind(bgColor);
+  }
+
+  .layout-content {
+    flex: auto;
+    min-height: calc(100vh - 65px);
+  }
+
+  .layout-content-main {
+    margin: 0 10px 10px;
+    position: relative;
+  }
+
+  .fluid-header {
+    padding-top: 0;
+  }
+
+  .noMultiTabs {
+    padding-top: 0;
+  }
+
+  .main-view-fix {
+    padding-top: 44px;
+    max-height: calc(100vh - 75px);
+  }
+
 }
 
 </style>

@@ -12,13 +12,13 @@
         >
           <component
             :is="Component"
-            :key="route.path"
+            :key="route.fullPath"
           />
         </keep-alive>
         <component
           :is="Component"
           v-else
-          :key="route.path"
+          :key="route.fullPath"
         />
       </transition>
     </template>
@@ -27,9 +27,9 @@
 <script setup lang="ts" name="MainView">
 import { computed, unref } from 'vue';
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
-import { useRouteStore } from '@/store';
+import { useAsyncRouteStore } from '@/store';
 
-const rs = useRouteStore();
+const rs = useAsyncRouteStore();
 const { getPageAnimateType, getIsPageAnimate } = useProjectSetting();
 defineProps({
   animate: {

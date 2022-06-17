@@ -1,5 +1,5 @@
-export function getSelector(pathsOrTarget: any) {
-  let path: any[] = [];
+export function getSelector(pathsOrTarget: RawObject) {
+  let path: RawObject[] = [];
   if (Array.isArray(pathsOrTarget)) {
     path = pathsOrTarget;
   } else {
@@ -33,10 +33,9 @@ export function getLines(stack: string) {
     .join('^');
 }
 
-export let lastEvent: Event;
+export let lastEvent: Event | null = null;
 
 (function getLastEvent() {
-  // @ts-ignore
   if (lastEvent) {
     return;
   }

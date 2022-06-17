@@ -1,15 +1,66 @@
-export const baseRoutes = [
+import { GlobalStoreEnum } from '@/enums/global';
+import { AppRouteRecordRaw } from './types';
+
+export const RedirectName = 'Redirect';
+
+// export const ErrorPage = () => import( '@/views/exception/404.vue' );
+
+export const Layout = () => import('@/layout/PageLayout.vue');
+
+// export const ParentLayout = () => import( '@/layout/parentLayout.vue' );
+
+export const baseRoutes: AppRouteRecordRaw[] = [
   {
     path: '/',
-    redirect: '/sys/index',
+    name: 'home',
+    meta: {
+      title: 'global.home',
+    },
+    redirect: GlobalStoreEnum.HomeDefaultRoute,
   },
   {
-    path: '/sys',
+    path: '/admin',
+    name: 'admin',
+    meta: {
+      title: 'global.home',
+    },
     component: () => import('../layout/PageLayout.vue'),
     children: [
       {
-        path: 'index',
-        component: () => import('../views/base/index.vue'),
+        path: 'home',
+        name: 'adminHome',
+        meta: {
+          title: 'global.home',
+          affix: true,
+        },
+        component: () => import('../views/admin/home.vue'),
+      },
+      {
+        path: 'menu-setting',
+        name: 'menuSetting',
+        meta: {
+          title: 'global.menuSetting',
+          keepAlive: true,
+        },
+        component: () => import('../views/admin/menu/index.vue'),
+      },
+      {
+        path: 'role-setting',
+        name: 'roleSetting',
+        meta: {
+          title: 'global.roleSetting',
+          keepAlive: true,
+        },
+        component: () => import('../views/admin/roles/index.vue'),
+      },
+      {
+        path: 'user-setting',
+        name: 'userSetting',
+        meta: {
+          title: 'global.userSetting',
+          keepAlive: true,
+        },
+        component: () => import('../views/admin/user/index.vue'),
       },
     ],
   },
@@ -19,3 +70,24 @@ export const baseRoutes = [
     component: () => import('../views/base/authorization.vue'),
   },
 ];
+
+export const RedirectRoute: AppRouteRecordRaw = {
+  path: '/redirect',
+  name: RedirectName,
+  component: Layout,
+  meta: {
+    title: RedirectName,
+    hideBreadcrumb: true,
+  },
+  children: [
+    {
+      path: '/redirect/:path(.*)',
+      name: RedirectName,
+      component: () => import('@/views/redirect/index.vue'),
+      meta: {
+        title: RedirectName,
+        hideBreadcrumb: true,
+      },
+    },
+  ],
+};

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import { MsgError } from './types';
 import { getSelector, getLines, lastEvent } from './monitor';

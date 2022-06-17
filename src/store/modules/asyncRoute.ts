@@ -1,15 +1,14 @@
 import { defineStore } from 'pinia';
-import { DashboardOutlined } from '@vicons/antd';
-import globalApi from '@/api/global';
+import systemApi from '@/api/system';
 import { renderIcon } from '@/utils/renderMenu';
-import { Menu } from '#/config';
+import { Menu } from '#/api';
 
 export interface AsyncRouteState {
   keepAliveComponents: string[];
-  menus: Menu<any>[];
+  menus: Menu[];
 }
 
-export const RouteStore = defineStore({
+export const AsyncRouteStore = defineStore({
   id: 'asyncRoute',
   state: (): AsyncRouteState => ({
     keepAliveComponents: [],
@@ -22,12 +21,14 @@ export const RouteStore = defineStore({
     },
     async generateMenus() {
       // 生成路由
-      const res = await globalApi.getMenuList();
-      if (res.status === 200) {
+      const res = await systemApi.getUserMenuList({ userId: 2 });
+      if (res.code === 1) {
         this.menus = res.data.map((item) => ({
-          label: item.label,
-          key: item.key,
-          icon: renderIcon(DashboardOutlined),
+          id: item.id,
+          menucode: item.menucode,
+          label: item.locale,
+          key: item.link,
+          icon: renderIcon(item.icon),
         }));
       }
     },
