@@ -3,7 +3,7 @@ import { URLParams } from '@/utils/web/requestParams';
 import Request from '../utils/request';
 
 const http = new Request({
-  baseURL: import.meta.env.DEV ? '/api' : '',
+  baseURL: import.meta.env.DEV ? '/api' : import.meta.env.VITE_APP_API_URL,
   timeout: 2 * 60 * 1000,
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
