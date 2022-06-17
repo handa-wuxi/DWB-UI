@@ -3,6 +3,7 @@ import projectSetting from '@/config/projectSetting';
 import {
   MultiTabsSetting, CrumbsSetting, HeaderSetting, MenuSetting,
 } from '#/config';
+import { storage } from '@/utils/Storage';
 
 const {
   navMode,
@@ -40,8 +41,8 @@ export const ProjectSettingStore = defineStore({
   id: 'projectSetting',
   state: (): ProjectSettingState => ({
     navMode,
-    theme: false,
-    locale: '',
+    theme: storage.get('theme') || false,
+    locale: storage.get('locale') || 'zh-CN',
     collapsed: false,
     navTheme,
     pageAnimateType,
@@ -63,8 +64,8 @@ export const ProjectSettingStore = defineStore({
       return this.pageAnimateType;
     },
     locales() {
-      this.locale = window.navigator.language;
-      const modules = import.meta.globEager('../../locales/langs/**.ts');
+      this.locale = storage.get('locale') || 'zh-CN';
+      const modules = import.meta.globEager(`../../locales/langs/${storage.get('locale')}.ts`);
       const list = Object.keys(modules).map((item) => {
         const res = item.replace('../../locales/langs/', '').replace('.ts', '');
 
@@ -77,9 +78,14 @@ export const ProjectSettingStore = defineStore({
     async changeTheme(type = false) {
       this.theme = type;
       document.documentElement.className = type ? 'dark' : 'light';
+      storage.set('theme', type);
     },
     async changeCollapsed() {
       this.collapsed = !this.collapsed;
+    },
+    async setLocale(locale: string) {
+      this.locale = locale;
+      storage.set('locale', locale);
     },
     setIsMobile(value: boolean): void {
       this.isMobile = value;

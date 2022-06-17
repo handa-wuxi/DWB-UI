@@ -12,7 +12,7 @@
             type="primary"
             @click="showModal = true"
           >
-            添加用户
+            {{ t('admin.global.addUser') }}
           </n-button>
         </template>
       </BasicTable>
@@ -20,7 +20,7 @@
     <n-modal
       v-model:show="showModal"
       preset="dialog"
-      title="添加用户"
+      :title="t('admin.global.addUser')"
     >
       <n-form
         ref="formRef"
@@ -31,30 +31,30 @@
         class="py-4"
       >
         <n-form-item
-          label="账户名"
+          :label="t('admin.global.username')"
           path="username"
         >
           <n-input
             v-model:value="userFrom.username"
-            placeholder="请输入账户名"
+            :placeholder="t('global.inputPlaceholder',[t('admin.global.username')])"
           />
         </n-form-item>
         <n-form-item
-          label="工号"
+          :label="t('admin.global.empid')"
           path="empid"
         >
           <n-input
             v-model:value="userFrom.empid"
-            placeholder="请输入工号"
+            :placeholder="t('global.inputPlaceholder',[t('admin.global.empid')])"
           />
         </n-form-item>
         <n-form-item
-          label="姓名"
+          :label="t('admin.global.name')"
           path="empname"
         >
           <n-input
             v-model:value="userFrom.empname"
-            placeholder="请输入姓名"
+            :placeholder="t('global.inputPlaceholder',[t('admin.global.name')])"
           />
         </n-form-item>
       </n-form>
@@ -77,7 +77,7 @@
     <n-modal
       v-model:show="showRoleModal"
       preset="dialog"
-      title="设置用户角色"
+      :title="t('admin.global.setUserRole')"
     >
       <n-tree
         block-line
@@ -120,11 +120,12 @@ import { User } from '#/api';
 import { useTableSettings } from '@/hooks/setting/useTableSettings';
 
 const { t } = useI18n();
+
 const tableSettings = useTableSettings();
+
 const columns = tableSettings.genColumns({
   enableUser, disableUser, setUserRoles, resetPassword,
 });
-
 const message = useMessage();
 
 const loading = ref(false);
@@ -135,8 +136,8 @@ const submitBtnLoading = ref(false);
 const roles = ref<TreeOption[]>([]);
 const checkedKeys = ref<Array<number>>([]);
 const currentUser = ref<User | null>(null);
-
 const formRef = ref<FormInst>();
+
 const userFrom = reactive({
   username: '',
   empid: '',
@@ -144,13 +145,13 @@ const userFrom = reactive({
 });
 const rules: FormRules = {
   username: [
-    { required: true, message: '请输入账户名', trigger: 'blur' },
+    { required: true, message: t('global.inputPlaceholder', [t('admin.global.username')]), trigger: 'blur' },
   ],
   empid: [
-    { required: true, message: '请输入工号', trigger: 'blur' },
+    { required: true, message: t('global.inputPlaceholder', [t('admin.global.empid')]), trigger: 'blur' },
   ],
   empname: [
-    { required: true, message: '请输入姓名', trigger: 'blur' },
+    { required: true, message: t('global.inputPlaceholder', [t('admin.global.name')]), trigger: 'blur' },
   ],
 };
 
@@ -180,7 +181,7 @@ async function getUsers() {
 async function enableUser(user: User) {
   const res = await systemApi.enableUser({ userId: user.id });
   if (res.code === 1) {
-    message.success('启用成功');
+    message.success(t('admin.global.enableSuccess'));
     getUsers();
   } else {
     message.error(res.msg);
@@ -190,7 +191,7 @@ async function enableUser(user: User) {
 async function disableUser(user: User) {
   const res = await systemApi.disableUser({ userId: user.id });
   if (res.code === 1) {
-    message.success('禁用成功');
+    message.success(t('admin.global.unableSuccess'));
     getUsers();
   } else {
     message.error(res.msg);
@@ -203,7 +204,7 @@ function addUser() {
       submitBtnLoading.value = true;
       const res = await systemApi.addUser(userFrom);
       if (res.code === 1) {
-        message.success('添加成功');
+        message.success(t('admin.global.addSuccess'));
         getUsers();
         showModal.value = false;
       } else {
@@ -267,7 +268,7 @@ async function updateUserRoles() {
     roleIds: checkedKeys.value,
   });
   if (res.code === 1) {
-    message.success('设置成功');
+    message.success(t('admin.global.setSuccess'));
     getUsers();
   } else {
     message.error(res.msg);
@@ -278,7 +279,7 @@ async function updateUserRoles() {
 async function resetPassword(user: User) {
   const res = await systemApi.resetPassword({ userId: user.id, password: 'Aa123456' });
   if (res.code === 1) {
-    message.success('重置成功');
+    message.success(t('admin.global.resetSuccess'));
   } else {
     message.error(res.msg);
   }
@@ -286,6 +287,10 @@ async function resetPassword(user: User) {
 
 watch(() => checkedKeys, (value) => {
   console.log(value);
+});
+
+watch(() => t, (newVal) => {
+  console.log('newVal: ', newVal);
 });
 
 onBeforeMount(() => {

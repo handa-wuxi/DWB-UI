@@ -2,7 +2,9 @@ import { NButton, NSpace } from 'naive-ui';
 import { h } from 'vue';
 import { TableColumns } from 'naive-ui/lib/data-table/src/interface';
 import { User } from '#/api';
+import { createI18nInst } from '@/locales';
 
+const { t } = await createI18nInst();
 interface Config {
   enableUser: (user: User) => void
   disableUser: (user: User) => void
@@ -14,33 +16,33 @@ export function useTableSettings() {
   // 用户列表表头设置
   const genColumns = (config: Config): TableColumns<any> => [
     {
-      title: '工号',
+      title: t('admin.global.empid'),
       key: 'empid',
       align: 'center',
       width: 120,
     },
     {
-      title: '账户名',
+      title: t('admin.global.username'),
       key: 'username',
       width: 120,
     },
     {
-      title: '姓名',
+      title: t('global.name'),
       key: 'empname',
       width: 120,
     },
     {
-      title: '用户角色',
+      title: t('admin.global.userRoles'),
       key: 'roles',
       width: 120,
     },
     {
-      title: '创建时间',
+      title: t('global.createOn'),
       key: 'createon',
       width: 200,
     },
     {
-      title: '状态',
+      title: t('global.state'),
       key: 'state',
       width: 160,
       align: 'center',
@@ -56,7 +58,7 @@ export function useTableSettings() {
               disabled: row.state === 1,
               onClick: () => config.enableUser(row),
             },
-            { default: () => (row.state === 0 ? '启用' : '已启用') },
+            { default: () => t(row.state === 0 ? 'global.enable' : 'global.enabled') },
           ),
           h(
             NButton,
@@ -68,13 +70,13 @@ export function useTableSettings() {
               disabled: row.state === 0,
               onClick: () => config.disableUser(row),
             },
-            { default: () => (row.state === 1 ? '禁用' : '已禁用') },
+            { default: () => t(row.state === 1 ? 'global.disable' : 'global.disabled') },
           ),
         ];
       },
     },
     {
-      title: '操作',
+      title: t('global.operate'),
       key: 'action',
       align: 'center',
       fixed: 'right',
@@ -94,7 +96,7 @@ export function useTableSettings() {
                 size: 'small',
                 onClick: () => config.setUserRoles(row),
               },
-              { default: () => '角色设置' },
+              { default: () => t('admin.global.roleSetting') },
             ),
             h(
               NButton,
@@ -103,7 +105,7 @@ export function useTableSettings() {
                 size: 'small',
                 onClick: () => config.resetPassword(row),
               },
-              { default: () => '重置密码' },
+              { default: () => t('global.reset', [t('global.password')]) },
             ),
           ],
         );

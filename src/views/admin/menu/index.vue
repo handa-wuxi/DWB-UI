@@ -36,7 +36,7 @@
           <div class="w-full menu">
             <NInput
               v-model:value="pattern"
-              :placeholder="t('admin.menu.menuPlaceholder')"
+              :placeholder="t('admin.global.menuPlaceholder')"
             >
               <template #suffix>
                 <NIcon
@@ -85,7 +85,7 @@
               >
                 <FormOutlined />
               </NIcon>
-              <span>{{ t('admin.menu.editMenu') }}
+              <span>{{ t('admin.global.editMenu') }}
                 {{ treeItemTitle ? `：${t(treeItemTitle)}` : '' }}</span>
             </NSpace>
           </template>
@@ -93,7 +93,7 @@
             type="info"
             closable
           >
-            {{ t('admin.menu.editMenuTip') }}
+            {{ t('admin.global.editMenuTip') }}
           </NAlert>
           <NForm
             v-if="isEditMenu"
@@ -111,21 +111,21 @@
               <span>{{ formParams.type === 1 ? t('global.siderMenu') : '' }}</span>
             </NFormItem>
             <NFormItem
-              :label="t('global.title')"
+              :label="t('admin.global.menuName')"
               path="label"
             >
               <NInput
                 v-model:value="formParams.label"
-                :placeholder="t('global.inputPlaceholder',[t('global.title')])"
+                :placeholder="t('global.inputPlaceholder',[t('admin.global.menuName')])"
               />
             </NFormItem>
             <NFormItem
-              :label="t('global.subTitle')"
+              :label="t('admin.global.localeKey')"
               path="subtitle"
             >
               <NInput
                 v-model:value="formParams.subtitle"
-                :placeholder="t('global.inputPlaceholder',[t('global.subTitle')])"
+                :placeholder="t('global.inputPlaceholder',[t('admin.global.localeKey')])"
               />
             </NFormItem>
             <NFormItem
@@ -138,7 +138,7 @@
               />
             </NFormItem>
             <NFormItem
-              :label="t('admin.menu.openType')"
+              :label="t('admin.global.openType')"
               path="openType"
             >
               <NRadioGroup
@@ -147,21 +147,21 @@
               >
                 <NSpace>
                   <NRadio :value="1">
-                    {{ t('admin.menu.currentWindow') }}
+                    {{ t('admin.global.currentWindow') }}
                   </NRadio>
                   <NRadio :value="2">
-                    {{ t('admin.menu.newWindow') }}
+                    {{ t('admin.global.newWindow') }}
                   </NRadio>
                 </NSpace>
               </NRadioGroup>
             </NFormItem>
             <NFormItem
-              :label="t('admin.menu.menuAuth')"
+              :label="t('admin.global.menuAuth')"
               path="auth"
             >
               <NInput
                 v-model:value="formParams.auth"
-                :placeholder="t('admin.menu.authPlaceholder')"
+                :placeholder="t('admin.global.authPlaceholder')"
               />
             </NFormItem>
             <NFormItem
@@ -203,20 +203,20 @@ import {
 import { useI18n } from 'vue-i18n';
 import { useAsyncRouteStore } from '@/store';
 
+const { t } = useI18n();
+
 const rules = {
   label: {
     required: true,
-    message: '请输入标题',
+    message: t('admin.global.inputTitle'),
     trigger: 'blur',
   },
   key: {
     required: true,
-    message: '请输入路径',
+    message: t('admin.global.inputPath'),
     trigger: 'blur',
   },
 };
-
-const { t } = useI18n();
 
 const rs = useAsyncRouteStore();
 
@@ -258,15 +258,15 @@ function renderLabel({ option }: { option: TreeOption }) {
 
 function handleDel() {
   dialog.info({
-    title: '提示',
+    title: t('dialog.tip'),
     content: '您确定想删除此权限吗?',
-    positiveText: '确定',
-    negativeText: '取消',
+    positiveText: t('global.confirm'),
+    negativeText: t('global.cancel'),
     onPositiveClick: () => {
-      message.success('删除成功');
+      message.success(t('global.delete', { msg: t('global.success') }));
     },
     onNegativeClick: () => {
-      message.error('已取消');
+      message.error(t('global.cancel', { msg: t('global.success') }));
     },
   });
 }
@@ -278,9 +278,9 @@ function handleReset() {
 function formSubmit() {
   formRef.value?.validate((errors) => {
     if (!errors) {
-      message.error('抱歉，您没有该权限');
+      message.error(t('admin.global.noAuthTip'));
     } else {
-      message.error('请填写完整信息');
+      message.error(t('admin.global.enterAllInfo'));
     }
   });
 }

@@ -11,7 +11,7 @@
               type="primary"
               @click="addRole"
             >
-              添加权限
+              {{ t('admin.global.addPermission') }}
             </n-button>
           </template>
         </BasicTable>
@@ -21,7 +21,10 @@
 </template>
 <script lang="ts" setup name="RoleSetting">
 import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { BasicTable } from '@/components/BasicTable';
+
+const { t } = useI18n();
 
 const columns = [
   {
@@ -29,11 +32,11 @@ const columns = [
     key: 'id',
   },
   {
-    title: '姓名',
+    title: t('global.name'),
     key: 'username',
   },
   {
-    title: '创建时间',
+    title: t('global.createOn'),
     key: 'createon',
   },
 ];

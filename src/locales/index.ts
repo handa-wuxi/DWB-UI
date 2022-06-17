@@ -3,12 +3,13 @@
  * @Author: 周顺顺 idioticzhou@foxmail.com
  * @Date: 2022-05-09 15:21:50
  * @LastEditors: 周顺顺 idioticzhou@foxmail.com
- * @LastEditTime: 2022-06-17 08:43:15
+ * @LastEditTime: 2022-06-17 15:51:59
  * @FilePath: /DWB-UI/src/locales/index.ts
  * @Description: 多语言模块设置
  */
 import { App } from 'vue';
 import { createI18n, I18nOptions } from 'vue-i18n';
+import { storage } from '@/utils/Storage';
 
 let i18n: ReturnType<typeof createI18n>;
 
@@ -24,6 +25,33 @@ function getTree(fileName: string, obj: RawObject, target: RawObject) {
     obj[del[0]] = {};
   }
   getTree(list.join('/'), obj[del[0]], target);
+}
+
+export function getAllMessage() {
+  const list = import.meta.globEager('./langs/**.ts');
+  let messages: RawObject = {};
+  Object.keys(list).forEach((key) => {
+    const name = key.replace('./langs/', '').replace('.ts', '');
+    messages = {
+      ...messages,
+      [name]: list[key].default?.message ?? {},
+    };
+    // Object.defineProperty(message, name, { value: list[key].default?.message ?? {} });
+  });
+  return messages;
+}
+
+async function createI18nOptions(): Promise<I18nOptions> {
+  const locale = storage.get('locale');
+  const defaultLocal = await import(`./langs/${locale}.ts`);
+  // const messages = getAllMessage();
+  const messages = defaultLocal.default?.message ?? {};
+  return {
+    locale,
+    messages: {
+      [locale]: messages,
+    },
+  };
 }
 
 /**
@@ -44,34 +72,14 @@ export function genMessage(
   return obj;
 }
 
-function getAllMessage() {
-  const list = import.meta.globEager('./langs/**.ts');
-  let messages: RawObject = {};
-  Object.keys(list).forEach((key) => {
-    const name = key.replace('./langs/', '').replace('.ts', '');
-    messages = {
-      ...messages,
-      [name]: list[key].default?.message ?? {},
-    };
-    // Object.defineProperty(message, name, { value: list[key].default?.message ?? {} });
-  });
-  return messages;
-}
-
-async function createI18nOptions(): Promise<I18nOptions> {
-  const locale = window.navigator.language;
-  // const defaultLocal = await import(`./langs/${locale}.ts`);
-  const messages = getAllMessage();
-  // const message = defaultLocal.default?.message ?? {};
-  return {
-    locale,
-    messages,
-  };
-}
-
-export const setupI18n = async (app: App<Element>) => {
+export const createI18nInst = async () => {
   const option = await createI18nOptions();
   i18n = createI18n(option);
+  return { ...i18n.global };
+};
+
+export const setupI18n = async (app: App<Element>) => {
+  await createI18nInst();
   app.use(i18n);
 };
 

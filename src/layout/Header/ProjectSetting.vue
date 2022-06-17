@@ -17,6 +17,7 @@
           <NTooltip placement="bottom">
             <template #trigger>
               <NSwitch
+                v-model:value="theme"
                 :on-update:value="changeTheme"
                 rubber-band
                 size="large"
@@ -134,6 +135,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { Placement } from 'naive-ui/lib/drawer/src/DrawerBodyWrapper';
+import { storeToRefs } from 'pinia';
 import { animates as animateOptions } from '@/config/animateSetting';
 import { useProjectSettingStore, useDesignSettingStore } from '@/store';
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
@@ -158,6 +160,7 @@ const { appThemeList } = ds;
 
 const isDrawer = ref(false);
 const placement = ref<Placement>('right');
+const { theme } = storeToRefs(ps);
 
 function togTheme(color) {
   ds.appTheme = color;

@@ -93,7 +93,7 @@
               />
             </n-icon>
           </template>
-          <span>全屏</span>
+          <span>{{ t('global.fullScreen') }}</span>
         </n-tooltip>
       </div>
       <!-- 中英文切换 -->
@@ -137,7 +137,7 @@
               <SettingOutlined />
             </n-icon>
           </template>
-          <span>项目配置</span>
+          <span>{{ t('global.projectConfig') }}</span>
         </n-tooltip>
       </div>
     </div>
@@ -148,7 +148,7 @@
 
 <script lang="ts" setup>
 import {
-  reactive, ref, computed, unref, shallowRef,
+  reactive, ref, computed, unref, shallowRef, watchEffect,
 } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useDialog, useMessage } from 'naive-ui';
@@ -157,7 +157,6 @@ import {
   MenuFoldOutlined, LockOutlined, FullscreenExitOutlined,
   FullscreenOutlined, MenuUnfoldOutlined, ReloadOutlined, SettingOutlined, UserOutlined,
 } from '@vicons/antd';
-import { storeToRefs } from 'pinia';
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 import { useLockScreenStore, useProjectSettingStore, useUserStore } from '@/store';
 import ProjectSetting from './ProjectSetting.vue';
@@ -187,9 +186,19 @@ const {
 } = useProjectSetting();
 
 const { username } = userStore?.info || {};
+const locales = [
+  {
+    label: '中文',
+    key: 'zh-CN',
+  },
+  {
+    label: 'English',
+    key: 'en-US',
+  },
+];
 
 const drawerSetting = ref();
-const { locales } = storeToRefs(ps);
+
 const localeLabel = ref('中文');
 const fullscreenIcon = shallowRef(FullscreenOutlined);
 const state = reactive({
@@ -206,7 +215,7 @@ const route = useRoute();
 const generator: any = (routerMap) => routerMap.map((item) => {
   const currentMenu = {
     ...item,
-    label: item.meta.title,
+    label: t(item.meta.title),
     key: item.name,
     disabled: item.path === '/',
   };
@@ -234,13 +243,13 @@ const reloadPage = () => {
 // 退出登录
 const doLogout = () => {
   dialog.info({
-    title: '提示',
-    content: '您确定要退出登录吗',
-    positiveText: '确定',
-    negativeText: '取消',
+    title: t('dialog.tip'),
+    content: t('dialog.sureLogout'),
+    positiveText: t('global.confirm'),
+    negativeText: t('global.cancel'),
     onPositiveClick: () => {
       userStore.logout().then(() => {
-        message.success('成功退出登录');
+        message.success(t('dialog.logoutSuccess'));
         // 移除标签页
         localStorage.removeItem(GlobalStoreEnum.TabRoutes);
         router
@@ -280,7 +289,7 @@ const toggleFullScreen = () => {
 const iconList = [
   {
     icon: LockOutlined,
-    tips: 'admin.header.lockScreen',
+    tips: 'global.lockScreen',
     eventObject: {
       click: () => useLockScreen.setLock(true),
     },
@@ -288,11 +297,11 @@ const iconList = [
 ];
 const avatarOptions = [
   {
-    label: '个人设置',
+    label: t('global.personSetting'),
     key: 1,
   },
   {
-    label: '退出登录',
+    label: t('global.logout'),
     key: 2,
   },
 ];
@@ -317,10 +326,18 @@ function openSetting() {
 }
 
 function handleSelect(key: string) {
-  localeLabel.value = locales.value.filter((item) => item.key === key)[0].label;
+  localeLabel.value = locales.filter((item) => item.key === key)[0].label;
   i18n.global.locale = key;
-  ps.locale = key;
+  if (key !== ps.locale) {
+    window.location.reload();
+  }
+  ps.setLocale(key);
 }
+
+watchEffect(() => {
+  const { locale } = ps;
+  handleSelect(locale);
+});
 
 </script>
 
