@@ -22,13 +22,13 @@
                 v-model:checked="state.checkAll"
                 @update:checked="onCheckAll"
               >
-                {{ t('component.global.showCol') }}
+                {{ t('basicTable.showCol') }}
               </n-checkbox>
               <n-checkbox
                 v-model:checked="state.selection"
                 @update:checked="onSelection"
               >
-                {{ t('component.global.selectCol') }}
+                {{ t('basicTable.selectCol') }}
               </n-checkbox>
               <n-button
                 text
@@ -93,7 +93,7 @@
                           <VerticalRightOutlined />
                         </n-icon>
                       </template>
-                      <span>{{ t('component.global.fixedToLeft') }}</span>
+                      <span>{{ t('basicTable.fixedToLeft') }}</span>
                     </n-tooltip>
                     <n-divider vertical />
                     <n-tooltip
@@ -111,7 +111,7 @@
                           <VerticalLeftOutlined />
                         </n-icon>
                       </template>
-                      <span>{{ t('component.global.fixedToRight') }}</span>
+                      <span>{{ t('basicTable.fixedToRight') }}</span>
                     </n-tooltip>
                   </div>
                 </div>
@@ -121,7 +121,7 @@
         </div>
       </n-popover>
     </template>
-    <span>{{ t('component.global.columnSettings') }}</span>
+    <span>{{ t('basicTable.columnSettings') }}</span>
   </n-tooltip>
 </template>
 <script setup lang="ts" name="CustomSettings">

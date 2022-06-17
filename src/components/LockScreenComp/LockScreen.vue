@@ -11,7 +11,7 @@
         <div class="lock">
           <span
             class="lock-icon"
-            title="解锁屏幕"
+            :title="t('lockScreen.unLockScreen')"
             @click="onLockLogin(true)"
           >
             <n-icon>
@@ -23,9 +23,9 @@
       <!--充电-->
       <recharge
         :battery="battery"
-        :battery-status="batteryStatus"
-        :calc-discharging-time="calcDischargingTime"
-        :calc-charging-time="calcChargingTime"
+        :battery-status="t(batteryStatus)"
+        :calc-discharging-time="t('lockScreen.batteryTime', calcDischargingTime)"
+        :calc-charging-time="t('lockScreen.batteryTime', calcChargingTime)"
       />
 
       <div class="local-time">
@@ -33,7 +33,9 @@
           {{ hour }}:{{ minute }}
         </div>
         <div class="date">
-          {{ month }}月{{ day }}号，星期{{ week }}
+          {{ t(`global.months[${month}]`) }}
+          {{ day + t('global.d') }}
+          {{ t(`global.weeks[${week}]`) }}
         </div>
       </div>
       <div class="computer-status">
@@ -62,7 +64,7 @@
           v-model:value="state.loginParams.password"
           type="password"
           autofocus
-          placeholder="请输入登录密码"
+          :placeholder="t('lockScreen.enterSysPwd')"
           @keyup.enter="onLogin"
         >
           <template #suffix>
@@ -84,9 +86,9 @@
         </div>
 
         <div class="w-full mt-1 flex justify-around">
-          <div><a @click="state.showLogin = false">返回</a></div>
-          <div><a @click="goLogin">重新登录</a></div>
-          <div><a @click="onLogin">进入系统</a></div>
+          <div><a @click="state.showLogin = false">{{ t('global.return') }}</a></div>
+          <div><a @click="goLogin">{{ t('lockScreen.reLogin') }}</a></div>
+          <div><a @click="onLogin">{{ t('lockScreen.enterSys') }}</a></div>
         </div>
       </div>
     </template>
@@ -103,12 +105,14 @@ import {
   ArrowRightOutlined,
   WifiOutlined,
 } from '@vicons/antd';
+import { useI18n } from 'vue-i18n';
 import recharge from './Recharge.vue';
 import { useLockScreenStore, useUserStore } from '../../store';
 import { useBattery } from '../../hooks/useBattery';
 import { useOnline } from '../../hooks/useOnline';
 import { useTime } from '../../hooks/useTime';
 
+const { t } = useI18n();
 const useLockScreen = useLockScreenStore();
 const userStore = useUserStore();
 
@@ -126,7 +130,7 @@ const state = reactive({
   showLogin: false,
   loginLoading: false, // 正在登录
   isLoginError: false, // 密码错误
-  errorMsg: '密码错误',
+  errorMsg: t('lockScreen.passwordError'),
   loginParams: {
     username: username || '',
     password: '',

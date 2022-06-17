@@ -93,7 +93,7 @@
               />
             </n-icon>
           </template>
-          <span>全屏</span>
+          <span>{{ t('global.fullScreen') }}</span>
         </n-tooltip>
       </div>
       <!-- 中英文切换 -->
@@ -137,7 +137,7 @@
               <SettingOutlined />
             </n-icon>
           </template>
-          <span>项目配置</span>
+          <span>{{ t('global.projectConfig') }}</span>
         </n-tooltip>
       </div>
     </div>
@@ -206,7 +206,7 @@ const route = useRoute();
 const generator: any = (routerMap) => routerMap.map((item) => {
   const currentMenu = {
     ...item,
-    label: item.meta.title,
+    label: t(item.meta.title),
     key: item.name,
     disabled: item.path === '/',
   };
@@ -234,13 +234,13 @@ const reloadPage = () => {
 // 退出登录
 const doLogout = () => {
   dialog.info({
-    title: '提示',
-    content: '您确定要退出登录吗',
-    positiveText: '确定',
-    negativeText: '取消',
+    title: t('dialog.tip'),
+    content: t('dialog.sureLogout'),
+    positiveText: t('global.confirm'),
+    negativeText: t('global.cancel'),
     onPositiveClick: () => {
       userStore.logout().then(() => {
-        message.success('成功退出登录');
+        message.success(t('dialog.logoutSuccess'));
         // 移除标签页
         localStorage.removeItem(GlobalStoreEnum.TabRoutes);
         router
@@ -280,7 +280,7 @@ const toggleFullScreen = () => {
 const iconList = [
   {
     icon: LockOutlined,
-    tips: 'admin.header.lockScreen',
+    tips: 'global.lockScreen',
     eventObject: {
       click: () => useLockScreen.setLock(true),
     },
@@ -288,11 +288,11 @@ const iconList = [
 ];
 const avatarOptions = [
   {
-    label: '个人设置',
+    label: t('global.personSetting'),
     key: 1,
   },
   {
-    label: '退出登录',
+    label: t('global.logout'),
     key: 2,
   },
 ];

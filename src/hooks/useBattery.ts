@@ -36,24 +36,24 @@ export const useBattery = () => {
   const calcDischargingTime = computed(() => {
     const hour = state.battery.dischargingTime / 3600;
     const minute = (state.battery.dischargingTime / 60) % 60;
-    return `${~~hour}小时${~~minute}分钟`;
+    return [~~hour, ~~minute];
   });
 
   // 计算电池充满剩余时间
   const calcChargingTime = computed(() => {
     const hour = state.battery.chargingTime / 3600;
     const minute = (state.battery.chargingTime / 60) % 60;
-    return `${~~hour}小时${~~minute}分钟`;
+    return [~~hour, ~~minute];
   });
 
   // 电池状态
   const batteryStatus = computed(() => {
     if (state.battery.charging && state.battery.level >= 100) {
-      return '已充满';
+      return 'lockScreen.batteryState[1]';
     } if (state.battery.charging) {
-      return '充电中';
+      return 'lockScreen.batteryState[0]';
     }
-    return '已断开电源';
+    return 'lockScreen.batteryState[2]';
   });
 
   onMounted(async () => {

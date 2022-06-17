@@ -7,7 +7,8 @@ export function useTime() {
   let timer; // 定时器
   const year = ref(0); // 年份
   const month = ref(0); // 月份
-  const week = ref(''); // 星期几
+  const weekStr = ref(''); // 星期几
+  const week = ref(0); // 星期几
   const day = ref(0); // 天数
   const hour = ref<number | string>(0); // 小时
   const minute = ref<number | string>(0); // 分钟
@@ -18,7 +19,8 @@ export function useTime() {
     const date = new Date();
     year.value = date.getFullYear();
     month.value = date.getMonth() + 1;
-    week.value = '日一二三四五六'.charAt(date.getDay());
+    week.value = date.getDay();
+    weekStr.value = '日一二三四五六'.charAt(week.value);
     day.value = date.getDate();
     hour.value = (`${date.getHours()}`)?.padStart(2, '0')
       || new Intl.NumberFormat(undefined, { minimumIntegerDigits: 2 }).format(date.getHours());
@@ -50,6 +52,6 @@ export function useTime() {
   });
 
   return {
-    month, day, hour, minute, second, week,
+    month, day, hour, minute, second, week, weekStr,
   };
 }

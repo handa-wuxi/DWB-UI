@@ -15,44 +15,42 @@
     <div class="charging">
       <div>{{ batteryStatus }}</div>
       <div v-show="Number.isFinite(battery.dischargingTime) && battery.dischargingTime != 0">
-        剩余可使用时间：{{ calcDischargingTime }}
+        {{ t('lockScreen.timeRemaining') }}：{{ calcDischargingTime }}
       </div>
       <span v-show="Number.isFinite(battery.chargingTime) && battery.chargingTime != 0">
-        距离电池充满需要：{{ calcChargingTime }}
+        {{ t('lockScreen.fullNeed') }}：{{ calcChargingTime }}
       </span>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup name="HuaweiCharge">
+import { useI18n } from 'vue-i18n';
 
-export default defineComponent({
-  name: 'HuaweiCharge',
-  // props: ['batteryStatus', 'battery', 'calcDischargingTime'],
-  props: {
-    battery: {
-      // 电池对象
-      type: Object,
-      default: () => ({}),
-    },
-    calcDischargingTime: {
-      // 电池剩余时间可用时间
-      type: String,
-      default: '',
-    },
-    calcChargingTime: {
-      type: String,
-      default: '',
-    },
-    batteryStatus: {
-      // 电池状态
-      type: String,
-      validator: (val: string) => ['充电中', '已充满', '已断开电源'].includes(val),
-      default: '充电中',
-    },
+const { t } = useI18n();
+
+defineProps({
+  battery: {
+    // 电池对象
+    type: Object,
+    default: () => ({}),
+  },
+  calcDischargingTime: {
+    // 电池剩余时间可用时间
+    type: String,
+    default: '',
+  },
+  calcChargingTime: {
+    type: String,
+    default: '',
+  },
+  batteryStatus: {
+    // 电池状态
+    type: String,
+    default: '',
   },
 });
+
 </script>
 
 <style lang="less" scoped>

@@ -29,7 +29,7 @@
                 <ColumnHeightOutlined />
               </n-icon>
             </template>
-            <span>{{ t('component.global.density') }}</span>
+            <span>{{ t('basicTable.density') }}</span>
           </n-tooltip>
         </n-dropdown>
         <!-- 自定义工具栏 -->
@@ -108,15 +108,15 @@ const size = ref<'small' | 'medium' | 'large'>('medium');
 
 const densityOption = [
   {
-    label: t('component.global.small'),
+    label: t('basicTable.small'),
     key: 'small',
   },
   {
-    label: t('component.global.medium'),
+    label: t('basicTable.medium'),
     key: 'medium',
   },
   {
-    label: t('component.global.large'),
+    label: t('basicTable.large'),
     key: 'large',
   },
 ];

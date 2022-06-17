@@ -3,7 +3,7 @@
  * @Author: 周顺顺 idioticzhou@foxmail.com
  * @Date: 2022-05-09 15:21:50
  * @LastEditors: 周顺顺 idioticzhou@foxmail.com
- * @LastEditTime: 2022-06-17 08:43:15
+ * @LastEditTime: 2022-06-17 14:04:18
  * @FilePath: /DWB-UI/src/locales/index.ts
  * @Description: 多语言模块设置
  */
@@ -24,24 +24,6 @@ function getTree(fileName: string, obj: RawObject, target: RawObject) {
     obj[del[0]] = {};
   }
   getTree(list.join('/'), obj[del[0]], target);
-}
-
-/**
- * @param {Record<string, RawObject>} msg 文件模块
- * @param {string} prefix 指定语言类型
- * @returns RawObject>
- */
-export function genMessage(
-  msg: Record<string, RawObject>,
-  prefix: string,
-): RawObject {
-  const obj: RawObject = {};
-  Object.keys(msg).forEach((key) => {
-    const fileModule = msg[key].default;
-    const fileName = key.replace(`./${prefix}/`, '').replace('.ts', '');
-    getTree(fileName, obj, fileModule);
-  });
-  return obj;
 }
 
 function getAllMessage() {
@@ -67,6 +49,24 @@ async function createI18nOptions(): Promise<I18nOptions> {
     locale,
     messages,
   };
+}
+
+/**
+ * @param {Record<string, RawObject>} msg 文件模块
+ * @param {string} prefix 指定语言类型
+ * @returns RawObject>
+ */
+export function genMessage(
+  msg: Record<string, RawObject>,
+  prefix: string,
+): RawObject {
+  const obj: RawObject = {};
+  Object.keys(msg).forEach((key) => {
+    const fileModule = msg[key].default;
+    const fileName = key.replace(`./${prefix}/`, '').replace('.ts', '');
+    getTree(fileName, obj, fileModule);
+  });
+  return obj;
 }
 
 export const setupI18n = async (app: App<Element>) => {
