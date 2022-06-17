@@ -276,7 +276,7 @@ async function updateUserRoles() {
 }
 
 async function resetPassword(user: User) {
-  const res = await systemApi.resetPassword({ userId: user.id, password: '123456' });
+  const res = await systemApi.resetPassword({ userId: user.id, password: 'Aa123456' });
   if (res.code === 1) {
     message.success('重置成功');
   } else {

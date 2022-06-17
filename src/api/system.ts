@@ -106,7 +106,7 @@ const systemApi = {
     };
 
     return http.request({
-      url: '/system/resetPassword',
+      url: '/system/setUserPassword',
       method: 'post',
       data,
     });
