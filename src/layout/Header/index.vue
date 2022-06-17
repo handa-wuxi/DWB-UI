@@ -148,7 +148,7 @@
 
 <script lang="ts" setup>
 import {
-  reactive, ref, computed, unref, shallowRef,
+  reactive, ref, computed, unref, shallowRef, watchEffect,
 } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useDialog, useMessage } from 'naive-ui';
@@ -157,7 +157,6 @@ import {
   MenuFoldOutlined, LockOutlined, FullscreenExitOutlined,
   FullscreenOutlined, MenuUnfoldOutlined, ReloadOutlined, SettingOutlined, UserOutlined,
 } from '@vicons/antd';
-import { storeToRefs } from 'pinia';
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 import { useLockScreenStore, useProjectSettingStore, useUserStore } from '@/store';
 import ProjectSetting from './ProjectSetting.vue';
@@ -187,9 +186,19 @@ const {
 } = useProjectSetting();
 
 const { username } = userStore?.info || {};
+const locales = [
+  {
+    label: '中文',
+    key: 'zh-CN',
+  },
+  {
+    label: 'English',
+    key: 'en-US',
+  },
+];
 
 const drawerSetting = ref();
-const { locales } = storeToRefs(ps);
+
 const localeLabel = ref('中文');
 const fullscreenIcon = shallowRef(FullscreenOutlined);
 const state = reactive({
@@ -317,10 +326,18 @@ function openSetting() {
 }
 
 function handleSelect(key: string) {
-  localeLabel.value = locales.value.filter((item) => item.key === key)[0].label;
+  localeLabel.value = locales.filter((item) => item.key === key)[0].label;
   i18n.global.locale = key;
-  ps.locale = key;
+  if (key !== ps.locale) {
+    window.location.reload();
+  }
+  ps.setLocale(key);
 }
+
+watchEffect(() => {
+  const { locale } = ps;
+  handleSelect(locale);
+});
 
 </script>
 
