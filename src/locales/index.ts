@@ -3,7 +3,7 @@
  * @Author: 周顺顺 idioticzhou@foxmail.com
  * @Date: 2022-05-09 15:21:50
  * @LastEditors: 周顺顺 idioticzhou@foxmail.com
- * @LastEditTime: 2022-06-14 16:46:25
+ * @LastEditTime: 2022-06-17 08:43:15
  * @FilePath: /DWB-UI/src/locales/index.ts
  * @Description: 多语言模块设置
  */
@@ -12,7 +12,7 @@ import { createI18n, I18nOptions } from 'vue-i18n';
 
 let i18n: ReturnType<typeof createI18n>;
 
-function getTree(fileName: string, obj: Record<string, any>, target: Record<string, any>) {
+function getTree(fileName: string, obj: RawObject, target: RawObject) {
   const list = fileName.split('/');
   const del = list.splice(0, 1);
 
@@ -27,15 +27,15 @@ function getTree(fileName: string, obj: Record<string, any>, target: Record<stri
 }
 
 /**
- * @param {Record<string, Record<string, any>>} msg 文件模块
+ * @param {Record<string, RawObject>} msg 文件模块
  * @param {string} prefix 指定语言类型
- * @returns Record<string, any>>
+ * @returns RawObject>
  */
 export function genMessage(
-  msg: Record<string, Record<string, any>>,
+  msg: Record<string, RawObject>,
   prefix: string,
-): Record<string, any> {
-  const obj: Record<string, any> = {};
+): RawObject {
+  const obj: RawObject = {};
   Object.keys(msg).forEach((key) => {
     const fileModule = msg[key].default;
     const fileName = key.replace(`./${prefix}/`, '').replace('.ts', '');
@@ -46,7 +46,7 @@ export function genMessage(
 
 function getAllMessage() {
   const list = import.meta.globEager('./langs/**.ts');
-  let messages: Record<string, any> = {};
+  let messages: RawObject = {};
   Object.keys(list).forEach((key) => {
     const name = key.replace('./langs/', '').replace('.ts', '');
     messages = {

@@ -173,7 +173,7 @@ export default defineComponent({
 
     const getBaseColor = computed(() => themeVars.value.textColor1);
     // 标签页列表
-    const tabsList: any = computed(() => tabsViewStore.tabs);
+    const tabsList = computed((): RawObject[] => tabsViewStore.tabs);
 
     const state = reactive({
       activeKey: route.fullPath,

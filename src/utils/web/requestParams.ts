@@ -1,4 +1,4 @@
-export function URLParams(params:Record<string, any>) {
+export function URLParams(params: RawObject) {
   const p = new URLSearchParams(params);
   return p;
 }

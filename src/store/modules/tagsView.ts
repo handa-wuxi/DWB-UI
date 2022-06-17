@@ -20,7 +20,7 @@ interface TabsViewState {
 const whiteList = ['Redirect', 'login'];
 
 // 保留固定路由
-function retainAffixRoute(list: any[]) {
+function retainAffixRoute(list: RouteItem[]) {
   return list.filter((item) => item?.meta?.affix ?? false);
 }
 
@@ -31,7 +31,7 @@ export const TabsViewStore = defineStore({
     currentTagIndex: 0,
   }),
   getters: {
-    getTabs(): any[] {
+    getTabs(): RawObject[] {
       return this.tabs;
     },
   },

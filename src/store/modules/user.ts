@@ -9,8 +9,8 @@ export interface IUserState {
   username: string;
   welcome: string;
   avatar: string;
-  permissions: any[];
-  info: any;
+  permissions: RawObject[];
+  info: RawObject;
 }
 
 export const UserStore = defineStore({
@@ -33,7 +33,7 @@ export const UserStore = defineStore({
     getNickname(): string {
       return this.username;
     },
-    getPermissions(): [any][] {
+    getPermissions(): RawObject[] {
       return this.permissions;
     },
     getUserInfo(): object {

@@ -194,7 +194,9 @@
 import {
   ref, unref, reactive, onMounted, computed,
 } from 'vue';
-import { TreeOption, useDialog, useMessage } from 'naive-ui';
+import {
+  FormInst, TreeOption, useDialog, useMessage,
+} from 'naive-ui';
 import {
   AlignLeftOutlined, SearchOutlined, FormOutlined,
 } from '@vicons/antd';
@@ -218,7 +220,7 @@ const { t } = useI18n();
 
 const rs = useAsyncRouteStore();
 
-const formRef: any = ref(null);
+const formRef = ref<FormInst>();
 const message = useMessage();
 const dialog = useDialog();
 
@@ -274,7 +276,7 @@ function handleReset() {
 }
 
 function formSubmit() {
-  formRef.value.validate((errors: boolean) => {
+  formRef.value?.validate((errors) => {
     if (!errors) {
       message.error('抱歉，您没有该权限');
     } else {
@@ -287,7 +289,7 @@ function packHandle() {
   if (expandedKeys.value.length) {
     expandedKeys.value = [];
   } else {
-    expandedKeys.value = unref(treeData).map((item: any) => item.key as string) as [];
+    expandedKeys.value = unref(treeData).map((item) => item.key as string) as [];
   }
 }
 

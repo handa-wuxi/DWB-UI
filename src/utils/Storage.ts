@@ -85,7 +85,7 @@ export const createStorage = ({ prefixKey = '', storage = localStorage } = {}) =
      * 如果过期时间为设置，默认关闭浏览器自动删除
      * @example
      */
-    setCookie(name: string, value: any, expire: number | null = DEFAULT_CACHE_TIME) {
+    setCookie(name: string, value: RawObject | number, expire: number | null = DEFAULT_CACHE_TIME) {
       document.cookie = `${this.getKey(name)}=${value}; Max-Age=${expire}`;
     }
 

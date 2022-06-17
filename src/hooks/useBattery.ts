@@ -8,7 +8,10 @@ interface Battery {
   chargingTime: number; // 距离充电完毕还需多少秒，如果为0则充电完毕
   dischargingTime: number; // 代表距离电池耗电至空且挂起需要多少秒
   level: number; // 代表电量的放大等级，这个值在 0.0 至 1.0 之间
-  [key: string]: any;
+  onChargingChange: (args: { target: Battery }) => void; // 当电池状态发生变化时触发
+  onChargingTimeChange: (args: { target: Battery }) => void; // 当电池充电时间发生变化时触发
+  onDisChargingTimeChange: (args: { target: Battery }) => void; // 当电池耗电时间发生变化时触发
+  onLevelChange: (args: { target: Battery }) => void; // 当电池电量发生变化时触发
 }
 
 export const useBattery = () => {
@@ -58,19 +61,19 @@ export const useBattery = () => {
     updateBattery(BatteryManager);
 
     // 电池充电状态更新时被调用
-    BatteryManager.onchargingchange = ({ target }) => {
+    BatteryManager.onChargingChange = ({ target }) => {
       updateBattery(target);
     };
     // 电池充电时间更新时被调用
-    BatteryManager.onchargingtimechange = ({ target }) => {
+    BatteryManager.onChargingTimeChange = ({ target }) => {
       updateBattery(target);
     };
     // 电池断开充电时间更新时被调用
-    BatteryManager.ondischargingtimechange = ({ target }) => {
+    BatteryManager.onDisChargingTimeChange = ({ target }) => {
       updateBattery(target);
     };
     // 电池电量更新时被调用
-    BatteryManager.onlevelchange = ({ target }) => {
+    BatteryManager.onLevelChange = ({ target }) => {
       updateBattery(target);
     };
 

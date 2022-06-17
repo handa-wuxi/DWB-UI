@@ -2,17 +2,11 @@ import axios, {
   AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, CancelTokenSource,
 } from 'axios';
 
-export interface CommonResult<T = any> {
-  data: T,
-  msg: string,
-  code: 1 | 0 // 1 成功 0 失败
-}
-
 export interface RequestInterceptors{
   requestInterceptors?: (config: AxiosRequestConfig) => AxiosRequestConfig
-  requestInterceptorsErr?: (err: AxiosError) => any
+  requestInterceptorsErr?: (err: AxiosError) => RawObject
   responseInterceptors?: <T = AxiosResponse>(config: T) => T,
-  responseInterceptorsErr?: (err: AxiosError) => any
+  responseInterceptorsErr?: (err: AxiosError) => RawObject
 }
 
 export interface AxiosConfig extends AxiosRequestConfig{

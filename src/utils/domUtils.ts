@@ -122,7 +122,7 @@ export function getViewportOffset(element: Element): ViewportOffsetResult {
 export function hackCss(attr: string, value: string) {
   const prefix: string[] = ['webkit', 'Moz', 'ms', 'OT'];
 
-  const styleObj: any = {};
+  const styleObj: RawObject = {};
   prefix.forEach((item) => {
     styleObj[`${item}${upperFirst(attr)}`] = value;
   });
@@ -155,7 +155,7 @@ export function off(
 
 /* istanbul ignore next */
 export function once(el: HTMLElement, event: string, fn: EventListener): void {
-  const listener = function listener(this: any, ...args: unknown[]) {
+  const listener = function listener(this: RawObject, ...args: unknown[]) {
     if (fn) {
       fn.apply(this, args);
     }
