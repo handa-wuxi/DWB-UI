@@ -2,6 +2,9 @@
 import {
   computed, onMounted, reactive, toRefs,
 } from 'vue';
+import { createI18nInst } from '@/locales';
+
+const { t } = await createI18nInst();
 
 interface Battery {
   charging: boolean; // 当前电池是否正在充电
@@ -36,24 +39,24 @@ export const useBattery = () => {
   const calcDischargingTime = computed(() => {
     const hour = state.battery.dischargingTime / 3600;
     const minute = (state.battery.dischargingTime / 60) % 60;
-    return [~~hour, ~~minute];
+    return t('lockScreen.batteryTime', [~~hour, ~~minute]);
   });
 
   // 计算电池充满剩余时间
   const calcChargingTime = computed(() => {
     const hour = state.battery.chargingTime / 3600;
     const minute = (state.battery.chargingTime / 60) % 60;
-    return [~~hour, ~~minute];
+    return t('lockScreen.batteryTime', [~~hour, ~~minute]);
   });
 
   // 电池状态
   const batteryStatus = computed(() => {
     if (state.battery.charging && state.battery.level >= 100) {
-      return 'lockScreen.batteryState[1]';
+      return t('lockScreen.batteryState[1]');
     } if (state.battery.charging) {
-      return 'lockScreen.batteryState[0]';
+      return t('lockScreen.batteryState[0]');
     }
-    return 'lockScreen.batteryState[2]';
+    return t('lockScreen.batteryState[2]');
   });
 
   onMounted(async () => {

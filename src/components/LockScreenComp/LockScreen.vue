@@ -23,9 +23,9 @@
       <!--充电-->
       <recharge
         :battery="battery"
-        :battery-status="t(batteryStatus)"
-        :calc-discharging-time="t('lockScreen.batteryTime', calcDischargingTime)"
-        :calc-charging-time="t('lockScreen.batteryTime', calcChargingTime)"
+        :battery-status="batteryStatus"
+        :calc-discharging-time="calcDischargingTime"
+        :calc-charging-time=" calcChargingTime"
       />
 
       <div class="local-time">

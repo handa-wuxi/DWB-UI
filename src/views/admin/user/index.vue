@@ -121,8 +121,9 @@ import { useTableSettings } from '@/hooks/setting/useTableSettings';
 
 const { t } = useI18n();
 
-const tableSettings = useTableSettings(t);
-const tempCols = tableSettings.genColumns({
+const tableSettings = useTableSettings();
+
+const columns = tableSettings.genColumns({
   enableUser, disableUser, setUserRoles, resetPassword,
 });
 const message = useMessage();
@@ -136,7 +137,6 @@ const roles = ref<TreeOption[]>([]);
 const checkedKeys = ref<Array<number>>([]);
 const currentUser = ref<User | null>(null);
 const formRef = ref<FormInst>();
-const columns = ref(tempCols);
 
 const userFrom = reactive({
   username: '',

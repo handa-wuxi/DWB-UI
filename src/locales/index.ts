@@ -3,7 +3,7 @@
  * @Author: 周顺顺 idioticzhou@foxmail.com
  * @Date: 2022-05-09 15:21:50
  * @LastEditors: 周顺顺 idioticzhou@foxmail.com
- * @LastEditTime: 2022-06-17 15:29:26
+ * @LastEditTime: 2022-06-17 15:51:59
  * @FilePath: /DWB-UI/src/locales/index.ts
  * @Description: 多语言模块设置
  */
@@ -72,9 +72,14 @@ export function genMessage(
   return obj;
 }
 
-export const setupI18n = async (app: App<Element>) => {
+export const createI18nInst = async () => {
   const option = await createI18nOptions();
   i18n = createI18n(option);
+  return { ...i18n.global };
+};
+
+export const setupI18n = async (app: App<Element>) => {
+  await createI18nInst();
   app.use(i18n);
 };
 
