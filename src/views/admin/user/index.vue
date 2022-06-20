@@ -121,7 +121,7 @@ import { useTableSettings } from '@/hooks/setting/useTableSettings';
 
 const { t } = useI18n();
 
-const tableSettings = useTableSettings();
+const tableSettings = useTableSettings(t);
 
 const columns = tableSettings.genColumns({
   enableUser, disableUser, setUserRoles, resetPassword,
