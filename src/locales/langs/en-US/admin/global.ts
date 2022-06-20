@@ -16,6 +16,8 @@ export default {
 
   // roleSetting
   addPermission: 'Add Permission',
+  editRoles: 'Edit Roles',
+  addRoles: 'Add Roles',
 
   // userSetting
   addUser: 'Add User',
