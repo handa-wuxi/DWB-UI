@@ -16,6 +16,8 @@ export default {
 
   // roleSetting
   addPermission: '添加权限',
+  editRoles: '编辑角色',
+  addRoles: '添加角色',
 
   // userSetting
   addUser: '添加用户',
