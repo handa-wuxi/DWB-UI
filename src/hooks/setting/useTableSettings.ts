@@ -2,9 +2,7 @@ import { NButton, NSpace } from 'naive-ui';
 import { h } from 'vue';
 import { TableColumns } from 'naive-ui/lib/data-table/src/interface';
 import { User } from '#/api';
-import { createI18nInst } from '@/locales';
 
-const { t } = await createI18nInst();
 interface Config {
   enableUser: (user: User) => void
   disableUser: (user: User) => void
@@ -12,7 +10,7 @@ interface Config {
   resetPassword: (user: User) => void
 }
 
-export function useTableSettings() {
+export function useTableSettings(t) {
   // 用户列表表头设置
   const genColumns = (config: Config): TableColumns<any> => [
     {

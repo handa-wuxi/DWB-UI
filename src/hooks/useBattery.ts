@@ -2,9 +2,6 @@
 import {
   computed, onMounted, reactive, toRefs,
 } from 'vue';
-import { createI18nInst } from '@/locales';
-
-const { t } = await createI18nInst();
 
 interface Battery {
   charging: boolean; // 当前电池是否正在充电
@@ -17,7 +14,7 @@ interface Battery {
   onLevelChange: (args: { target: Battery }) => void; // 当电池电量发生变化时触发
 }
 
-export const useBattery = () => {
+export const useBattery = (t) => {
   const state = reactive({
     battery: {
       charging: false,
