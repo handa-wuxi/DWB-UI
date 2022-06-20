@@ -123,7 +123,7 @@ const { t } = useI18n();
 
 const tableSettings = useTableSettings(t);
 
-const columns = tableSettings.genColumns({
+const columns = tableSettings.genUserColumns({
   enableUser, disableUser, setUserRoles, resetPassword,
 });
 const message = useMessage();
