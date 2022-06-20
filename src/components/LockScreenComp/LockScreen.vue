@@ -124,7 +124,7 @@ const { online } = useOnline();
 
 const {
   battery, batteryStatus, calcDischargingTime, calcChargingTime,
-} = useBattery();
+} = useBattery(t);
 const username = userStore.username || '';
 const state = reactive({
   showLogin: false,
