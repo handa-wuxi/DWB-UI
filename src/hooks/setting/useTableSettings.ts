@@ -12,7 +12,7 @@ interface Config {
 
 export function useTableSettings(t) {
   // 用户列表表头设置
-  const genColumns = (config: Config): TableColumns<any> => [
+  const genUserColumns = (config: Config): TableColumns<any> => [
     {
       title: t('admin.global.empid'),
       key: 'empid',
@@ -112,6 +112,6 @@ export function useTableSettings(t) {
   ];
 
   return {
-    genColumns,
+    genUserColumns,
   };
 }
