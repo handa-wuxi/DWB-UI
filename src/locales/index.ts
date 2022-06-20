@@ -3,7 +3,7 @@
  * @Author: 周顺顺 idioticzhou@foxmail.com
  * @Date: 2022-05-09 15:21:50
  * @LastEditors: 周顺顺 idioticzhou@foxmail.com
- * @LastEditTime: 2022-06-17 15:51:59
+ * @LastEditTime: 2022-06-20 12:58:40
  * @FilePath: /DWB-UI/src/locales/index.ts
  * @Description: 多语言模块设置
  */
@@ -42,7 +42,8 @@ export function getAllMessage() {
 }
 
 async function createI18nOptions(): Promise<I18nOptions> {
-  const locale = storage.get('locale');
+  const locale = storage.get('locale') || 'zh-CN';
+  console.log('locale: ', locale);
   const defaultLocal = await import(`./langs/${locale}.ts`);
   // const messages = getAllMessage();
   const messages = defaultLocal.default?.message ?? {};
