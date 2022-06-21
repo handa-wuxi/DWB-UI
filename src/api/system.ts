@@ -139,6 +139,42 @@ const systemApi = {
       data,
     });
   },
+
+  // 添加角色
+  addRole(roleName: string) {
+    const data = {
+      rolename: roleName,
+    };
+    return http.request({
+      url: '/system/addRole',
+      method: 'post',
+      data,
+    });
+  },
+
+  // 启用角色
+  enableRole(id: number) {
+    const data = {
+      id,
+    };
+    return http.request({
+      url: '/system/enableRole',
+      method: 'post',
+      data,
+    });
+  },
+
+  // 禁用角色
+  disableRole(id: number) {
+    const data = {
+      id,
+    };
+    return http.request({
+      url: '/system/disableRole',
+      method: 'post',
+      data,
+    });
+  },
 };
 
 export default systemApi;

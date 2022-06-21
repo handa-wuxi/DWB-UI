@@ -18,6 +18,8 @@ export default {
   addPermission: '添加权限',
   editRoles: '编辑角色',
   addRoles: '添加角色',
+  rolePlaceholder: '请输入角色名',
+  sRolePlaceholder: '输入角色名搜索',
 
   // userSetting
   addUser: '添加用户',
