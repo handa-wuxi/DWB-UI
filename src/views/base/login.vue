@@ -1,21 +1,23 @@
 <template>
   <div class="entry-x login-page">
     <n-grid
-      cols="1 s:1 m:8 l:8 xl:24 2xl:24"
+      cols="10 s:10 m:10 l:12 xl:24 2xl:24"
       responsive="screen"
     >
       <n-grid-item
-        span="0 s:0 m:3 l:4 xl:16 2xl:16"
+        span="0 s:0 m:0 l:6 xl:16 2xl:16"
       >
         <div class="login-bg" />
       </n-grid-item>
       <n-grid-item
-        span="1 s:1 m:5 l:5 xl:9 2xl:9"
-        offset="0 s:0 m:0 l:1 xl:-1 2xl:-1"
+        span="8 s:8 m:6 l:4 xl:9 2xl:9"
+        offset="1 s:1 m:3 l:1 xl:-1 2xl:-1"
       >
-        <div class="login-content flex flex-col w-[540px] pt-[70px] pb-[260px]">
-          <div class="title flex justify-between mb-[150px]">
-            <div class="text-[40px]">
+        <div class="login-content flex flex-col max-w-[540px] pt-[70px] pb-[260px]">
+          <div class="title flex items-center justify-between mb-[150px]">
+            <div
+              class="text-[24px] l:text-[40px]"
+            >
               恒田企业数字化工作台
             </div>
             <div class="logo" />
@@ -136,6 +138,7 @@ function toLogin() {
     background-image: url('@/assets/login/login-bg.png');
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     height: 100vh;
   }
 
@@ -147,6 +150,7 @@ function toLogin() {
       background-image: url('@/assets/logo/logo.png');
       background-size: contain;
       background-position: center;
+      background-repeat: no-repeat;
     }
     .input-wrapper{
       .n-input__input-el{
