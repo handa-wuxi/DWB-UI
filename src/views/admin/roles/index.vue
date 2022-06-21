@@ -221,6 +221,8 @@ async function handSubmit() {
   const res = await systemApi.setRoleMenu(p);
   if (res.code === 0) {
     message.error(res.msg);
+  } else {
+    message.success(t('global.save', [t('global.success')]));
   }
 }
 
