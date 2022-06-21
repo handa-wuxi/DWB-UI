@@ -1,3 +1,32 @@
+# [0.2.0](https://github.com/handa-wuxi/DWB-UI/compare/v0.1.0...v0.2.0) (2022-06-21)
+
+
+### ✨ Features
+
+* **env:** 🌟 删除生产环境配置 ([f91a7e0](https://github.com/handa-wuxi/DWB-UI/commit/f91a7e0)) by: **周顺顺**
+* **env:** 🌟 删除生产环境配置 ([c846006](https://github.com/handa-wuxi/DWB-UI/commit/c846006)) by: **周顺顺**
+* **gitingron:** 🌟 生产环境配置添加如忽略名单 ([8e65ec0](https://github.com/handa-wuxi/DWB-UI/commit/8e65ec0)) by: **周顺顺**
+* **gitingron:** 🌟 生产环境配置添加如忽略名单 ([d112669](https://github.com/handa-wuxi/DWB-UI/commit/d112669)) by: **周顺顺**
+* **roleSetting:** 🌟 角色设置页面功能开发 ([c823116](https://github.com/handa-wuxi/DWB-UI/commit/c823116)) by: **周顺顺**
+* **roleSetting:** 🌟 新增角色设置部分功能 ([086b175](https://github.com/handa-wuxi/DWB-UI/commit/086b175)) by: **周顺顺**
+
+
+### 🐛 Bug Fixes
+
+* **i18n:** 🐛 顶层await 兼容性问题，改用传递参数方式处理I18n ([c523e97](https://github.com/handa-wuxi/DWB-UI/commit/c523e97)) by: **周顺顺**
+* **i18n:** 🐛 修复i18n切换相关的问题 ([fc7f88a](https://github.com/handa-wuxi/DWB-UI/commit/fc7f88a)) by: **周顺顺**
+* **locale:** 🐛 拆分初始化I18n的功能，降低函数间耦合 ([51f5bc0](https://github.com/handa-wuxi/DWB-UI/commit/51f5bc0)) by: **周顺顺**
+* **locale:** 🐛 修正默认的locale，避免新环境出错 ([1b6c963](https://github.com/handa-wuxi/DWB-UI/commit/1b6c963)) by: **周顺顺**
+* **roleSetting:** 🐛 新增消息提醒 ([b1f3a98](https://github.com/handa-wuxi/DWB-UI/commit/b1f3a98)) by: **周顺顺**
+
+
+### 📝 Documentation
+
+* **locale:** 📝 翻译包补充 ([bbac100](https://github.com/handa-wuxi/DWB-UI/commit/bbac100)) by: **周顺顺**
+* **userSetting:** 📝 调整函数名称`genColumns`=>`genUserColumns` ([b194ded](https://github.com/handa-wuxi/DWB-UI/commit/b194ded)) by: **周顺顺**
+
+
+
 # [0.1.0](https://github.com/handa-wuxi/DWB-UI/compare/v0.0.1...v0.1.0) (2022-06-17)
 
 
@@ -21,6 +50,11 @@
 * **user Settings:** 🌟 完善用户管理页面，对接真实数据 ([d22f4f8](https://github.com/handa-wuxi/DWB-UI/commit/d22f4f8)) by: **周顺顺**
 * **userSettings:** 🌟 补充用户设置页面 ([3b3ccd1](https://github.com/handa-wuxi/DWB-UI/commit/3b3ccd1)) by: **周顺顺**
 * **useSetting:** 🌟 用户设置页开发 ([0c27bf4](https://github.com/handa-wuxi/DWB-UI/commit/0c27bf4)) by: **周顺顺**
+
+
+### 🎫 Chores
+
+* **release:** 🐳 v0.1.0 ([c29105c](https://github.com/handa-wuxi/DWB-UI/commit/c29105c)) by: **周顺顺**
 
 
 ### 🐛 Bug Fixes
