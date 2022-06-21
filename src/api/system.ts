@@ -8,6 +8,15 @@ const systemApi = {
   cancelAllRequest() {
     return cancelAllRequest();
   },
+  // ------------------菜单管理------------------
+
+  // 获取菜单列表
+  getMenuList() {
+    return http.request<SystemMenu[]>({
+      url: '/system/getMenus',
+      method: 'post',
+    });
+  },
 
   // 获取用户菜单列表
   getUserMenuList(p: { userId: string | number }) {
@@ -22,6 +31,7 @@ const systemApi = {
     });
   },
 
+  // ------------------用户管理------------------
   // 获取用户列表
   getUserList() {
     return http.request <User[]>({
@@ -82,22 +92,6 @@ const systemApi = {
     });
   },
 
-  // 获取角色列表
-  getRoleList() {
-    return http.request<Role[]>({
-      url: '/system/getRoles',
-      method: 'post',
-    });
-  },
-
-  // 获取菜单列表
-  getMenuList() {
-    return http.request<SystemMenu[]>({
-      url: '/system/getMenus',
-      method: 'post',
-    });
-  },
-
   // 更改用户密码
   resetPassword(p: { userId: number, password: string }) {
     const data = {
@@ -107,6 +101,76 @@ const systemApi = {
 
     return http.request({
       url: '/system/setUserPassword',
+      method: 'post',
+      data,
+    });
+  },
+
+  // ------------------角色管理------------------
+  // 获取角色列表
+  getRoleList() {
+    return http.request<Role[]>({
+      url: '/system/getRoles',
+      method: 'post',
+    });
+  },
+
+  // 获取角色菜单
+  getRoleMenu(id: number) {
+    const data = {
+      roleid: id,
+    };
+    return http.request<{ menuid: number}[]>({
+      url: '/system/getRoleMenus',
+      method: 'post',
+      data,
+    });
+  },
+
+  // 设置角色菜单
+  setRoleMenu(p: { roleId: number, menuIds: string }) {
+    const data = {
+      roleid: p.roleId,
+      menuids: p.menuIds,
+    };
+    return http.request({
+      url: '/system/setRoleMenus',
+      method: 'post',
+      data,
+    });
+  },
+
+  // 添加角色
+  addRole(roleName: string) {
+    const data = {
+      rolename: roleName,
+    };
+    return http.request({
+      url: '/system/addRole',
+      method: 'post',
+      data,
+    });
+  },
+
+  // 启用角色
+  enableRole(id: number) {
+    const data = {
+      id,
+    };
+    return http.request({
+      url: '/system/enableRole',
+      method: 'post',
+      data,
+    });
+  },
+
+  // 禁用角色
+  disableRole(id: number) {
+    const data = {
+      id,
+    };
+    return http.request({
+      url: '/system/disableRole',
       method: 'post',
       data,
     });

@@ -16,6 +16,10 @@ export default {
 
   // roleSetting
   addPermission: 'Add Permission',
+  editRoles: 'Edit Roles',
+  addRoles: 'Add Roles',
+  rolePlaceholder: 'Please enter the role name',
+  sRolePlaceholder: 'Enter role name search',
 
   // userSetting
   addUser: 'Add User',
