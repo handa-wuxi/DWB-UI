@@ -1,6 +1,4 @@
-import 'virtual:windi-components.css';
-import 'virtual:windi-base.css';
-import 'virtual:windi-utilities.css';
+import 'virtual:windi.css';
 import './styles/index.less';
 import 'http://at.alicdn.com/t/font_3427362_b9vmz4f267u.js';
 import { createApp } from 'vue';

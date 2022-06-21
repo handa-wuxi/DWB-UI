@@ -51,6 +51,7 @@ function createEnterPlugin(maxOutput = 6) {
 }
 
 export default defineConfig({
+  attributify: true,
   darkMode: 'class',
   plugins: [createEnterPlugin()],
   theme: {

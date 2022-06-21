@@ -5,7 +5,7 @@ export enum GlobalStoreEnum {
   // 是否锁屏
   IsLockScreen = 'IS-LOCK-SCREEN',
   // 首页默认跳转路由
-  HomeDefaultRoute = '/admin/home',
+  HomeDefaultRoute = '/login',
 
   // 首页
   BaseHome = '/admin/home',
