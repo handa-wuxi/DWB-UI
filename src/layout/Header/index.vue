@@ -242,7 +242,7 @@ const reloadPage = () => {
 
 // 退出登录
 const doLogout = () => {
-  dialog.info({
+  const curDialog = dialog.info({
     title: t('dialog.tip'),
     content: t('dialog.sureLogout'),
     positiveText: t('global.confirm'),
@@ -252,14 +252,17 @@ const doLogout = () => {
         message.success(t('dialog.logoutSuccess'));
         // 移除标签页
         localStorage.removeItem(GlobalStoreEnum.TabRoutes);
-        router
-          .replace({
-            name: 'Login',
-            query: {
-              redirect: route.fullPath,
-            },
-          })
-          .finally(() => window.location.reload());
+        curDialog.destroy();
+        setTimeout(() => {
+          router
+            .replace({
+              name: 'login',
+              query: {
+                redirect: route.fullPath,
+              },
+            })
+            .finally(() => window.location.reload());
+        }, 1000);
       });
     },
   });

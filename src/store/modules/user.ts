@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia';
 import { createStorage, storage } from '@/utils/Storage';
 import { GlobalStoreEnum } from '@/enums/global';
+import authApi from '@/api/auth';
 
 const Storage = createStorage({ storage: localStorage });
 
-export interface IUserState {
+export interface UserState {
   token: string;
   username: string;
   welcome: string;
@@ -13,9 +14,11 @@ export interface IUserState {
   info: RawObject;
 }
 
+const expireTime = 1 * 24 * 60 * 60;
+
 export const UserStore = defineStore({
-  id: 'app-user',
-  state: (): IUserState => ({
+  id: 'userInfo',
+  state: (): UserState => ({
     token: Storage.get(GlobalStoreEnum.AccessToken, ''),
     username: '',
     welcome: '',
@@ -43,6 +46,7 @@ export const UserStore = defineStore({
   actions: {
     setToken(token: string) {
       this.token = token;
+      Storage.set(GlobalStoreEnum.AccessToken, token, expireTime);
     },
     setAvatar(avatar: string) {
       this.avatar = avatar;
@@ -55,8 +59,12 @@ export const UserStore = defineStore({
     },
     // 登录
     async login(userInfo) {
-      // TODO
-      console.log('userInfo: ', userInfo);
+      const res = await authApi.login(userInfo);
+      if (res.code === 1) {
+        this.setToken(res.data.token);
+        return Promise.resolve('');
+      }
+      return Promise.reject(res.msg);
     },
 
     // 获取用户信息

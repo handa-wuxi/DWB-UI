@@ -24,6 +24,7 @@ export const baseRoutes: AppRouteRecordRaw[] = [
     meta: {
       title: 'global.home',
     },
+    redirect: GlobalStoreEnum.BaseHome,
     component: () => import('../layout/PageLayout.vue'),
     children: [
       {
@@ -68,6 +69,14 @@ export const baseRoutes: AppRouteRecordRaw[] = [
     path: '/authorization',
     name: 'authorization',
     component: () => import('../views/base/authorization.vue'),
+  },
+  {
+    path: '/login',
+    name: 'login',
+    meta: {
+      title: 'global.login',
+    },
+    component: () => import('../views/base/login.vue'),
   },
 ];
 

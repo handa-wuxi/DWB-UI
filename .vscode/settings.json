@@ -13,6 +13,7 @@
   ],
   "cSpell.words": [
     "createon",
+    "dingtalk",
     "empid",
     "menucode",
     "menuid",
@@ -24,6 +25,7 @@
     "updateon",
     "Usergroup",
     "vicons",
-    "vuedraggable"
+    "vuedraggable",
+    "wechat"
   ],
 }
