@@ -15,4 +15,5 @@ export enum GlobalStoreEnum {
   ErrorPageName = 'ErrorPage',
   AccessToken = 'ACCESS-TOKEN',
   CurrentUser = 'CURRENT-USER', // 当前用户信息
+  Remember = 'REMEMBER', // 是否记住密码
 }

@@ -103,7 +103,7 @@ export function useTableSettings(t) {
                 size: 'small',
                 onClick: () => config.resetPassword(row),
               },
-              { default: () => t('global.reset', [t('global.password')]) },
+              { default: () => t('admin.global.resetPwd') },
             ),
           ],
         );

@@ -19,9 +19,9 @@ export const AsyncRouteStore = defineStore({
       // 设置需要缓存的组件
       this.keepAliveComponents = compNames;
     },
-    async generateMenus() {
+    async generateMenus(userId) {
       // 生成路由
-      const res = await systemApi.getUserMenuList({ userId: 2 });
+      const res = await systemApi.getUserMenuList({ userId });
       if (res.code === 1) {
         this.menus = res.data.map((item) => ({
           id: item.id,

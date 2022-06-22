@@ -185,7 +185,7 @@ const {
   getNavMode, getNavTheme, getHeaderSetting, getCrumbsSetting,
 } = useProjectSetting();
 
-const { username } = userStore?.info || {};
+const { username } = userStore?.user || {};
 const locales = [
   {
     label: '中文',

@@ -18,13 +18,13 @@
             <div
               class="text-[24px] l:text-[40px]"
             >
-              恒田企业数字化工作台
+              {{ t('global.loginTitle') }}
             </div>
             <div class="logo" />
           </div>
           <div class="login-form">
             <div class="tip text-[40px] mb-[20px]">
-              登录
+              {{ t('global.login') }}
             </div>
             <n-form
               ref="formRef"
@@ -35,37 +35,42 @@
               <n-form-item path="username">
                 <n-input
                   v-model:value="loginForm.username"
+                  :placeholder="t('global.inputPlaceholder',[t('global.username')])"
                   class="input-wrapper"
                 />
               </n-form-item>
               <n-form-item path="password">
                 <n-input
                   v-model:value="loginForm.password"
+                  :placeholder="t('global.inputPlaceholder',[t('global.password')])"
                   show-password-on="click"
                   type="password"
+                  :input-props="{ autocomplete: (remember?'on':'new-password') }"
                   class="input-wrapper"
                 />
               </n-form-item>
-              <n-form-item>
-                <div class="flex justify-between w-[100%]">
-                  <n-checkbox
-                    v-model="loginForm.remember"
-                    label="记住我"
-                  />
-                </div>
-              </n-form-item>
+              <div class="flex justify-between w-[100%] mb-[40px]">
+                <n-checkbox
+                  v-model:checked="remember"
+                  label="记住我"
+                />
+              </div>
               <n-form-item>
                 <n-button
                   type="primary"
-                  class="w-[100%] h-[54px] text-[20px] tracking-[8px] bg-[#0960BD]"
+                  class="w-[100%] h-[54px] text-[20px]  bg-[#0960BD]"
+                  :class="`tracking-[${locale === 'zh-CN'?'8px':'0'}px]`"
                   @click="toLogin"
                 >
-                  登录
+                  {{ t('global.login') }}
                 </n-button>
               </n-form-item>
             </n-form>
-            <n-divider class="text-[#B6BCC3]">
-              其他登录方式
+            <n-divider
+              class="text-[#B6BCC3]"
+              style="--n-font-weight:300"
+            >
+              {{ t('global.otherLogin') }}
             </n-divider>
             <div class="other-login flex justify-around">
               <img
@@ -82,10 +87,14 @@
   </div>
 </template>
 <script lang="ts" setup name="LoginPage">
-import { reactive, ref } from 'vue';
+import {
+  reactive, ref, watch,
+} from 'vue';
 import { FormInst, useMessage } from 'naive-ui';
 import { useRouter, useRoute } from 'vue-router';
-import { useUserStore } from '@/store';
+import { storeToRefs } from 'pinia';
+import { useI18n } from 'vue-i18n';
+import { useProjectSettingStore, useUserStore } from '@/store';
 
 const loginImg = [
   '/src/assets/login/wechat.png',
@@ -94,15 +103,21 @@ const loginImg = [
   '/src/assets/login/oa.png',
 ];
 
+const { t } = useI18n();
+
 const router = useRouter();
 const route = useRoute();
 const userStore = useUserStore();
+const ps = useProjectSettingStore();
+
+const { locale } = storeToRefs(ps);
+const { remember } = storeToRefs(userStore);
 const message = useMessage();
 const formRef = ref<FormInst>();
+
 const loginForm = reactive({
   username: '',
   password: '',
-  remember: false,
 });
 const rules = {
   username: [
@@ -123,7 +138,7 @@ function toLogin() {
           const toPath = decodeURIComponent((route.query?.redirect || '/') as string);
           router.push(toPath);
         } else {
-          router.push('/');
+          router.push('/admin');
         }
       } catch (error) {
         message.error(error as string);
@@ -131,6 +146,10 @@ function toLogin() {
     }
   });
 }
+
+watch(() => remember.value, (newValue) => {
+  userStore.setRemember(newValue);
+});
 </script>
 <style lang="less">
 .login-page{
@@ -155,6 +174,12 @@ function toLogin() {
     .input-wrapper{
       .n-input__input-el{
         height: 54px;
+      }
+       input {
+        font-size: 20px;
+        background-clip: content-box;
+        height: 0 !important;
+        padding: 20px 0 !important;
       }
     }
   }
