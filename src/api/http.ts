@@ -15,7 +15,7 @@ const http = new Request({
       const userStore = useUserStore();
 
       if (userStore.token !== '') {
-        config.headers!.Authorization = `Bearer ${userStore.token}`;
+        config.headers!.token = `${userStore.token}`;
       } else if (!whitePath.includes(config.url as string)) {
         window.location.replace('/login');
       }

@@ -32,8 +32,17 @@ export default {
   disable: '禁用',
   disabled: '已禁用',
   operate: '操作',
+  username: '用户名',
   password: '密码',
   inputPlaceholder: '请输入{0}',
+  logout: '退出登录',
+  login: '登录',
+  otherLogin: '其他登录方式',
+  loginTitle: '恒田企业数字化工作台',
+
+  // User
+  name: '姓名',
+  createOn: '创建时间',
 
   // time
   h: '小时',
@@ -47,14 +56,9 @@ export default {
   weeks: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
   months: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
 
-  // User
-  name: '姓名',
-  createOn: '创建时间',
-
   // header
   lockScreen: '锁屏',
   fullScreen: '全屏',
   projectConfig: '项目配置',
   personSetting: '个人设置',
-  logout: '退出登录',
 };
