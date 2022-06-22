@@ -76,7 +76,7 @@
               <img
                 v-for="src in loginImg"
                 :key="src"
-                :src="src"
+                :src="getAssetsFile(src)"
                 class="w-[30px] h-[30px] cursor-pointer"
               >
             </div>
@@ -95,12 +95,13 @@ import { useRouter, useRoute } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import { useProjectSettingStore, useUserStore } from '@/store';
+import { getAssetsFile } from '@/utils/web/getAssetsFile';
 
 const loginImg = [
-  '/src/assets/login/wechat.png',
-  '/src/assets/login/alipay.png',
-  '/src/assets/login/dingtalk.png',
-  '/src/assets/login/oa.png',
+  'login/wechat.png',
+  'login/alipay.png',
+  'login/dingtalk.png',
+  'login/oa.png',
 ];
 
 const { t } = useI18n();
