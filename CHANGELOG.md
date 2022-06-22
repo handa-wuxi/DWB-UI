@@ -1,3 +1,18 @@
+## [0.3.1](https://github.com/handa-wuxi/DWB-UI/compare/v0.3.0...v0.3.1) (2022-06-22)
+
+
+### 🐛 Bug Fixes
+
+* **assetsFile:** 🐛 新增getAssetsFile函数解决动态资源加载问题 ([fc1bef9](https://github.com/handa-wuxi/DWB-UI/commit/fc1bef9)) by: **周顺顺**
+* **lockScreen:** 🐛 修复锁屏页相关字段结构错误的问题 ([cfade5a](https://github.com/handa-wuxi/DWB-UI/commit/cfade5a)) by: **周顺顺**
+
+
+### 📝 Documentation
+
+* **.gitignore:** 📝 将`components.d.ts`加入到忽略列表 ([577d5b2](https://github.com/handa-wuxi/DWB-UI/commit/577d5b2)) by: **周顺顺**
+
+
+
 # [0.3.0](https://github.com/handa-wuxi/DWB-UI/compare/v0.2.0...v0.3.0) (2022-06-22)
 
 
@@ -6,6 +21,11 @@
 * **login:** 🌟 调整响应式布局样式 ([f8adb4a](https://github.com/handa-wuxi/DWB-UI/commit/f8adb4a)) by: **周顺顺**
 * **login:** 🌟 完成登录页翻译、api调整登出等功能 ([f0a73ce](https://github.com/handa-wuxi/DWB-UI/commit/f0a73ce)) by: **周顺顺**
 * **login:** 🌟 login页面开发以及功能编写 ([cb9673a](https://github.com/handa-wuxi/DWB-UI/commit/cb9673a)) by: **周顺顺**
+
+
+### 🎫 Chores
+
+* **release:** 🐳 v0.3.0 ([5e965d1](https://github.com/handa-wuxi/DWB-UI/commit/5e965d1)) by: **周顺顺**
 
 
 ### 🐛 Bug Fixes
