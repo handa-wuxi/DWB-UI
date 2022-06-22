@@ -1,3 +1,19 @@
+# [0.3.0](https://github.com/handa-wuxi/DWB-UI/compare/v0.2.0...v0.3.0) (2022-06-22)
+
+
+### ✨ Features
+
+* **login:** 🌟 调整响应式布局样式 ([f8adb4a](https://github.com/handa-wuxi/DWB-UI/commit/f8adb4a)) by: **周顺顺**
+* **login:** 🌟 完成登录页翻译、api调整登出等功能 ([f0a73ce](https://github.com/handa-wuxi/DWB-UI/commit/f0a73ce)) by: **周顺顺**
+* **login:** 🌟 login页面开发以及功能编写 ([cb9673a](https://github.com/handa-wuxi/DWB-UI/commit/cb9673a)) by: **周顺顺**
+
+
+### 🐛 Bug Fixes
+
+* **basicTable:** 🐛 修复固定列时，宽度问题 ([668c188](https://github.com/handa-wuxi/DWB-UI/commit/668c188)) by: **周顺顺**
+
+
+
 # [0.2.0](https://github.com/handa-wuxi/DWB-UI/compare/v0.1.0...v0.2.0) (2022-06-21)
 
 
@@ -9,6 +25,11 @@
 * **gitingron:** 🌟 生产环境配置添加如忽略名单 ([d112669](https://github.com/handa-wuxi/DWB-UI/commit/d112669)) by: **周顺顺**
 * **roleSetting:** 🌟 角色设置页面功能开发 ([c823116](https://github.com/handa-wuxi/DWB-UI/commit/c823116)) by: **周顺顺**
 * **roleSetting:** 🌟 新增角色设置部分功能 ([086b175](https://github.com/handa-wuxi/DWB-UI/commit/086b175)) by: **周顺顺**
+
+
+### 🎫 Chores
+
+* **release:** 🐳 v0.2.0 ([168275b](https://github.com/handa-wuxi/DWB-UI/commit/168275b)) by: **周顺顺**
 
 
 ### 🐛 Bug Fixes
