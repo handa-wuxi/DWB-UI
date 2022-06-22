@@ -25,9 +25,11 @@ export const AsyncRouteStore = defineStore({
       if (res.code === 1) {
         this.menus = res.data.map((item) => ({
           id: item.id,
+          title: item.memo,
           menucode: item.menucode,
           label: item.locale,
           key: item.link,
+          openType: item.iscross,
           icon: renderIcon(item.icon),
         }));
       }

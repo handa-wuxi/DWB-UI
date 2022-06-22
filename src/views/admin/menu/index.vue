@@ -146,10 +146,10 @@
                 name="openType"
               >
                 <NSpace>
-                  <NRadio :value="1">
+                  <NRadio :value="0">
                     {{ t('admin.global.currentWindow') }}
                   </NRadio>
-                  <NRadio :value="2">
+                  <NRadio :value="1">
                     {{ t('admin.global.newWindow') }}
                   </NRadio>
                 </NSpace>
@@ -234,11 +234,12 @@ const pattern = ref('');
 
 const formParams = reactive({
   type: 1,
+  title: '',
   label: '',
   subtitle: '',
   key: '',
   auth: '',
-  openType: 1,
+  openType: 0, // 0:当前窗口 1:新窗口
 });
 
 const treeData = computed(() => rs.menus.map((item) => ({

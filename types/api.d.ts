@@ -7,14 +7,17 @@ export interface SystemMenu {
   icon: string;
   pid: number; // 父级id
   sort: number; // 排序
+  iscross: 0 | 1; // 标签打开方式 0: 当前标签 1: 新标签
   submenus: SystemMenu[]; // 子菜单
 }
 
 export interface Menu {
   id: number;
   menucode: string; // 菜单编码
+  title: string; // 名称
   label: string;
   key: string | number;
+  openType: 0 | 1; // 打开方式 0: 新标签 1: 当前标签
   icon?: () => VNode<RendererNode, RendererElement, { [ key: string ]: any; }>;
   children?: Menu[];
 }

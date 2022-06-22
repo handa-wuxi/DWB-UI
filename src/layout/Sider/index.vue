@@ -21,6 +21,7 @@ import {
 import { useI18n } from 'vue-i18n';
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 import { useAsyncRouteStore, useUserStore } from '@/store';
+import { Menu } from '#/api';
 
 const { t } = useI18n();
 const props = defineProps({
@@ -101,13 +102,13 @@ async function getMenus() {
 }
 
 // 点击菜单
-function clickMenuItem(key: string) {
-  if (/http(s)?:/.test(key)) {
+function clickMenuItem(key: string, item: Menu) {
+  if (/http(s)?:/.test(key) || item.openType === 1) {
     window.open(key);
   } else {
     router.push({ name: key });
   }
-  emit('clickMenuItem' as any, key);
+  emit('clickMenuItem', key);
 }
 
 // 查找是否存在子路由
