@@ -125,7 +125,7 @@ const { online } = useOnline();
 const {
   battery, batteryStatus, calcDischargingTime, calcChargingTime,
 } = useBattery(t);
-const username = userStore.username || '';
+const username = userStore.user.username || '';
 const state = reactive({
   showLogin: false,
   loginLoading: false, // 正在登录
