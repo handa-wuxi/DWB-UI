@@ -1,5 +1,28 @@
 import { defineConfig } from 'vite-plugin-windicss';
 
+export default defineConfig({
+  attributify: true,
+  darkMode: 'class',
+  plugins: [createEnterPlugin()],
+  theme: {
+    extend: {
+      zIndex: {
+        '-1': '-1',
+      },
+      colors: {
+        primary: '#0960bd',
+      },
+      screens: {
+        s: '576px',
+        m: '768px',
+        l: '992px',
+        xl: '1200px',
+        '2xl': '1600px',
+      },
+    },
+  },
+});
+
 /**
  * Used for animation when the element is displayed.
  * @param maxOutput The larger the maxOutput output, the larger the generated css volume.
@@ -49,25 +72,3 @@ function createEnterPlugin(maxOutput = 6) {
   };
   return { handler };
 }
-
-export default defineConfig({
-  darkMode: 'class',
-  plugins: [createEnterPlugin()],
-  theme: {
-    extend: {
-      zIndex: {
-        '-1': '-1',
-      },
-      colors: {
-        primary: '#0960bd',
-      },
-      screens: {
-        sm: '576px',
-        md: '768px',
-        lg: '992px',
-        xl: '1200px',
-        '2xl': '1600px',
-      },
-    },
-  },
-});

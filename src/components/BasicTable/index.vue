@@ -34,7 +34,7 @@
         </n-dropdown>
         <!-- 自定义工具栏 -->
         <CustomSettings
-          :options="getSettingCols(cols)"
+          :options="cols"
           @change-cols="updateCols"
         />
       </n-space>
@@ -127,13 +127,13 @@ function init() {
   cols.value = props.columns.map((item) => item);
 }
 
-function getSettingCols(columns: any[]) {
-  return columns.map((item) => ({
-    key: item.key,
-    title: item.title,
-    fixed: item.fixed,
-  }));
-}
+// function getSettingCols(columns: any[]) {
+//   return columns.map((item) => ({
+//     key: item.key,
+//     title: item.title,
+//     fixed: item.fixed,
+//   }));
+// }
 
 function onDensitySelect(key: 'small' | 'medium' | 'large') {
   size.value = key;

@@ -32,8 +32,13 @@ export default {
   disable: 'Disable',
   disabled: 'Disabled',
   operate: 'Operate',
-  password: 'pwd',
+  username: 'Username',
+  password: 'Password',
   inputPlaceholder: 'Please enter {0}',
+  logout: 'Logout',
+  login: 'Login',
+  otherLogin: 'Sign in with',
+  loginTitle: 'HANDA Digital Workbench',
 
   // User
   name: 'name',
@@ -56,5 +61,4 @@ export default {
   fullScreen: 'Full Screen',
   projectConfig: 'Project Config',
   personSetting: 'Person Setting',
-  logout: 'Logout',
 };

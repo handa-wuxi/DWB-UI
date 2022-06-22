@@ -17,32 +17,32 @@ export function useTableSettings(t) {
       title: t('admin.global.empid'),
       key: 'empid',
       align: 'center',
-      width: 120,
+      minWidth: 120,
     },
     {
       title: t('admin.global.username'),
       key: 'username',
-      width: 120,
+      minWidth: 120,
     },
     {
       title: t('global.name'),
       key: 'empname',
-      width: 120,
+      minWidth: 120,
     },
     {
       title: t('admin.global.userRoles'),
       key: 'roles',
-      width: 120,
+      minWidth: 120,
     },
     {
       title: t('global.createOn'),
       key: 'createon',
-      width: 200,
+      minWidth: 200,
     },
     {
       title: t('global.state'),
       key: 'state',
-      width: 160,
+      minWidth: 160,
       align: 'center',
       render(row) {
         return [
@@ -78,7 +78,7 @@ export function useTableSettings(t) {
       key: 'action',
       align: 'center',
       fixed: 'right',
-      width: 160,
+      minWidth: 240,
       render(row) {
         return h(
           NSpace,
@@ -103,7 +103,7 @@ export function useTableSettings(t) {
                 size: 'small',
                 onClick: () => config.resetPassword(row),
               },
-              { default: () => t('global.reset', [t('global.password')]) },
+              { default: () => t('admin.global.resetPwd') },
             ),
           ],
         );

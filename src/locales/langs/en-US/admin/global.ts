@@ -34,4 +34,5 @@ export default {
   setSuccess: 'Settings Success',
   resetSuccess: 'Reset Success',
   roleSetting: 'Role Setting',
+  resetPwd: 'Reset Pwd',
 };

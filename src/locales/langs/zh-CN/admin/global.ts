@@ -34,4 +34,5 @@ export default {
   setSuccess: '设置成功',
   resetSuccess: '重置成功',
   roleSetting: '角色设置',
+  resetPwd: '重置密码',
 };

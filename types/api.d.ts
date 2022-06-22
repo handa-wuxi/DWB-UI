@@ -37,3 +37,11 @@ export interface Role {
   updateon: string; // 更新时间
   createon: string; // 创建时间
 }
+
+export interface Login{
+  id: number;
+  username: string; // 用户名
+  empname: string; // 员工姓名
+  empid: string; // 员工编号
+  token: string; // token
+}
