@@ -19,7 +19,7 @@ export default {
   addRoles: 'Add Roles',
   rolePlaceholder: 'Please enter the role name',
   sRolePlaceholder: 'Enter role name search',
-
+  menuFunc: 'Menu Function',
   // userSetting
   addUser: 'Add User',
   username: 'Username',

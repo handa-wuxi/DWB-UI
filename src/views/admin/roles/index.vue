@@ -91,7 +91,7 @@
           </div>
         </n-card>
       </n-grid-item>
-      <n-grid-item span="2">
+      <n-grid-item span="1">
         <n-card size="small">
           <template #header>
             <n-space align="center">
@@ -116,47 +116,84 @@
               :data="menus"
               :selected-keys="[]"
               :render-label="renderLabel"
-              :checked-keys="selectedKeys"
+              :checked-keys="checkedKeys"
+              @update-selected-keys="onUpdateSelectedKeys"
               @update:checked-keys="handSelectKeys"
             />
-            <n-space :item-style="{marginTop: '20px'}">
-              <NButton
-                type="primary"
-                :loading="subLoading"
-                @click="handSubmit"
-              >
-                {{ t('global.submit') }}
-              </NButton>
-              <NButton
-                @click="handleReset"
-              >
-                {{ t('global.reset') }}
-              </NButton>
-            </n-space>
           </div>
         </n-card>
       </n-grid-item>
+      <n-grid-item span="1">
+        <n-card size="small">
+          <template #header>
+            <n-space align="center">
+              <n-icon
+                size="18"
+                class="flex-auto"
+              >
+                <UsergroupAddOutlined />
+              </n-icon>
+              <span>{{ t('admin.global.menuFunc') }}</span>
+            </n-space>
+          </template>
+          <div
+            v-if="curMenuFuncs.length > 0"
+            class="menu-tree"
+          >
+            <n-checkbox-group v-model:value="roleFunc">
+              <n-space vertical>
+                <n-checkbox
+                  v-for="(item) in curMenuFuncs"
+                  :key="item.funccode"
+                  :value="item.id"
+                  :label="item.memo"
+                />
+              </n-space>
+            </n-checkbox-group>
+          </div>
+          <n-empty v-else />
+        </n-card>
+      </n-grid-item>
     </n-grid>
+    <div class="footer bg-white h-[50px] w-[calc(100%-230px)] pr-[40px]">
+      <n-space align="center">
+        <NButton
+          type="primary"
+          :loading="subLoading"
+          @click="handSubmit"
+        >
+          {{ t('global.submit') }}
+        </NButton>
+        <NButton
+          @click="handleReset"
+        >
+          {{ t('global.reset') }}
+        </NButton>
+      </n-space>
+    </div>
   </div>
 </template>
 <script lang="ts" setup name="RoleSetting">
 import { AlignLeftOutlined, UsergroupAddOutlined, SearchOutlined } from '@vicons/antd';
 import {
-  onBeforeMount, ref, unref, h,
+  onBeforeMount, ref, unref, h, watch,
 } from 'vue';
 import { useI18n } from 'vue-i18n';
 import {
   NButton, NSwitch, TreeOption, useMessage,
 } from 'naive-ui';
 import systemApi from '@/api/system';
-import { SystemMenu } from '#/api';
+import { MenuFunc, SystemMenu } from '#/api';
 
 const message = useMessage();
 const { t } = useI18n();
 
+const menuFuncs = new Map();
+let curSelectKey = -1;
+
 const roles = ref<TreeOption[]>([]);
 const menus = ref<TreeOption[]>([]);
-const selectedKeys = ref<number[]>([]);
+const checkedKeys = ref<number[]>([]);
 const cacheSelectKeys = ref<number[]>([]);
 const pattern = ref<string>('');
 const loading = ref<boolean>(false);
@@ -165,12 +202,14 @@ const addRoleVisible = ref<boolean>(false);
 const roleName = ref<string>('');
 const newRole = ref<string>('');
 const roleId = ref<number>(0);
+const curMenuFuncs = ref<MenuFunc[]>([]);
+const roleFunc = ref<number[]>([]);
 
 async function getRolesMenu(id: number) {
   const res = await systemApi.getRoleMenu(id);
   if (res.code === 1) {
-    selectedKeys.value = res.data.map((item) => item.menuid);
-    cacheSelectKeys.value = unref(selectedKeys);
+    checkedKeys.value = res.data.map((item) => item.menuid);
+    cacheSelectKeys.value = unref(checkedKeys);
   }
 }
 
@@ -196,9 +235,25 @@ async function getMenus() {
   }
 }
 
+async function onUpdateSelectedKeys(keys: number[]) {
+  [curSelectKey] = keys;
+  if (menuFuncs.has(keys[0])) {
+    curMenuFuncs.value = menuFuncs.get(keys[0]);
+    return;
+  }
+  const res = await systemApi.getRoleMenuFuncs(roleId.value, keys[0]);
+  if (res.code === 1) {
+    roleFunc.value = res.data.map((item) => item.funcid);
+  }
+  const menuRes = await systemApi.getMenuFuncsByMenuId(keys[0]);
+  if (menuRes.code === 1) {
+    menuFuncs.set(keys[0], menuRes.data);
+    curMenuFuncs.value = menuFuncs.get(keys[0]);
+  }
+}
 // 菜单树选中事件
 function handSelectKeys(keys: number[]) {
-  selectedKeys.value = keys;
+  checkedKeys.value = keys;
 }
 
 // 角色树选中事件
@@ -213,10 +268,19 @@ function renderLabel({ option }: { option: TreeOption }) {
   return t(option.label as string);
 }
 
+async function setRoleFunc() {
+  const p = {
+    roleId: roleId.value,
+    menuId: curSelectKey,
+    funcIds: roleFunc.value,
+  };
+  await systemApi.setRoleMenuFuncs(p);
+}
+
 async function handSubmit() {
   const p = {
     roleId: roleId.value,
-    menuIds: selectedKeys.value.join(','),
+    menuIds: checkedKeys.value.join(','),
   };
   const res = await systemApi.setRoleMenu(p);
   if (res.code === 0) {
@@ -227,7 +291,7 @@ async function handSubmit() {
 }
 
 function handleReset() {
-  selectedKeys.value = unref(cacheSelectKeys);
+  checkedKeys.value = unref(cacheSelectKeys);
 }
 
 function resetAll() {
@@ -291,6 +355,10 @@ function renderSuffix({ option }: { option: TreeOption }) {
   );
 }
 
+watch(() => roleFunc.value, () => {
+  setRoleFunc();
+});
+
 onBeforeMount(() => {
   getRoles();
   getMenus();
@@ -309,5 +377,13 @@ onBeforeMount(() => {
     margin-left: 10px;
     gap: 8px;
   }
+}
+.footer{
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 </style>
