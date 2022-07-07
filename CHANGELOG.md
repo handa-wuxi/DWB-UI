@@ -1,9 +1,28 @@
+## [0.3.3](https://github.com/handa-wuxi/DWB-UI/compare/v0.3.2...v0.3.3) (2022-07-07)
+
+
+### ✨ Features
+
+* **roleSettings:** 🌟 角色管理新增菜单功能设置 ([201801f](https://github.com/handa-wuxi/DWB-UI/commit/201801f)) by: **周顺顺**
+
+
+### 📝 Documentation
+
+* **code spell:** 📝 忽略一些拼写规范问题 ([5e62a4c](https://github.com/handa-wuxi/DWB-UI/commit/5e62a4c)) by: **周顺顺**
+
+
+
 ## [0.3.2](https://github.com/handa-wuxi/DWB-UI/compare/v0.3.1...v0.3.2) (2022-07-07)
 
 
 ### ✨ Features
 
 * **MenuSettings:** 🌟 完善菜单管理，新增菜单功能以及接口调用 ([0aaf359](https://github.com/handa-wuxi/DWB-UI/commit/0aaf359)) by: **周顺顺**
+
+
+### 🎫 Chores
+
+* **release:** 🐳 v0.3.2 ([9342c35](https://github.com/handa-wuxi/DWB-UI/commit/9342c35)) by: **周顺顺**
 
 
 ### 🐛 Bug Fixes
