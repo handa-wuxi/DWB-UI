@@ -1,4 +1,6 @@
-import { Role, SystemMenu, User } from '#/api';
+import {
+  MenuFunc, Role, SystemMenu, User,
+} from '#/api';
 import http, { cancelRequest, cancelAllRequest } from './http';
 
 const systemApi = {
@@ -26,6 +28,18 @@ const systemApi = {
 
     return http.request<SystemMenu[]>({
       url: '/system/getUserMenus',
+      method: 'post',
+      data,
+    });
+  },
+
+  // 获取菜单功能
+  getMenuFuncsByMenuId(menuId: string | number) {
+    const data = {
+      menuid: menuId,
+    };
+    return http.request<MenuFunc[]>({
+      url: '/system/getMenuFuncs',
       method: 'post',
       data,
     });

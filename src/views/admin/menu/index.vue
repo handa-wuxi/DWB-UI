@@ -156,13 +156,18 @@
               </NRadioGroup>
             </NFormItem>
             <NFormItem
-              :label="t('admin.global.menuAuth')"
+              :label="t('admin.global.menubar')"
               path="auth"
             >
-              <NInput
-                v-model:value="formParams.auth"
-                :placeholder="t('admin.global.authPlaceholder')"
-              />
+              <n-checkbox-group />
+              <n-space>
+                <n-checkbox
+                  v-for="(item) in curMenuFuncs"
+                  :key="item.funccode"
+                  :value="item.funccode"
+                  :label="item.memo"
+                />
+              </n-space>
             </NFormItem>
             <NFormItem
               path="auth"
@@ -202,6 +207,8 @@ import {
 } from '@vicons/antd';
 import { useI18n } from 'vue-i18n';
 import { useAsyncRouteStore } from '@/store';
+import systemApi from '@/api/system';
+import { MenuFunc } from '#/api';
 
 const { t } = useI18n();
 
@@ -224,13 +231,15 @@ const formRef = ref<FormInst>();
 const message = useMessage();
 const dialog = useDialog();
 
-const expandedKeys = ref([]);
+const menuFuncs = new Map();
 
+const expandedKeys = ref([]);
 const loading = ref(true);
 const subLoading = ref(false);
 const isEditMenu = ref(false);
 const treeItemTitle = ref('');
 const pattern = ref('');
+const curMenuFuncs = ref< MenuFunc[]>([]);
 
 const formParams = reactive({
   type: 1,
@@ -245,8 +254,24 @@ const treeData = computed(() => rs.menus.map((item) => ({
   ...item,
 })));
 
-function selectedTree(keys) {
+async function getMenuFuncsByMenuId(menuId: number) {
+  const res = await systemApi.getMenuFuncsByMenuId(menuId);
+  if (res.code === 1) {
+    return res.data;
+  }
+  message.error(res.msg);
+  return [];
+}
+
+async function selectedTree(keys) {
   const selectData = treeData.value.filter((item) => item.key === keys[0])[0];
+  if (!menuFuncs.has(selectData.id)) {
+    const res = await getMenuFuncsByMenuId(selectData.id);
+    menuFuncs.set(selectData.id, res);
+    curMenuFuncs.value = res;
+  } else {
+    curMenuFuncs.value = menuFuncs.get(selectData.id);
+  }
   treeItemTitle.value = selectData.label;
   Object.assign(formParams, selectData);
   isEditMenu.value = true;
