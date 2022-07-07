@@ -1,4 +1,23 @@
+## [0.3.2](https://github.com/handa-wuxi/DWB-UI/compare/v0.3.1...v0.3.2) (2022-07-07)
+
+
+### ✨ Features
+
+* **MenuSettings:** 🌟 完善菜单管理，新增菜单功能以及接口调用 ([0aaf359](https://github.com/handa-wuxi/DWB-UI/commit/0aaf359)) by: **周顺顺**
+
+
+### 🐛 Bug Fixes
+
+* **git File:** 🐛 删除自动生成的声明文件 ([04eb994](https://github.com/handa-wuxi/DWB-UI/commit/04eb994)) by: **周顺顺**
+
+
+
 ## [0.3.1](https://github.com/handa-wuxi/DWB-UI/compare/v0.3.0...v0.3.1) (2022-06-22)
+
+
+### 🎫 Chores
+
+* **release:** 🐳 v0.3.1 ([6d4984f](https://github.com/handa-wuxi/DWB-UI/commit/6d4984f)) by: **周顺顺**
 
 
 ### 🐛 Bug Fixes
