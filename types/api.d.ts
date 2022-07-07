@@ -45,3 +45,9 @@ export interface Login{
   empid: string; // 员工编号
   token: string; // token
 }
+
+export interface MenuFunc {
+  id: number;
+  funccode: string; // 功能编号
+  memo: string; // 备注
+}
