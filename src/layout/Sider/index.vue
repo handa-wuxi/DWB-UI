@@ -19,9 +19,9 @@ import {
   computed, onMounted, PropType, ref, unref, watch,
 } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { MenuOption, OnUpdateValue } from 'naive-ui/es/menu/src/interface';
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 import { useAsyncRouteStore, useUserStore } from '@/store';
-import { Menu } from '#/api';
 
 const { t } = useI18n();
 const props = defineProps({
@@ -97,18 +97,18 @@ const menus = computed(() => rs.menus.map((item) => ({
   label: t(item.label as string),
 })));
 
-async function getMenus() {
-  await rs.generateMenus(userStore.getUserInfo.userId);
-}
-
 // 点击菜单
-function clickMenuItem(key: string, item: Menu) {
+const clickMenuItem: OnUpdateValue = (key: string, item: MenuOption) => {
   if (/http(s)?:/.test(key) || item.openType === 1) {
     window.open(key);
   } else {
     router.push({ name: key });
   }
   emit('clickMenuItem', key);
+};
+
+async function getMenus() {
+  await rs.generateMenus(userStore.getUserInfo.userId);
 }
 
 // 查找是否存在子路由
