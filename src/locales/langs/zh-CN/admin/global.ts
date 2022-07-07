@@ -19,6 +19,7 @@ export default {
   addRoles: '添加角色',
   rolePlaceholder: '请输入角色名',
   sRolePlaceholder: '输入角色名搜索',
+  menuFunc: '菜单功能',
 
   // userSetting
   addUser: '添加用户',

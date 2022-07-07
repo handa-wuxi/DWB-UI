@@ -189,6 +189,33 @@ const systemApi = {
       data,
     });
   },
+
+  // 获取角色菜单功能
+  getRoleMenuFuncs(roleId: number, menuId: number) {
+    const data = {
+      roleid: roleId,
+      menuid: menuId,
+    };
+    return http.request<{ funcid: number }[]>({
+      url: '/system/getRoleFuncs',
+      method: 'post',
+      data,
+    });
+  },
+
+  // 设置角色菜单功能
+  setRoleMenuFuncs(p: { roleId: number, menuId: number, funcIds: number[] }) {
+    const data = {
+      roleid: p.roleId,
+      menuid: p.menuId,
+      funcids: p.funcIds.join(','),
+    };
+    return http.request({
+      url: '/system/setRoleFuncs',
+      method: 'post',
+      data,
+    });
+  },
 };
 
 export default systemApi;

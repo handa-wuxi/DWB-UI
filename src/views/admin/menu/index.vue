@@ -159,15 +159,16 @@
               :label="t('admin.global.menubar')"
               path="auth"
             >
-              <n-checkbox-group />
-              <n-space>
-                <n-checkbox
-                  v-for="(item) in curMenuFuncs"
-                  :key="item.funccode"
-                  :value="item.funccode"
-                  :label="item.memo"
-                />
-              </n-space>
+              <n-checkbox-group>
+                <n-space>
+                  <n-checkbox
+                    v-for="(item) in curMenuFuncs"
+                    :key="item.funccode"
+                    :value="item.funccode"
+                    :label="item.memo"
+                  />
+                </n-space>
+              </n-checkbox-group>
             </NFormItem>
             <NFormItem
               path="auth"
