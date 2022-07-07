@@ -25,4 +25,4 @@ dist-ssr
 .env.production
 
 # naive-ui
-components.d.ts
+components.d.*
