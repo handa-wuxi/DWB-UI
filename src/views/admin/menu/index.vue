@@ -1,12 +1,15 @@
 <template>
-  <div class="entry-y">
+  <div>
     <NGrid
       cols="1 s:1 m:1 l:3 xl:3 2xl:3"
       responsive="screen"
       :x-gap="12"
       :y-gap="8"
     >
-      <NGi span="1">
+      <NGi
+        class="enter-y"
+        span="1"
+      >
         <NCard
           :segmented="{ content: true }"
           :bordered="false"
@@ -71,7 +74,10 @@
           </div>
         </NCard>
       </NGi>
-      <NGi span="2">
+      <NGi
+        class="enter-y"
+        span="2"
+      >
         <NCard
           :segmented="{ content: true }"
           :bordered="false"

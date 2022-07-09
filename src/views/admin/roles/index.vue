@@ -1,12 +1,15 @@
 <template>
-  <div class="entry-y">
+  <div>
     <n-grid
       cols="1 s:1 m:1 l:3 xl:3 2xl:3"
       responsive="screen"
       :x-gap="12"
       :y-gap="8"
     >
-      <n-grid-item span="1">
+      <n-grid-item
+        class="enter-y"
+        span="1"
+      >
         <n-card
           size="small"
           :segmented="{ content: true }"
@@ -91,7 +94,10 @@
           </div>
         </n-card>
       </n-grid-item>
-      <n-grid-item span="1">
+      <n-grid-item
+        class="enter-y"
+        span="1"
+      >
         <n-card size="small">
           <template #header>
             <n-space align="center">
@@ -123,7 +129,10 @@
           </div>
         </n-card>
       </n-grid-item>
-      <n-grid-item span="1">
+      <n-grid-item
+        class="enter-y"
+        span="1"
+      >
         <n-card size="small">
           <template #header>
             <n-space align="center">

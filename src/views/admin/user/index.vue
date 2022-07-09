@@ -1,5 +1,5 @@
 <template>
-  <div class="entry-y">
+  <div class="enter-y">
     <n-card>
       <BasicTable
         striped

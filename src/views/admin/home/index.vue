@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home-wrapper enter-y">
     主页
   </div>
 </template>
