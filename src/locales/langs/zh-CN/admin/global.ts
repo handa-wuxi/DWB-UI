@@ -35,4 +35,7 @@ export default {
   resetSuccess: '重置成功',
   roleSetting: '角色设置',
   resetPwd: '重置密码',
+
+  // admin home
+  employees: '企业人员',
 };

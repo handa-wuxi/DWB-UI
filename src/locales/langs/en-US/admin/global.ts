@@ -34,4 +34,7 @@ export default {
   resetSuccess: 'Reset Success',
   roleSetting: 'Role Setting',
   resetPwd: 'Reset Pwd',
+
+  // admin home
+  employees: 'Employees',
 };

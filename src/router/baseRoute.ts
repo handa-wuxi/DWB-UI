@@ -34,7 +34,7 @@ export const baseRoutes: AppRouteRecordRaw[] = [
           title: 'global.home',
           affix: true,
         },
-        component: () => import('../views/admin/home.vue'),
+        component: () => import('../views/admin/home/index.vue'),
       },
       {
         path: 'menu-setting',
