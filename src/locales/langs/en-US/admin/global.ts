@@ -39,4 +39,10 @@ export default {
   employees: 'Employees',
   efficiencyCustomer: 'Eff Customer',
   efficiencyDesign: 'Eff Design',
+  customer: 'Customer',
+  brand: 'Brand',
+  part: 'Part',
+  bear: 'Bear',
+  contractNum: 'Contract Num',
+  amount: 'Amount',
 };

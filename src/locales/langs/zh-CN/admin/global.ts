@@ -40,5 +40,10 @@ export default {
   employees: '企业人员',
   efficiencyCustomer: '客户效率',
   efficiencyDesign: '款式效率',
-
+  customer: '客户',
+  brand: '品牌',
+  part: '本部',
+  bear: '担当',
+  contractNum: '合同数量',
+  amount: '打款金额',
 };

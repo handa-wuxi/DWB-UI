@@ -12,7 +12,8 @@
         <Shipment />
       </n-grid-item>
       <n-grid-item :span="2">
-        <Finance />
+        <Finance class="mb-2" />
+        <FinanceTable />
       </n-grid-item>
       <n-grid-item span="1 s:1 m:1 l:0 xl:0 2xl:0">
         <Personnel class="mb-2" />
@@ -27,7 +28,7 @@
 </template>
 <script lang="ts" setup name="AdminHome">
 import {
-  Personnel, Efficiency, Shipment, Finance,
+  Personnel, Efficiency, Shipment, Finance, FinanceTable,
 } from './components';
 
 </script>
