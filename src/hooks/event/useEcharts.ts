@@ -1,6 +1,6 @@
 // 引入 echarts 核心模块，核心模块提供了 echarts 使用必须要的接口。
 import * as echarts from 'echarts/core';
-import { LineChart, PieChart } from 'echarts/charts';
+import { LineChart, PieChart, BarChart } from 'echarts/charts';
 import {
   GridComponent, TitleComponent, TooltipComponent, LegendComponent, ToolboxComponent,
 } from 'echarts/components';
@@ -22,8 +22,7 @@ echarts.use([
 ]);
 
 export const useEcharts = () => {
-  const useLineChart = (inst:VueElement, data: EChartsOption) => {
-    echarts.use([LineChart]);
+  const chartInit = (inst: VueElement, data: EChartsOption) => {
     const myChart = echarts.init(inst);
     myChart.setOption(data);
     window.addEventListener('resize', () => {
@@ -32,22 +31,25 @@ export const useEcharts = () => {
     onUnmounted(() => {
       myChart.dispose();
     });
+  };
+
+  const useLineChart = (inst:VueElement, data: EChartsOption) => {
+    echarts.use([LineChart]);
+    chartInit(inst, data);
   };
 
   // 饼图
   const usePieChart = (inst: VueElement, data: EChartsOption) => {
     echarts.use([PieChart]);
-    const myChart = echarts.init(inst);
-    myChart.setOption(data);
-    window.addEventListener('resize', () => {
-      myChart.resize();
-    });
-    onUnmounted(() => {
-      myChart.dispose();
-    });
+    chartInit(inst, data);
   };
 
-  return { useLineChart, usePieChart };
+  const useLineAndBarChart = (inst: VueElement, data: EChartsOption) => {
+    echarts.use([LineChart, BarChart]);
+    chartInit(inst, data);
+  };
+
+  return { useLineChart, usePieChart, useLineAndBarChart };
 };
 
 export const useGenMonths = () => {

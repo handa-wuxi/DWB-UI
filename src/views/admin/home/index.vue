@@ -21,14 +21,14 @@
         <Shipment />
       </n-grid-item>
       <n-grid-item>
-        <Personnel />
+        <Trend />
       </n-grid-item>
     </n-grid>
   </div>
 </template>
 <script lang="ts" setup name="AdminHome">
 import {
-  Personnel, Efficiency, Shipment, Finance, FinanceTable,
+  Personnel, Efficiency, Shipment, Finance, FinanceTable, Trend,
 } from './components';
 
 </script>
