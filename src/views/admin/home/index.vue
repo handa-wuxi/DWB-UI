@@ -12,10 +12,12 @@
         <Shipment />
       </n-grid-item>
       <n-grid-item :span="2">
-        <Personnel />
+        <Finance />
       </n-grid-item>
       <n-grid-item span="1 s:1 m:1 l:0 xl:0 2xl:0">
-        <Personnel />
+        <Personnel class="mb-2" />
+        <Efficiency class="mb-2" />
+        <Shipment />
       </n-grid-item>
       <n-grid-item>
         <Personnel />
@@ -24,6 +26,8 @@
   </div>
 </template>
 <script lang="ts" setup name="AdminHome">
-import { Personnel, Efficiency } from './components';
-import Shipment from './components/Shipment.vue';
+import {
+  Personnel, Efficiency, Shipment, Finance,
+} from './components';
+
 </script>

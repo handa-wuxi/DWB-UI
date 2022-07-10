@@ -4,6 +4,7 @@ import Request from '../utils/request';
 import { useUserStore } from '@/store';
 
 const whitePath = ['/auth/login'];
+
 const http = new Request({
   baseURL: import.meta.env.DEV ? '/api' : import.meta.env.VITE_APP_API_URL,
   timeout: 2 * 60 * 1000,
