@@ -8,7 +8,8 @@
     >
       <n-grid-item span="0 s:0 m:0 l:1 xl:1 2xl:1">
         <Personnel class="mb-2" />
-        <Efficiency />
+        <Efficiency class="mb-2" />
+        <Shipment />
       </n-grid-item>
       <n-grid-item :span="2">
         <Personnel />
@@ -24,4 +25,5 @@
 </template>
 <script lang="ts" setup name="AdminHome">
 import { Personnel, Efficiency } from './components';
+import Shipment from './components/Shipment.vue';
 </script>
