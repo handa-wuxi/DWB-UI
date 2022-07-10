@@ -1,6 +1,6 @@
 // 引入 echarts 核心模块，核心模块提供了 echarts 使用必须要的接口。
 import * as echarts from 'echarts/core';
-import { LineChart } from 'echarts/charts';
+import { LineChart, PieChart } from 'echarts/charts';
 import {
   GridComponent, TitleComponent, TooltipComponent, LegendComponent, ToolboxComponent,
 } from 'echarts/components';
@@ -34,7 +34,20 @@ export const useEcharts = () => {
     });
   };
 
-  return { useLineChart };
+  // 饼图
+  const usePieChart = (inst: VueElement, data: EChartsOption) => {
+    echarts.use([PieChart]);
+    const myChart = echarts.init(inst);
+    myChart.setOption(data);
+    window.addEventListener('resize', () => {
+      myChart.resize();
+    });
+    onUnmounted(() => {
+      myChart.dispose();
+    });
+  };
+
+  return { useLineChart, usePieChart };
 };
 
 export const useGenMonths = () => {

@@ -38,4 +38,7 @@ export default {
 
   // admin home
   employees: '企业人员',
+  efficiencyCustomer: '客户效率',
+  efficiencyDesign: '款式效率',
+
 };

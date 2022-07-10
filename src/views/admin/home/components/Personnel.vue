@@ -1,5 +1,5 @@
 <template>
-  <n-card>
+  <n-card class="enter-y">
     <template #header>
       {{ title }}
     </template>

@@ -37,4 +37,6 @@ export default {
 
   // admin home
   employees: 'Employees',
+  efficiencyCustomer: 'Eff Customer',
+  efficiencyDesign: 'Eff Design',
 };

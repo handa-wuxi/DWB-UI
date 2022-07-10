@@ -7,7 +7,8 @@
       :y-gap="8"
     >
       <n-grid-item span="0 s:0 m:0 l:1 xl:1 2xl:1">
-        <Personnel />
+        <Personnel class="mb-2" />
+        <Efficiency />
       </n-grid-item>
       <n-grid-item :span="2">
         <Personnel />
@@ -22,5 +23,5 @@
   </div>
 </template>
 <script lang="ts" setup name="AdminHome">
-import { Personnel } from './components';
+import { Personnel, Efficiency } from './components';
 </script>
