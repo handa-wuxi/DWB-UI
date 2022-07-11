@@ -25,12 +25,13 @@ const options: EChartsOption = {
   },
   legend: {
     data: ['管理', '车工'],
+    right: 10,
   },
   grid: {
     left: '3%',
     right: '4%',
     bottom: '3%',
-    top: '3%',
+    top: '10%',
     containLabel: true,
   },
   xAxis: {

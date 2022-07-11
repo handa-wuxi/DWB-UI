@@ -4,6 +4,7 @@ import Shipment from './Shipment.vue';
 import Finance from './Finance.vue';
 import FinanceTable from './FinanceTable.vue';
 import Trend from './Trend.vue';
+import Target from './Target.vue';
 
 export {
   Personnel,
@@ -12,4 +13,5 @@ export {
   Finance,
   FinanceTable,
   Trend,
+  Target,
 };
