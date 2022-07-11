@@ -1,12 +1,12 @@
 <template>
   <div
-    class="tabs-view pl-[10px] pr-[20px]"
     :class="{
       'tabs-view-fix': multiTabsSetting.fixed,
       'tabs-view-fixed-header': isMultiHeaderFixed,
       'tabs-view-default-background': !getTheme,
       'tabs-view-dark-background': getTheme,
     }"
+    class="tabs-view"
     :style="getChangeStyle"
   >
     <div class="tabs-view-main">
@@ -558,7 +558,6 @@ export default defineComponent({
     width: 100%;
     display: flex;
     transition: all 0.2s ease-in-out;
-    z-index: 1;
 
     &-main {
       height: 32px;
@@ -691,7 +690,7 @@ export default defineComponent({
 
   .tabs-view-fix {
     position: fixed;
-    z-index: 5;
+    z-index: 10;
     padding: 6px 19px 6px 10px;
     left: 200px;
   }
