@@ -144,7 +144,7 @@ const targets = [
 ];
 
 function genNum() {
-  return (Math.random() * 100).toFixed(1);
+  return Number((Math.random() * 100).toFixed(1));
 }
 onMounted(() => {
   useLineChart(chartRef.value, options);
