@@ -1,4 +1,4 @@
-import { AxiosRequestConfig } from 'axios';
+import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { URLParams } from '@/utils/web/requestParams';
 import Request from '../utils/request';
 import { useUserStore } from '@/store';
@@ -11,8 +11,10 @@ const http = new Request({
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
   },
+
+  // 请求拦截器
   interceptors: {
-    requestInterceptors: (config: AxiosRequestConfig) => {
+    requestInterceptors(config: AxiosRequestConfig) {
       const userStore = useUserStore();
 
       if (userStore.token !== '') {
@@ -27,8 +29,18 @@ const http = new Request({
       }
       return config;
     },
+    responseInterceptors<T = AxiosResponse>(response: T) {
+      if (isTokenInvalid(response as unknown as AxiosResponse<CommonResult>)) {
+        window.location.replace('/login');
+      }
+      return response;
+    },
   },
 });
+
+function isTokenInvalid(response: AxiosResponse<CommonResult>) {
+  return response.data.msg === 'Token无效';
+}
 
 export const cancelRequest = (url: string | string[]) => {
   http.cancelRequest(url);
