@@ -263,8 +263,8 @@ export default defineComponent({
     let cacheRoutes: RouteItem[] = [];
     const simpleRoute = getSimpleRoute(route);
     try {
-      const routesStr = storage.get(GlobalStoreEnum.TabRoutes) as string | null | undefined;
-      cacheRoutes = routesStr ? JSON.parse(routesStr) : [simpleRoute];
+      const routesStr = storage.get(GlobalStoreEnum.TabRoutes) as RouteItem[] | null | undefined;
+      cacheRoutes = routesStr || [simpleRoute];
     } catch (e) {
       cacheRoutes = [simpleRoute];
     }
