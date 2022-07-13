@@ -5,13 +5,13 @@
       responsive="screen"
     >
       <n-grid-item
-        span="0 s:0 m:0 l:6 xl:16 2xl:16"
+        span="0 s:0 m:0 l:0 xl:16 2xl:16"
       >
         <div class="login-bg" />
       </n-grid-item>
       <n-grid-item
-        span="8 s:8 m:6 l:4 xl:9 2xl:9"
-        offset="1 s:1 m:3 l:1 xl:-1 2xl:-1"
+        span="8 s:8 m:6 l:12 xl:9 2xl:9"
+        offset="1 s:1 m:3 l:4 xl:-1 2xl:-1"
       >
         <div class="login-content flex flex-col max-w-[540px] pt-[70px] pb-[260px]">
           <div class="title flex items-center justify-between mb-[150px]">
