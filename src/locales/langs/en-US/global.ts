@@ -61,4 +61,5 @@ export default {
   fullScreen: 'Full Screen',
   projectConfig: 'Project Config',
   personSetting: 'Person Setting',
+  redirect: 'Redirect',
 };

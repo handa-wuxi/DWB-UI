@@ -1,7 +1,7 @@
 import { GlobalStoreEnum } from '@/enums/global';
 import { AppRouteRecordRaw } from './types';
 
-export const RedirectName = 'Redirect';
+export const RedirectName = 'global.redirect';
 
 // export const ErrorPage = () => import( '@/views/exception/404.vue' );
 
