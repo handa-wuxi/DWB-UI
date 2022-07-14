@@ -256,7 +256,7 @@ async function getRoleList() {
       key: item.id,
       label: item.rolename,
       disabled: item.state === 0,
-    }));
+    })).filter((f) => !f.disabled);
   } else {
     message.error(res.msg);
   }
