@@ -118,11 +118,13 @@
               cascade
               block-line
               checkable
+              check-on-click
               multiple
               :data="menus"
               :selected-keys="[]"
               :render-label="renderLabel"
               :checked-keys="checkedKeys"
+              :default-expanded-keys="[0]"
               @update-selected-keys="onUpdateSelectedKeys"
               @update:checked-keys="handSelectKeys"
             />
@@ -201,7 +203,11 @@ const menuFuncs = new Map();
 let curSelectKey = -1;
 
 const roles = ref<TreeOption[]>([]);
-const menus = ref<TreeOption[]>([]);
+const menus = ref<TreeOption[]>([{
+  key: 0,
+  label: t('global.all'),
+  children: [],
+}]);
 const checkedKeys = ref<number[]>([]);
 const cacheSelectKeys = ref<number[]>([]);
 const pattern = ref<string>('');
@@ -237,7 +243,7 @@ async function getRoles() {
 async function getMenus() {
   const res = await systemApi.getMenuList();
   if (res.code === 1) {
-    menus.value = res.data.map((item:SystemMenu) => ({
+    menus.value[0].children = res.data.map((item:SystemMenu) => ({
       label: item.locale,
       key: item.id,
     }));
