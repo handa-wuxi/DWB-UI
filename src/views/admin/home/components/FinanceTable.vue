@@ -1,7 +1,7 @@
 <template>
   <div
     class="enter-y"
-    bg="white"
+    bg="[var(--n-color)]"
   >
     <div class="px-10px">
       <n-tabs

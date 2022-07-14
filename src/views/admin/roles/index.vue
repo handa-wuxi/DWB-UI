@@ -164,7 +164,7 @@
         </n-card>
       </n-grid-item>
     </n-grid>
-    <div class="footer bg-white h-[50px] w-[calc(100%-230px)] pr-[40px]">
+    <div class="footer bg-[var(--n-color)] h-[50px] w-[calc(100%-230px)] pr-[40px]">
       <n-space align="center">
         <NButton
           type="primary"

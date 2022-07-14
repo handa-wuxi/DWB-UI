@@ -1,7 +1,7 @@
 <template>
   <div
     class="enter-y finance-wrapper p-20px"
-    bg="white"
+    bg="[var(--n-color)]"
   >
     <header class="finance-header">
       <div class="logo mb-2 flex items-center justify-center">
