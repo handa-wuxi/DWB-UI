@@ -61,4 +61,5 @@ export default {
   fullScreen: '全屏',
   projectConfig: '项目配置',
   personSetting: '个人设置',
+  redirect: '刷新',
 };

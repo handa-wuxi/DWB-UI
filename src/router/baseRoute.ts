@@ -1,7 +1,7 @@
 import { GlobalStoreEnum } from '@/enums/global';
 import { AppRouteRecordRaw } from './types';
 
-export const RedirectName = 'Redirect';
+export const RedirectName = 'global.redirect';
 
 // export const ErrorPage = () => import( '@/views/exception/404.vue' );
 
@@ -29,16 +29,17 @@ export const baseRoutes: AppRouteRecordRaw[] = [
     children: [
       {
         path: 'home',
-        name: 'adminHome',
+        name: 'AdminHome',
         meta: {
           title: 'global.home',
           affix: true,
+          keepAlive: true,
         },
-        component: () => import('../views/admin/home.vue'),
+        component: () => import('../views/admin/home/index.vue'),
       },
       {
         path: 'menu-setting',
-        name: 'menuSetting',
+        name: 'MenuSetting',
         meta: {
           title: 'global.menuSetting',
           keepAlive: true,
@@ -47,7 +48,7 @@ export const baseRoutes: AppRouteRecordRaw[] = [
       },
       {
         path: 'role-setting',
-        name: 'roleSetting',
+        name: 'RoleSetting',
         meta: {
           title: 'global.roleSetting',
           keepAlive: true,
@@ -56,7 +57,7 @@ export const baseRoutes: AppRouteRecordRaw[] = [
       },
       {
         path: 'user-setting',
-        name: 'userSetting',
+        name: 'UserSetting',
         meta: {
           title: 'global.userSetting',
           keepAlive: true,

@@ -75,7 +75,7 @@ export const ProjectSettingStore = defineStore({
     },
   },
   actions: {
-    async changeTheme(type = false) {
+    async changeTheme(type = storage.get('theme')) {
       this.theme = type;
       document.documentElement.className = type ? 'dark' : 'light';
       storage.set('theme', type);

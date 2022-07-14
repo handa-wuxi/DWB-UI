@@ -25,6 +25,7 @@ router.afterEach((to) => {
   const asyncRouteStore = useAsyncRouteStore();
   const { keepAliveComponents } = asyncRouteStore;
   const currentComName: any = to.matched.find((item) => item.name === to.name)?.name;
+
   if (currentComName && !keepAliveComponents.includes(currentComName) && to.meta.keepAlive) {
     keepAliveComponents.push(currentComName);
   } else if (!to.meta.keepAlive || to.name === 'Redirect') {
@@ -33,6 +34,7 @@ router.afterEach((to) => {
       keepAliveComponents.splice(index, 1);
     }
   }
+
   asyncRouteStore.setKeepAliveComponents(keepAliveComponents);
   Loading?.finish();
 });

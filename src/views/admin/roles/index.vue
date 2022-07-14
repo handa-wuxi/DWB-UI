@@ -1,12 +1,15 @@
 <template>
-  <div class="entry-y">
+  <div>
     <n-grid
       cols="1 s:1 m:1 l:3 xl:3 2xl:3"
       responsive="screen"
       :x-gap="12"
       :y-gap="8"
     >
-      <n-grid-item span="1">
+      <n-grid-item
+        class="enter-y"
+        span="1"
+      >
         <n-card
           size="small"
           :segmented="{ content: true }"
@@ -91,7 +94,10 @@
           </div>
         </n-card>
       </n-grid-item>
-      <n-grid-item span="1">
+      <n-grid-item
+        class="enter-y"
+        span="1"
+      >
         <n-card size="small">
           <template #header>
             <n-space align="center">
@@ -112,18 +118,23 @@
               cascade
               block-line
               checkable
+              check-on-click
               multiple
               :data="menus"
               :selected-keys="[]"
               :render-label="renderLabel"
               :checked-keys="checkedKeys"
+              :default-expanded-keys="[0]"
               @update-selected-keys="onUpdateSelectedKeys"
               @update:checked-keys="handSelectKeys"
             />
           </div>
         </n-card>
       </n-grid-item>
-      <n-grid-item span="1">
+      <n-grid-item
+        class="enter-y"
+        span="1"
+      >
         <n-card size="small">
           <template #header>
             <n-space align="center">
@@ -155,7 +166,7 @@
         </n-card>
       </n-grid-item>
     </n-grid>
-    <div class="footer bg-white h-[50px] w-[calc(100%-230px)] pr-[40px]">
+    <div class="footer bg-[var(--n-color)] h-[50px] w-[calc(100%-230px)] pr-[40px]">
       <n-space align="center">
         <NButton
           type="primary"
@@ -192,7 +203,11 @@ const menuFuncs = new Map();
 let curSelectKey = -1;
 
 const roles = ref<TreeOption[]>([]);
-const menus = ref<TreeOption[]>([]);
+const menus = ref<TreeOption[]>([{
+  key: 0,
+  label: t('global.all'),
+  children: [],
+}]);
 const checkedKeys = ref<number[]>([]);
 const cacheSelectKeys = ref<number[]>([]);
 const pattern = ref<string>('');
@@ -228,7 +243,7 @@ async function getRoles() {
 async function getMenus() {
   const res = await systemApi.getMenuList();
   if (res.code === 1) {
-    menus.value = res.data.map((item:SystemMenu) => ({
+    menus.value[0].children = res.data.map((item:SystemMenu) => ({
       label: item.locale,
       key: item.id,
     }));

@@ -33,7 +33,10 @@
       <PageSider @click-menu-item="collapsed = false" />
     </NDrawer>
     <NLayout embedded>
-      <NLayoutHeader bordered>
+      <NLayoutHeader
+        bordered
+        position="absolute"
+      >
         <PageHeader v-model:collapsed="collapsed" />
       </NLayoutHeader>
 
@@ -169,12 +172,20 @@ onMounted(() => {
 
   .layout-content {
     flex: auto;
-    min-height: calc(100vh - 65px);
+    min-height: 100vh;
   }
 
   .layout-content-main {
     margin: 0 10px 10px;
     position: relative;
+  }
+
+  .layout-content-main-fix {
+    padding-top: 64px;
+  }
+
+  .n-layout-header--absolute-positioned{
+    z-index: 11;
   }
 
   .fluid-header {
@@ -187,7 +198,6 @@ onMounted(() => {
 
   .main-view-fix {
     padding-top: 44px;
-    max-height: calc(100vh - 75px);
   }
 
 }

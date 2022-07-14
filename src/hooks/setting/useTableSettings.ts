@@ -111,7 +111,49 @@ export function useTableSettings(t) {
     },
   ];
 
+  // 收益数据表头设置
+  const genFinanceColumns = (): TableColumns => [
+    {
+      title: '',
+      key: 'index',
+      align: 'center',
+      minWidth: 60,
+    },
+    {
+      title: t('admin.global.customer'),
+      key: 'customer',
+      align: 'center',
+      minWidth: 105,
+    },
+    {
+      title: t('admin.global.brand'),
+      key: 'brand',
+      minWidth: 200,
+    },
+    {
+      title: t('admin.global.part'),
+      key: 'part',
+      minWidth: 90,
+    },
+    {
+      title: t('admin.global.bear'),
+      key: 'bear',
+      minWidth: 80,
+    },
+    {
+      title: t('admin.global.contractNum'),
+      key: 'contractNum',
+      minWidth: 80,
+    },
+    {
+      title: t('admin.global.amount'),
+      key: 'amount',
+      minWidth: 120,
+    },
+  ];
+
   return {
     genUserColumns,
+    genFinanceColumns,
   };
 }
