@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { NLocale, NDateLocale } from 'naive-ui';
 import {
-  computed, ref, unref, watch,
+  computed, onMounted, ref, unref, watch,
 } from 'vue';
 import {
   darkTheme, lightTheme, zhCN, dateZhCN, enUS, dateEnUS,
@@ -48,6 +48,12 @@ const getThemeOverrides = computed(() => {
     },
   };
 });
+
+onMounted(() => {
+  const theme = getTheme.value;
+  document.body.classList.add(theme ? 'dark' : 'light');
+});
+
 </script>
 
 <template>

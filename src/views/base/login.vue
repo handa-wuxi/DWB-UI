@@ -152,6 +152,7 @@ watch(() => remember.value, (newValue) => {
   userStore.setRemember(newValue);
 });
 </script>
+
 <style lang="less">
 .login-page{
   .login-bg{
@@ -159,11 +160,11 @@ watch(() => remember.value, (newValue) => {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    height: 100vh;
+    height: 100%;
   }
 
   .login-content{
-    height: 100vh;
+    height: 100%;
     .logo{
       width: 52px;
       height: 60px;
