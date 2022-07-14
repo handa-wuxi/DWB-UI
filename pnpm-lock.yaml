@@ -28,7 +28,7 @@ specifiers:
   lint-staged: ^12.5.0
   lodash-es: ^4.17.21
   mockjs: ^1.1.0
-  naive-ui: ^2.30.4
+  naive-ui: ^2.31.0
   pinia: ^2.0.14
   release-it: ^15.0.0
   rollup: 2.50.0
@@ -80,7 +80,7 @@ devDependencies:
   less: 4.1.2
   lint-staged: 12.5.0
   mockjs: 1.1.0
-  naive-ui: 2.30.4_vue@3.2.33
+  naive-ui: 2.31.0_vue@3.2.33
   release-it: 15.0.0
   rollup: 2.50.0
   typescript: 4.6.4
@@ -4322,8 +4322,8 @@ packages:
     resolution: {integrity: sha512-nnbWWOkoWyUsTjKrhgD0dcz22mdkSnpYqbEjIm2nhwhuxlSkpywJmBo8h0ZqJdkp73mb90SssHkN4rsRaBAfAA==}
     dev: true
 
-  /naive-ui/2.30.4_vue@3.2.33:
-    resolution: {integrity: sha512-xf9Re46gfy8U/P71ON3hIEgr9ag0ffmthnzU4O7RHRhdzXkfN1KuDQZsBsDY34nl9ycAy1wnem3ob4tqBAChOA==}
+  /naive-ui/2.31.0_vue@3.2.33:
+    resolution: {integrity: sha512-70PHh1wDo6GP87MquQE4hHxMaISX6y/SWwmAzS86XfK+1gBCpQPcANHrmxsjPncRxk6Zq9CDeW6tzAqw6qUtfA==}
     peerDependencies:
       vue: ^3.0.0
     dependencies:
@@ -4344,7 +4344,7 @@ packages:
       vdirs: 0.1.8_vue@3.2.33
       vooks: 0.2.12_vue@3.2.33
       vue: 3.2.33
-      vueuc: 0.4.44_vue@3.2.33
+      vueuc: 0.4.47_vue@3.2.33
     dev: true
 
   /nanoid/3.3.4:
@@ -6252,8 +6252,8 @@ packages:
       vue: 3.2.33
     dev: false
 
-  /vueuc/0.4.44_vue@3.2.33:
-    resolution: {integrity: sha512-2sLWo1Ow3DRKTDvGVlaWlf0KL+LOqeO6zlvb6nUxWxqj4VjUpg7sMtH+xtvBK+oOXH4goGt1RyLMaBVgPFpqHw==}
+  /vueuc/0.4.47_vue@3.2.33:
+    resolution: {integrity: sha512-lBxGeTWLFp0O36SlcAeBrh29dxE/GboOH/0eUJhocUuE9DRrzUcVmwGau7v7ZWsxjivjJC3Qup7l9sCyA3it+g==}
     peerDependencies:
       vue: ^3.0.11
     dependencies:
