@@ -49,6 +49,6 @@ const getLogs = (_ts, date = dayjs().format('YYYY-MM-DD')) => {
   });
 };
 
-getLogs();
+getLogs(dayjs());
 
 </script>
