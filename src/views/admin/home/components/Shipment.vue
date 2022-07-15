@@ -61,7 +61,7 @@ const list = [
 </script>
 <style lang="less" scoped>
 .progress-wrapper {
-  /deep/.n-progress-icon--as-text{
+  :deep(.n-progress-icon--as-text){
     text-align: right !important;
     width: 60px !important;
   }
