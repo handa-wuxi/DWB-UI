@@ -39,6 +39,7 @@ export default {
   login: '登录',
   otherLogin: '其他登录方式',
   loginTitle: '恒田企业数字化工作台',
+  systemLog: '系统日志',
 
   // User
   name: '姓名',

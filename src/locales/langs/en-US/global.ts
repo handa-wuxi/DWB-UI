@@ -39,6 +39,7 @@ export default {
   login: 'Login',
   otherLogin: 'Sign in with',
   loginTitle: 'HANDA Digital Workbench',
+  systemLog: 'System Log',
 
   // User
   name: 'name',

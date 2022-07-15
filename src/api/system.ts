@@ -1,4 +1,5 @@
 import {
+  SystemLog,
   MenuFunc, Role, SystemMenu, User,
 } from '#/api';
 import http, { cancelRequest, cancelAllRequest } from './http';
@@ -212,6 +213,20 @@ const systemApi = {
     };
     return http.request({
       url: '/system/setRoleFuncs',
+      method: 'post',
+      data,
+    });
+  },
+
+  // ------------------系统日志------------------
+  // 获取系统日志
+
+  getLogs(date: string) {
+    const data = {
+      date,
+    };
+    return http.request<SystemLog[]>({
+      url: '/system/getLog',
       method: 'post',
       data,
     });

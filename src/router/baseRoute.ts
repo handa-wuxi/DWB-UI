@@ -64,6 +64,15 @@ export const baseRoutes: AppRouteRecordRaw[] = [
         },
         component: () => import('../views/admin/user/index.vue'),
       },
+      {
+        path: 'system-log',
+        name: 'SystemLog',
+        meta: {
+          title: 'global.systemLog',
+          keepAlive: true,
+        },
+        component: () => import('../views/admin/system/index.vue'),
+      },
     ],
   },
   {
