@@ -41,7 +41,10 @@ const getLogs = (_ts, date = dayjs().format('YYYY-MM-DD')) => {
   loading.value = true;
   systemApi.getLogs(date).then((res) => {
     if (res.code === 1) {
-      tableData.value = res.data;
+      tableData.value = res.data.map((item) => ({
+        ...item,
+        ip: item.ip.replace('::ffff:', ''),
+      }));
     } else {
       message.error(res.msg);
     }
