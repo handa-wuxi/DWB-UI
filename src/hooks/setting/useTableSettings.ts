@@ -182,6 +182,17 @@ export function useTableSettings(t) {
       key: 'state',
       align: 'center',
       minWidth: 120,
+      render(row) {
+        return h(
+          'span',
+          {
+            class: {
+              'text-red-500': row.state === '失败',
+            },
+          },
+          { default: () => row.state },
+        );
+      },
     },
     {
       title: t('admin.global.msg'),
