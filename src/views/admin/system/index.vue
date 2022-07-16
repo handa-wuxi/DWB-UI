@@ -9,6 +9,7 @@
       >
         <template #title>
           <n-date-picker
+            :default-value="Date.now()"
             :placeholder="t('global.inputPlaceholder',[t('admin.global.date')])"
             type="date"
             value-format="yyyy-MM-dd"
