@@ -1,3 +1,33 @@
+# [0.5.0](https://github.com/handa-wuxi/DWB-UI/compare/v0.4.0...v0.5.0) (2022-07-18)
+
+
+### ✨ Features
+
+* **menuSetting:** 🌟 菜单功能调整为正常文本显示 ([0489b8f](https://github.com/handa-wuxi/DWB-UI/commit/0489b8f)) by: **周顺顺**
+* **RoleSetting:** 🌟 禁用的角色，菜单项也禁止修改 ([1c432b6](https://github.com/handa-wuxi/DWB-UI/commit/1c432b6)) by: **周顺顺**
+* **systemLog:** 🌟 系统日志功能开发 ([3cc6430](https://github.com/handa-wuxi/DWB-UI/commit/3cc6430)) by: **周顺顺**
+* **SystemLog:** 🌟 新增远程分页功能 ([7a89016](https://github.com/handa-wuxi/DWB-UI/commit/7a89016)) by: **周顺顺**
+* **SystemLog:** 🌟 异常信息标红 ([c8bde7d](https://github.com/handa-wuxi/DWB-UI/commit/c8bde7d)) by: **周顺顺**
+
+
+### 🐛 Bug Fixes
+
+* **.npmrc:** 🐛 自动安装包依赖的版本 ([c8ced5a](https://github.com/handa-wuxi/DWB-UI/commit/c8ced5a)) by: **周顺顺**
+* **ConfigProvider:** 🐛 修复初始化项目，国家化加载不正确的问题 ([cf88f96](https://github.com/handa-wuxi/DWB-UI/commit/cf88f96)) by: **周顺顺**
+* **getLog:** 🐛 修复函数参数的问题 ([6e11f47](https://github.com/handa-wuxi/DWB-UI/commit/6e11f47)) by: **周顺顺**
+* **less:** 🐛 /deep/ => :deep() ([c1386a1](https://github.com/handa-wuxi/DWB-UI/commit/c1386a1)) by: **周顺顺**
+* **package:** 🐛 去除无用依赖 ([6742f3e](https://github.com/handa-wuxi/DWB-UI/commit/6742f3e)) by: **周顺顺**
+* **SystemLog:** 🐛 日期选择默认当天 ([7b19b64](https://github.com/handa-wuxi/DWB-UI/commit/7b19b64)) by: **周顺顺**
+* **SystemLog:** 🐛 修复空数据loading状态 ([283c31e](https://github.com/handa-wuxi/DWB-UI/commit/283c31e)) by: **周顺顺**
+* **SystemLog:** 🐛 ip地址去除::ffff: ([49700d0](https://github.com/handa-wuxi/DWB-UI/commit/49700d0)) by: **周顺顺**
+
+
+### 📝 Documentation
+
+* **cSpell:** 📝 新增拼写检查工作区忽略字段 ([a3ca506](https://github.com/handa-wuxi/DWB-UI/commit/a3ca506)) by: **周顺顺**
+
+
+
 # [0.4.0](https://github.com/handa-wuxi/DWB-UI/compare/v0.3.3...v0.4.0) (2022-07-14)
 
 
@@ -18,6 +48,11 @@
 * **Shipment:** 🌟 效率相关组件开发 ([57d933b](https://github.com/handa-wuxi/DWB-UI/commit/57d933b)) by: **周顺顺**
 * **target:** 🌟 目标组件开发  主页所有细节样式待完善 ([a81dfd3](https://github.com/handa-wuxi/DWB-UI/commit/a81dfd3)) by: **周顺顺**
 * **Trend:** 🌟 盈利趋势图组件开发 ([a464440](https://github.com/handa-wuxi/DWB-UI/commit/a464440)) by: **周顺顺**
+
+
+### 🎫 Chores
+
+* **release:** 🐳 v0.4.0 ([d960862](https://github.com/handa-wuxi/DWB-UI/commit/d960862)) by: **周顺顺**
 
 
 ### 🐛 Bug Fixes
