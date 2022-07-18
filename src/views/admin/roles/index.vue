@@ -112,7 +112,7 @@
             </n-space>
           </template>
           <div
-            class="menu-tree"
+            class="menu-tree "
           >
             <n-tree
               cascade
@@ -120,6 +120,7 @@
               checkable
               check-on-click
               multiple
+              :disabled="!disableSetting"
               :data="menus"
               :selected-keys="[]"
               :render-label="renderLabel"
@@ -214,6 +215,7 @@ const pattern = ref<string>('');
 const loading = ref<boolean>(false);
 const subLoading = ref<boolean>(false);
 const addRoleVisible = ref<boolean>(false);
+const disableSetting = ref<boolean>(false);
 const roleName = ref<string>('');
 const newRole = ref<string>('');
 const roleId = ref<number>(0);
@@ -277,6 +279,7 @@ function selectedTree(keys: number[]) {
   const index = roles.value.findIndex((item) => item.key === keys[0]);
   roleName.value = roles.value[index].label as string;
   roleId.value = roles.value[index].key as number;
+  disableSetting.value = roles.value[index].enable as boolean;
 }
 
 function renderLabel({ option }: { option: TreeOption }) {
