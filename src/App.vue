@@ -19,20 +19,24 @@ const dateLocale = ref<NDateLocale | null>(null);
 const ds = useDesignSettingStore();
 const isLock = computed(() => lockScreenStore.isLock);
 
-watch(() => getLocale.value, ((v) => {
-  switch (unref(v)) {
-    case 'zh-CN':
-      locale.value = zhCN;
-      dateLocale.value = dateZhCN;
-      break;
-    case 'en-US':
-      locale.value = enUS;
-      dateLocale.value = dateEnUS;
-      break;
-    default:
-      break;
-  }
-}));
+watch(
+  () => getLocale.value, (
+    (v) => {
+      switch (unref(v)) {
+        case 'zh-CN':
+          locale.value = zhCN;
+          dateLocale.value = dateZhCN;
+          break;
+        case 'en-US':
+          locale.value = enUS;
+          dateLocale.value = dateEnUS;
+          break;
+        default:
+          break;
+      }
+    }),
+  { immediate: true },
+);
 
 const getThemeOverrides = computed(() => {
   const { appTheme } = ds;

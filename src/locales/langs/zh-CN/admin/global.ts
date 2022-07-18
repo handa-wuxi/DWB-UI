@@ -46,4 +46,10 @@ export default {
   bear: '担当',
   contractNum: '合同数量',
   amount: '打款金额',
+
+  // system log
+  systemLog: '系统日志',
+  msg: '信息',
+  opt: '操作',
+  date: '日期',
 };

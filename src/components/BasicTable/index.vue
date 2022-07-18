@@ -45,7 +45,12 @@
       :data="data"
       :columns="cols"
       :size="size"
-      :pagination="pagination"
+      :pagination="{
+        ...pagination,
+        showSizePicker: true,
+        showQuickJumper: true,
+        pageSizes: [15, 30, 50],
+      } "
       :max-height="computeMaxHeight"
     />
   </div>

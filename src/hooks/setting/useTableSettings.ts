@@ -152,8 +152,65 @@ export function useTableSettings(t) {
     },
   ];
 
+  // 系统日志表头设置
+  const genLogColumns = (): TableColumns => [
+    {
+      title: 'ID',
+      key: 'id',
+      align: 'center',
+    },
+    {
+      title: t('admin.global.date'),
+      key: 'time',
+      align: 'center',
+      width: 200,
+    },
+    {
+      title: t('admin.global.username'),
+      key: 'username',
+      align: 'center',
+      minWidth: 120,
+    },
+    {
+      title: t('admin.global.opt'),
+      key: 'opt',
+      align: 'center',
+      minWidth: 120,
+    },
+    {
+      title: t('global.state'),
+      key: 'state',
+      align: 'center',
+      minWidth: 120,
+      render(row) {
+        return h(
+          'span',
+          {
+            class: {
+              'text-red-500': row.state === '失败',
+            },
+          },
+          { default: () => row.state },
+        );
+      },
+    },
+    {
+      title: t('admin.global.msg'),
+      key: 'msg',
+      align: 'center',
+      minWidth: 120,
+    },
+    {
+      title: 'IP',
+      key: 'ip',
+      align: 'center',
+      minWidth: 120,
+    },
+  ];
+
   return {
     genUserColumns,
     genFinanceColumns,
+    genLogColumns,
   };
 }

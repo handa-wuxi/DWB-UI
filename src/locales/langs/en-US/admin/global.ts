@@ -45,4 +45,10 @@ export default {
   bear: 'Bear',
   contractNum: 'Contract Num',
   amount: 'Amount',
+
+  // system log
+  systemLog: 'System Log',
+  msg: 'Message',
+  opt: 'Operation',
+  date: 'Date',
 };

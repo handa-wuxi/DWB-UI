@@ -51,3 +51,13 @@ export interface MenuFunc {
   funccode: string; // 功能编号
   memo: string; // 备注
 }
+
+export interface SystemLog {
+  id: number,
+  username: string,
+  opt: string,
+  state: string,
+  msg: string,
+  time: string,
+  ip: string
+}

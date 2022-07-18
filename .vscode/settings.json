@@ -19,6 +19,8 @@
     "funcid",
     "menucode",
     "menuid",
+    "pagecount",
+    "pageindex",
     "quanping",
     "roleid",
     "rolename",
