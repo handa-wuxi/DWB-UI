@@ -166,6 +166,7 @@ export default defineComponent({
     const navScroll: any = ref(null);
     const navWrap: any = ref(null);
     const isCurrent = ref(false);
+    const rightClickTags = ref('');
 
     const themeVars = useThemeVars();
 
@@ -237,6 +238,7 @@ export default defineComponent({
         {
           label: '刷新当前',
           key: '1',
+          disabled: rightClickTags.value !== route.name,
           icon: renderIcon(ReloadOutlined),
         },
         {
@@ -489,6 +491,7 @@ export default defineComponent({
 
     function handleContextMenu(e, item) {
       e.preventDefault();
+      rightClickTags.value = item.name;
       isCurrent.value = GlobalStoreEnum.BaseHome === item.path;
       state.showDropdown = false;
       nextTick().then(() => {
