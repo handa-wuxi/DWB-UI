@@ -51,7 +51,7 @@
             'fluid-header': fixedHeader === 'static',
           }"
         >
-          <TabsView
+          <TagsView
             v-if="isMultiTabs"
             v-model:collapsed="collapsed"
           />
@@ -80,7 +80,7 @@ import { PageHeader } from './Header';
 import { MainView } from './Main';
 import { PageLogo } from './Logo';
 import { PageSider } from './Sider';
-import { TabsView } from './TabsView';
+import { TagsView } from './TagsView';
 import { useDesignSetting } from '@/hooks/setting/useDesignSetting';
 
 const {

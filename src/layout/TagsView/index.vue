@@ -489,6 +489,7 @@ export default defineComponent({
 
     function handleContextMenu(e, item) {
       e.preventDefault();
+      rightClickTags.value = item.name;
       isCurrent.value = GlobalStoreEnum.BaseHome === item.path;
       state.showDropdown = false;
       nextTick().then(() => {
