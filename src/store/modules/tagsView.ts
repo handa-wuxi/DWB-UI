@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { RouteLocationNormalized } from 'vue-router';
+import { RedirectName } from '@/router/baseRoute';
 
 export type RouteItem = Partial<RouteLocationNormalized> & {
   fullPath: string;
@@ -17,7 +18,7 @@ interface TabsViewState {
 }
 
 // 不需要出现在标签页中的路由
-const whiteList = ['Redirect', 'login'];
+const whiteList = [RedirectName, 'login'];
 
 // 保留固定路由
 function retainAffixRoute(list: RouteItem[]) {
