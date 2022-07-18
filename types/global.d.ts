@@ -18,10 +18,17 @@ declare global {
 
   declare type RawObject<T = any> = Record<string, T>
 
+  declare interface Page {
+    pageindex: number,
+    pagesize: number,
+    pagecount: number
+  }
+
   declare interface CommonResult<T = any> {
     data: T,
     msg: string,
-    code: 1 | 0 // 1 成功 0 失败
+    code: 1 | 0, // 1 成功 0 失败
+    page?: Page
   }
 
   declare type Component<T = any> =

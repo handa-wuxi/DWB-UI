@@ -221,9 +221,11 @@ const systemApi = {
   // ------------------系统日志------------------
   // 获取系统日志
 
-  getLogs(date: string) {
+  getLogs(date: string, page: number, pageSize: number) {
     const data = {
       date,
+      pageindex: page,
+      pagesize: pageSize,
     };
     return http.request<SystemLog[]>({
       url: '/system/getLog',
