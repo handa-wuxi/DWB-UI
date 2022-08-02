@@ -1,5 +1,5 @@
 import { App } from 'vue';
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 import { useAsyncRouteStore } from '@/store';
 import { baseRoutes, RedirectRoute } from './baseRoute';
 
@@ -8,7 +8,7 @@ const BaseRoutes: any[] = [...baseRoutes, RedirectRoute];
 
 const router = createRouter({
   routes: BaseRoutes,
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   strict: true,
   scrollBehavior: () => ({ left: 0, top: 0 }),
 });
